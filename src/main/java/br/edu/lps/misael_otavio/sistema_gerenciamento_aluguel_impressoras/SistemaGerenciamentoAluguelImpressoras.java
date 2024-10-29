@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package br.edu.lps.misael_otavio.sistema.gerenciamento.aluguel.impressoras;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras;
 
 /**
  *

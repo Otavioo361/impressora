@@ -8,6 +8,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
-        <exec.mainClass>br.edu.lps.misael_otavio.sistema.gerenciamento.aluguel.impressoras.SistemaGerenciamentoAluguelImpressoras</exec.mainClass>
+        <exec.mainClass>br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.SistemaGerenciamentoAluguelImpressoras</exec.mainClass>
     </properties>
 </project>
