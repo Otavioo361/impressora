@@ -4,6 +4,7 @@ BEGIN
     id_impressora BIGINT NOT NULL IDENTITY(1,1),
     id_tipo_impressora INT NOT NULL,
     id_fornecedor_impressora BIGINT NOT NULL,
+    id_taxa_impressora INT NOT NULL,
     cd_serie_impressora VARCHAR(20) NOT NULL,
     cd_barras_impressora VARCHAR(9) NOT NULL,
     dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),

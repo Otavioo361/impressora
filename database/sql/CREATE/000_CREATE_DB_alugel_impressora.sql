@@ -1,6 +1,11 @@
 USE master; 
 GO
 
+IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'alugel_impressora')
+BEGIN
+    DROP DATABASE alugel_impressora;
+END;
+GO
 
 -- Verifica se o banco de dados 'alugel_impressora' existe e cria se não existir
 IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'alugel_impressora')
