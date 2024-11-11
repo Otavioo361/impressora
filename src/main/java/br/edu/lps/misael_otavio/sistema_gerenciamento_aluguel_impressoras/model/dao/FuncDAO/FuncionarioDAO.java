@@ -4,8 +4,8 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.FuncDAO;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.DatabaseConnection;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.DatabaseJPA;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.DatabaseConnection;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.DatabaseJPA;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.Funcionario;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.IDao;
 import java.util.List;
@@ -56,6 +56,21 @@ public  class FuncionarioDAO implements IDao {
         
         this.entityManager.close();
         return true;
+    }
+     //verificar erro
+     public List<Object> findAll() {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        jpql = " SELECT f "
+             + " FROM Funcionario f ";
+
+        qry = this.entityManager.createQuery(jpql);
+        
+        List lst = qry.getResultList();
+        
+        this.entityManager.close();
+        return (List<Object>) lst;
+                
     }
       @Override
     public Object find(Object obj) {
