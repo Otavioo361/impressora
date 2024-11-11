@@ -3,14 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model;
-
+import lombok.Getter;
+import lombok.Setter;
 /**
  *
  * @author otavi
  */
 public class Pessoa {
+    @Getter @Setter
      protected String nome;
+    @Getter @Setter
     protected char sexo;
+    @Getter @Setter
     protected int idade;
 
     public Pessoa() {
@@ -46,32 +50,4 @@ public class Pessoa {
         return true;
     }
     
-    public String getNome() {
-        return nome;
-    }
-
-    
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    
-    public char getSexo() {
-        return sexo;
-    }
-
-    
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
-    }
-
-    
-    public int getIdade() {
-        return idade;
-    }
-
-    
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 }

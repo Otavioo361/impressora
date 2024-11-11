@@ -3,12 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model;
-
+import lombok.Getter;
+import lombok.Setter;
 /**
  *
  * @author otavi
  */
 public class Administrador extends Pessoa {
+    @Getter @Setter
+    private String email;
+    @Getter @Setter
     private String cpf;
     
     public Administrador(){
@@ -20,17 +24,5 @@ public class Administrador extends Pessoa {
         this.cpf = cpf;
     }
 
-    /**
-     * @return the cpf
-     */
-    public String getCpf() {
-        return cpf;
-    }
-
-    /**
-     * @param cpf the cpf to set
-     */
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 }
+
