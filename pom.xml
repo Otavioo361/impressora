@@ -7,7 +7,15 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>11</maven.compiler.release>
         <exec.mainClass>br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.SistemaGerenciamentoAluguelImpressoras</exec.mainClass>
     </properties>
+    <dependencies>
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.34</version>
+		<scope>provided</scope>
+	</dependency>
+</dependencies>
 </project>
