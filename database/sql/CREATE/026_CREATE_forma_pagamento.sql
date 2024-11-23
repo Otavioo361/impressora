@@ -8,6 +8,7 @@ BEGIN
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_forma_pagamento_ativo BIT NOT NULL,
-    CONSTRAINT PK_forma_pagamento PRIMARY KEY (id_forma_pagamento)
+    CONSTRAINT PK_forma_pagamento PRIMARY KEY (id_forma_pagamento),
+    CONSTRAINT UK01_forma_pagamento UNIQUE(cd_forma_pagamento)
   );
 END;

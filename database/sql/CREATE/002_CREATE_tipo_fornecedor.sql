@@ -8,6 +8,7 @@ BEGIN
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_tipo_fornecedor_ativo BIT NOT NULL,
-    CONSTRAINT PK_tipo_fornecedor PRIMARY KEY (id_tipo_fornecedor)
+    CONSTRAINT PK_tipo_fornecedor PRIMARY KEY (id_tipo_fornecedor),
+    CONSTRAINT UK01_tipo_fornecedor UNIQUE(cd_tipo_fornecedor)
   );
 END;

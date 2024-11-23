@@ -8,6 +8,7 @@ BEGIN
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_tipo_taxa_ativo BIT NOT NULL,
-    CONSTRAINT PK_tipo_taxa PRIMARY KEY (id_tipo_taxa)
+    CONSTRAINT PK_tipo_taxa PRIMARY KEY (id_tipo_taxa),
+    CONSTRAINT UK01_tipo_taxa UNIQUE(cd_tipo_taxa)
   );
 END;

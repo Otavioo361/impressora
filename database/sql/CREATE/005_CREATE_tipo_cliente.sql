@@ -8,6 +8,7 @@ BEGIN
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_tipo_cliente_ativo BIT NOT NULL,
-    CONSTRAINT PK_tipo_cliente PRIMARY KEY (id_tipo_cliente)
+    CONSTRAINT PK_tipo_cliente PRIMARY KEY (id_tipo_cliente),
+    CONSTRAINT UK01_tipo_cliente UNIQUE(cd_tipo_cliente)
   );
 END;
