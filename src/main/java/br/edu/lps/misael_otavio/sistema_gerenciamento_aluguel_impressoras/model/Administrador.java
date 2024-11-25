@@ -9,10 +9,10 @@ import lombok.Setter;
  *
  * @author otavi
  */
-public class Administrador extends Pessoa {
-    @Getter @Setter
-    private String email;
-    @Getter @Setter
+@Getter 
+@Setter
+public class Administrador extends Pessoa {    
+    private String email;   
     private String cpf;
     
     public Administrador(){

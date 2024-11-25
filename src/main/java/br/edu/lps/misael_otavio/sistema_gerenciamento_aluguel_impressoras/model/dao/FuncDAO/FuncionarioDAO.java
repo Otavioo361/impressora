@@ -66,7 +66,7 @@ public  class FuncionarioDAO implements IDao {
 
         qry = this.entityManager.createQuery(jpql);
         
-        List lst = qry.getResultList();
+        //List lst = qry.getResultList();
         
         this.entityManager.close();
         return (List<Object>) lst;
