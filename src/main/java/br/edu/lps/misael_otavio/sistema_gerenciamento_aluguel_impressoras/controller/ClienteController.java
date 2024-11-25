@@ -59,11 +59,20 @@ public class ClienteController {
         // Atualiza as informações do cliente no repositório
         repositorio.update(novoCliente);
     }
+    
 
     // Método para atualizar a tabela de clientes
     public void atualizarTabela(JTable grd) {
         Util.jTableShow(grd, new TMCadCliente(repositorio.findAll()), null);
     }
+    public Cliente buscarClientePorCpf(String cpfCnpj) {
+           Cliente cliente = repositorio.findByCpfCnpj(cpfCnpj);
+
+           if (cliente == null) {
+               throw new ImpreException("Erro - Cliente não encontrado com o CPF/CNPJ informado.");
+           }
+            return cliente;
+       }
 
     // Método para excluir um cliente
     public void excluirCliente(Cliente cliente) {
