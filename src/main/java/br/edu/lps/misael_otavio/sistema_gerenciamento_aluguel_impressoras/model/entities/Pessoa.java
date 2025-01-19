@@ -1,13 +1,12 @@
-package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *
@@ -25,7 +24,7 @@ public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pessoa", nullable = false, updatable = false)
-    private Long idPessoa;
+    private Long id;
 
     @Column(name = "nm_pessoa", nullable = false, length = 100)
     private String nmPessoa;
