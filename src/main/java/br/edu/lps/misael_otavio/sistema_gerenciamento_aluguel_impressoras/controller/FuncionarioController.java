@@ -1,7 +1,7 @@
 
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid.ValidateFuncionario;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.valid.ValidateFuncionario;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.FuncDAO.FuncionarioDAO;
 import javax.swing.JTable;
