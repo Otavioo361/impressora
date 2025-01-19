@@ -2,11 +2,6 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.Cliente;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import org.json.JSONObject;
 /**
  *
  * @author otavi
@@ -14,7 +9,7 @@ import org.json.JSONObject;
 public class ValidateCliente {
 
 
-    public Cliente validaCamposEntrada(String nome, String email, String cpfCnpj, String telefone , String endereco) {
+    public Cliente validaCamposEntrada(String nome, String email, String cpfCnpj, String telefone) {
         Cliente cliente = new Cliente();
 
         // Valida o nome
@@ -49,14 +44,6 @@ public class ValidateCliente {
         }
         if (!validarTelefone(telefone)) {
             throw new ImpreException("Error - Telefone inválido.");
-        }
-        cliente.setTelefone(telefone);
-        
-         if (endereco.isEmpty()) {
-            throw new ImpreException("Error - Campo vazio: 'telefone'.");
-        }
-        if (!validarEndereco(endereco)) {
-            throw new ImpreException("Error - Endereco inválido.");
         }
         cliente.setTelefone(telefone);
 
@@ -102,37 +89,6 @@ public class ValidateCliente {
         // Regex para validar telefone (com ou sem DDD)
         String telefoneRegex = "^\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}$";
         return telefone.matches(telefoneRegex);
-    }
-    public boolean validarEndereco(String endereco){
-        return endereco.length() >= 5 && endereco.matches(".*[a-zA-Z].*");
-    }
-    public boolean validarCEP(String cep){
-        cep = cep.replaceAll("-", "");
-        if(!cep.matches("^\\d{8}$")){
-            throw new ImpreException("Error- CEP inválido. Deve conter 8 digitos");
-         }
-        String apiUrl = "https://viacep.com.br/ws/" + cep + "/json/";
-        
-        try{
-            HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept" , "application/json");
-            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line ;
-            while((line = br.readLine()) != null){
-                response.append(line);
-            }
-            br.close();
-            JSONObject jsonResponse = new JSONObject(response.toString());
-            if(jsonResponse.has("error") && jsonResponse.getBoolean("error")){
-                throw new ImpreException("Error- CEP não encontrado.");
-                
-            }
-            return true;
-        }catch(Exception e){
-            throw new ImpreException("Error - não foi possiel validar o CEP:" + e.getMessage());
-        }
     }
 
     public boolean isValidCPF(String cpf) {

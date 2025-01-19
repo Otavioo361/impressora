@@ -18,11 +18,11 @@ public class ClienteController {
     }
 
     // Método para cadastrar um cliente
-    public void cadastrarCliente(String nome, String email, String cpfCnpj, String telefone , String endereco) {
+    public void cadastrarCliente(String nome, String email, String cpfCnpj, String telefone) {
         ValidateCliente valid = new ValidateCliente();
         
         // Valida os campos de entrada
-        Cliente novoCliente = valid.validaCamposEntrada(nome, email, cpfCnpj, telefone, endereco);
+        Cliente novoCliente = valid.validaCamposEntrada(nome, email, cpfCnpj, telefone);
         
         // Verifica se já existe um cliente com o mesmo e-mail
         if (repositorio.findByEmail(novoCliente.getEmail()) != null) {
@@ -39,11 +39,11 @@ public class ClienteController {
     }
 
     // Método para atualizar as informações de um cliente
-    public void atualizarCliente(int idCliente, String nome, String email, String cpfCnpj, String telefone ,String endereco) {
+    public void atualizarCliente(int idCliente, String nome, String email, String cpfCnpj, String telefone) {
         ValidateCliente valid = new ValidateCliente();
         
         // Valida os campos de entrada
-        Cliente novoCliente = valid.validaCamposEntrada(nome, email, cpfCnpj, telefone ,endereco);
+        Cliente novoCliente = valid.validaCamposEntrada(nome, email, cpfCnpj, telefone);
         novoCliente.setId(idCliente);
 
         // Verifica se já existe um cliente com o mesmo e-mail
@@ -65,7 +65,7 @@ public class ClienteController {
     public void atualizarTabela(JTable grd) {
         Util.jTableShow(grd, new TMCadCliente(repositorio.findAll()), null);
     }
-    public Cliente buscarClientePorCpfCnpj(String cpfCnpj) {
+    public Cliente buscarClientePorCpf(String cpfCnpj) {
            Cliente cliente = repositorio.findByCpfCnpj(cpfCnpj);
 
            if (cliente == null) {
@@ -75,6 +75,11 @@ public class ClienteController {
        }
 
     // Método para excluir um cliente
-   
-        
+    public void excluirCliente(Cliente cliente) {
+        if (cliente != null) {
+            repositorio.delete(cliente);
+        } else {
+            throw new ImpreException("Error - Cliente inexistente.");
+        }
+    }    
 }

@@ -9,11 +9,20 @@ import lombok.Setter;
  *
  * @author otavi
  */
-public class Impressora {
-    @Getter @Setter
-    private String tipoImpressora;
-    @Getter @Setter
-    private String cdBarrasImpressora;
-    @Getter @Setter
-    private String cdSerieImpressora;
+@Getter 
+@Setter
+public class Administrador extends Pessoa {    
+    private String email;   
+    private String cpf;
+    
+    public Administrador(){
+    super();
+    this.cpf = "000.000.000-00";
+    }
+    public Administrador(String nome, char sexo , int idade , String cpf){
+        super(nome,sexo,idade);
+        this.cpf = cpf;
+    }
+
 }
+
