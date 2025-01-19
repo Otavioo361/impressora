@@ -1,12 +1,12 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'plano_pagamento')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.plano_pagamento (
+  CREATE TABLE aluguel_impressora.dbo.plano_pagamento (
     id_plano_pagamento BIGINT NOT NULL IDENTITY(1,1),
     id_forma_pagamento INT NOT NULL,
     cd_plano_pagamento BIGINT NOT NULL,
-    nm_plano_pagamento VARCHAR(32)
+    nm_plano_pagamento VARCHAR(32),
     qt_min_parcelas TINYINT NOT NULL,
-    qt_max_parcelas TINYINT NO NULL,
+    qt_max_parcelas TINYINT NOT NULL,
     in_a_vista BIT NOT NULL,
     in_cobranca_recorrente BIT NOT NULL,
     in_cobranca_primeira_ato BIT NOT NULL,

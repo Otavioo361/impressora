@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'contrato')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.contrato (
+  CREATE TABLE aluguel_impressora.dbo.contrato (
     id_contrato BIGINT NOT NULL IDENTITY(1,1),
     nr_contrato BIGINT NOT NULL,
     nr_versao_contrato INT NOT NULL,
@@ -11,7 +11,7 @@ BEGIN
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_contrato PRIMARY KEY (id_contrato),
     CONSTRAINT UI1_contrato_nr_contrato_E_nr_versao UNIQUE(nr_contrato, nr_versao_contrato),
-    CONSTRAINT FK01_contrato_X_cliente FOREIGN KEY (id_cliente) REFERENCES alugel_impressora.dbo.cliente(id_cliente)
+    CONSTRAINT FK01_contrato_X_cliente FOREIGN KEY (id_cliente) REFERENCES aluguel_impressora.dbo.cliente(id_cliente)
   );
 END;
-CREATE INDEX IX2_CONTRATO_NR_CONTRATO ON alugel_impressora.dbo.contrato (nr_contrato)
+CREATE INDEX IX2_CONTRATO_NR_CONTRATO ON aluguel_impressora.dbo.contrato (nr_contrato)

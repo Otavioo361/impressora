@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'forma_pagamento')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.forma_pagamento (
+  CREATE TABLE aluguel_impressora.dbo.forma_pagamento (
     id_forma_pagamento INT NOT NULL IDENTITY(1,1),
     cd_forma_pagamento INT NOT NULL UNIQUE,
     nm_forma_pagamento VARCHAR(30) NOT NULL,

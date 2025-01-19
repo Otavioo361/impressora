@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'pessoa_fisica')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.pessoa_fisica (
+  CREATE TABLE aluguel_impressora.dbo.pessoa_fisica (
     id_pessoa_fisica BIGINT NOT NULL IDENTITY(1,1),
     dt_nascimento DATE,
     in_ppe BIT NULL,

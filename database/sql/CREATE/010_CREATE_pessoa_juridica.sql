@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'pessoa_juridica')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.pessoa_juridica (
+  CREATE TABLE aluguel_impressora.dbo.pessoa_juridica (
     id_pessoa_juridica BIGINT NOT NULL IDENTITY(1,1),
     nm_razao_social VARCHAR(60),
     dt_abertura DATETIME,

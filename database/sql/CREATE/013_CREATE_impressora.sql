@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'impressora')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.impressora (
+  CREATE TABLE aluguel_impressora.dbo.impressora (
     id_impressora BIGINT NOT NULL IDENTITY(1,1),
     id_tipo_impressora INT NOT NULL,
     id_fornecedor_impressora BIGINT NOT NULL,
@@ -14,7 +14,7 @@ BEGIN
     in_impressora_alugada BIT NULL,
     in_impressora_disponivel BIT NULL,
     CONSTRAINT PK_impressora PRIMARY KEY (id_impressora),
-    CONSTRAINT FK01_impressora_X_tipo_impressora FOREIGN KEY (id_tipo_impressora) REFERENCES alugel_impressora.dbo.tipo_impressora(id_tipo_impressora),
-    CONSTRAINT FK02_impressora_X_fornecedor FOREIGN KEY (id_fornecedor_impressora) REFERENCES alugel_impressora.dbo.fornecedor(id_fornecedor)
+    CONSTRAINT FK01_impressora_X_tipo_impressora FOREIGN KEY (id_tipo_impressora) REFERENCES aluguel_impressora.dbo.tipo_impressora(id_tipo_impressora),
+    CONSTRAINT FK02_impressora_X_fornecedor FOREIGN KEY (id_fornecedor_impressora) REFERENCES aluguel_impressora.dbo.fornecedor(id_fornecedor)
   );
 END;

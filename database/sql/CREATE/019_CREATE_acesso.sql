@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'acesso')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.acesso (
+  CREATE TABLE aluguel_impressora.dbo.acesso (
     id_acesso BIGINT NOT NULL IDENTITY(1,1),
     id_tela BIGINT NOT NULL,
     cd_acesso VARCHAR(30) NOT NULL,
@@ -12,6 +12,6 @@ BEGIN
     dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     CONSTRAINT PK_acesso PRIMARY KEY (id_acesso),
-    CONSTRAINT FK01_acesso_X_tela FOREIGN KEY (id_tela) REFERENCES alugel_impressora.dbo.tela(id_tela)
+    CONSTRAINT FK01_acesso_X_tela FOREIGN KEY (id_tela) REFERENCES aluguel_impressora.dbo.tela(id_tela)
   );
 END;

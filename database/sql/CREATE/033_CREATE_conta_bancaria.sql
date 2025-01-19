@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'conta_bancaria')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.conta_bancaria (
+  CREATE TABLE aluguel_impressora.dbo.conta_bancaria (
     id_conta_bancaria BIGINT NOT NULL IDENTITY(1,1),
     id_banco BIGINT NOT NULL,
     nr_agencia INT NOT NULL,
