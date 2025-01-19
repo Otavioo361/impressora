@@ -1,5 +1,6 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.compositeIds.UsuarioGrupoAcessoId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

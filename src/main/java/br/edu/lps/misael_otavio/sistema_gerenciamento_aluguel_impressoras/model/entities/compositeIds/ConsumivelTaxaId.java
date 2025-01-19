@@ -1,4 +1,4 @@
-package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.compositeIds;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

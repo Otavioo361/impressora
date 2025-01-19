@@ -9,13 +9,12 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Entity    private UsuarioGrupoAcessoId id;
+@Entity
 @Table(name = "usuario")
 public class Usuario {
     @Id
     @Column(name = "id_usuario", nullable = false)
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_pessoa", nullable = false)
     private Pessoa idPessoa;
