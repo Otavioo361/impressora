@@ -1,4 +1,4 @@
-package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.valid;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
 
