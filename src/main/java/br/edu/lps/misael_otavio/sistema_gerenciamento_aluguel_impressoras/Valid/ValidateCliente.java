@@ -1,7 +1,7 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.Cliente;
+
 /**
  *
  * @author otavi

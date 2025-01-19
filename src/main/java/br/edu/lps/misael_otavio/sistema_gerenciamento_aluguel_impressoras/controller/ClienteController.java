@@ -1,9 +1,7 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid.ValidateCliente;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.Cliente;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.ClienteDAO;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.TMCadCliente;
 
 import javax.swing.JTable;
 

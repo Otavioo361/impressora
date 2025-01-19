@@ -4,12 +4,8 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.View;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid.ValidateCliente;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ClienteController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.FuncionarioController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.Cliente;
-import java.awt.Color;
+
 import javax.swing.JOptionPane;
 
 /**
