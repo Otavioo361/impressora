@@ -1,4 +1,4 @@
-package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.valid;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.valid;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ClienteException;
@@ -6,7 +6,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Pessoa;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaFisica;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaJuridica;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.transaction.Validators;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
