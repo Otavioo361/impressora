@@ -6,10 +6,7 @@ public class PasswordService {
     public static String hash(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-    public static boolean validarSenha(String senha, String salt, String passwordHash){
+    public static boolean validarSenha(String senha, String passwordHash){
         return BCrypt.checkpw (senha,passwordHash);
-    }
-    public static String formatPasswordWithSalt(String senha,String salt){
-        return String.format("%s::::%s",senha,salt);
     }
 }
