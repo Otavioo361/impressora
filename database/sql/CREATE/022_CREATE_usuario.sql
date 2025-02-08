@@ -4,7 +4,7 @@ BEGIN
     id_usuario BIGINT NOT NULL IDENTITY(1,1),
     id_pessoa BIGINT NOT NULL,
     nm_usuario VARCHAR(30) NOT NULL UNIQUE,
-    nm_password BINARY(64),
+    nm_password VARCHAR(128),
     dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     in_usuario_ativo BIT NOT NULL,

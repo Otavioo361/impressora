@@ -3,7 +3,7 @@ BEGIN
   CREATE TABLE aluguel_impressora.dbo.pessoa_juridica (
     id_pessoa_juridica BIGINT NOT NULL IDENTITY(1,1),
     nm_razao_social VARCHAR(60),
-    dt_abertura DATETIME,
+    dt_abertura DATE,
     nm_natureza_jurica VARCHAR(120),
     dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
