@@ -7,8 +7,9 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-import java.util.List;
 import org.slf4j.Logger;
+
+import java.util.List;
 
 public class ClienteDao implements DaoInterface<Cliente> {
     private final EntityManager entityManager = EntityManagerSingleton.createEntityManager();
@@ -66,17 +67,6 @@ public class ClienteDao implements DaoInterface<Cliente> {
 
     @Override
     public List<Cliente> findAll() {
-        return List.of();
+        return null;
     }
-
-    @Override
-    public List<Cliente> findPaginated(int page, int pageSize) {
-        return List.of();
-    }
-
-    @Override
-    public List<Cliente> findTop(int top) {
-        return List.of();
-    }
-
 }

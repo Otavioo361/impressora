@@ -1,4 +1,4 @@
-package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataResponse {
+public class DataResponseModel {
     private boolean success;
     private String message;
     private Object data;
