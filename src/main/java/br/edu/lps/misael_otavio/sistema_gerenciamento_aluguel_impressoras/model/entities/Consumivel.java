@@ -3,14 +3,16 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "consumivel")
 public class Consumivel {
     @Id
@@ -39,12 +41,12 @@ public class Consumivel {
     @Column(name = "nm_consumivel", nullable = false, length = 30)
     private String nmConsumivel;
 
-    @ColumnDefault("getdate()")
+    @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", nullable = false)
-    private Instant dtInclusao;
+    private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
-    private Instant dtAlteracao;
+    private LocalDateTime dtAlteracao;
 
     @Column(name = "nm_usuario", length = 60)
     private String nmUsuario;

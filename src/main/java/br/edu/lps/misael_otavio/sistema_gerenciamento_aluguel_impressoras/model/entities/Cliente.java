@@ -3,13 +3,15 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "cliente")
 public class Cliente {
     @Id
@@ -18,18 +20,18 @@ public class Cliente {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_pessoa", nullable = false)
-    private Pessoa idPessoa;
+    private Pessoa pessoa;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_cliente", nullable = false)
     private TipoCliente idTipoCliente;
 
-    @ColumnDefault("getdate()")
+    @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", nullable = false)
-    private Instant dtInclusao;
+    private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
-    private Instant dtAlteracao;
+    private LocalDateTime dtAlteracao;
 
     @Column(name = "nm_usuario", length = 60)
     private String nmUsuario;

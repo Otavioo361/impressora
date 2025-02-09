@@ -6,13 +6,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "conta_bancaria")
 public class ContaBancaria {
     @Id
@@ -37,12 +40,12 @@ public class ContaBancaria {
     @Column(name = "in_conta_bancaria_ativo", nullable = false)
     private Boolean inContaBancariaAtivo = false;
 
-    @ColumnDefault("getdate()")
+    @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", nullable = false)
-    private Instant dtInclusao;
+    private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
-    private Instant dtAlteracao;
+    private LocalDateTime dtAlteracao;
 
     @Column(name = "nm_usuario", length = 60)
     private String nmUsuario;

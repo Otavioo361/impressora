@@ -3,14 +3,16 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "impressora")
 public class Impressora {
     @Id
@@ -50,18 +52,18 @@ public class Impressora {
     @Column(name = "cd_barras_impressora", nullable = false, length = 9)
     private String cdBarrasImpressora;
 
-    @ColumnDefault("getdate()")
+    @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", nullable = false)
-    private Instant dtInclusao;
+    private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
-    private Instant dtAlteracao;
+    private LocalDateTime dtAlteracao;
 
     @Column(name = "nm_usuario", length = 60)
     private String nmUsuario;
 
     @Column(name = "dt_ultima_locacao")
-    private Instant dtUltimaLocacao;
+    private LocalDateTime dtUltimaLocacao;
 
     @Column(name = "in_impressora_alugada")
     private Boolean inImpressoraAlugada;

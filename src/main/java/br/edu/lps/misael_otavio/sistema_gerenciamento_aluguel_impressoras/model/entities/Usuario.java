@@ -3,21 +3,23 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "usuario")
 public class Usuario {
     @Id
     @Column(name = "id_usuario", nullable = false)
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "usuario_grupo_acesso",
             joinColumns = @JoinColumn(name = "id_usuario"),
@@ -28,7 +30,7 @@ public class Usuario {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_pessoa", nullable = false)
-    private Pessoa idPessoa;
+    private Pessoa pessoa;
 
     @Column(name = "nm_usuario", nullable = false, length = 30)
     private String nmUsuario;
@@ -36,12 +38,12 @@ public class Usuario {
     @Column(name = "nm_password", length = 128)
     private String nmPassword;
 
-    @ColumnDefault("getdate()")
+    @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", nullable = false)
-    private Instant dtInclusao;
+    private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
-    private Instant dtAlteracao;
+    private LocalDateTime dtAlteracao;
 
     @Column(name = "in_usuario_ativo", nullable = false)
     private Boolean inUsuarioAtivo = false;

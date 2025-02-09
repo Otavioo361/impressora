@@ -3,31 +3,25 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "acesso")
 public class Acesso {
     @Id
     @Column(name = "id_acesso", nullable = false)
     private Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "acesso_grupo_acesso",
-            joinColumns = @JoinColumn(name = "id_acesso"),
-            inverseJoinColumns = @JoinColumn(name = "id_grupo_acesso")
-    )
-    private Set<GrupoAcesso> gruposAcesso;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tela", nullable = false)
-    private Tela idTela;
+    private Tela tela;
 
     @Column(name = "cd_acesso", nullable = false, length = 30)
     private String cdAcesso;
@@ -47,11 +41,11 @@ public class Acesso {
     @Column(name = "in_delete", nullable = false)
     private Boolean inDelete = false;
 
-    @ColumnDefault("getdate()")
+    @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", nullable = false)
-    private Instant dtInclusao;
+    private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
-    private Instant dtAlteracao;
+    private LocalDateTime dtAlteracao;
 
 }
