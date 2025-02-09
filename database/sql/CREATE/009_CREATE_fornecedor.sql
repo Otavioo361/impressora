@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'fornecedor')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.fornecedor (
+  CREATE TABLE aluguel_impressora.dbo.fornecedor (
     id_fornecedor BIGINT NOT NULL IDENTITY(1,1),
     id_tipo_fornecedor INT NOT NULL,
     nm_fornecedor VARCHAR(120) NOT NULL,
@@ -15,6 +15,6 @@ BEGIN
     in_fornecedor_disponivel BIT NULL,
     dt_fim_contrato DATETIME NULL,
     CONSTRAINT PK_fornecedor PRIMARY KEY (id_fornecedor),
-    CONSTRAINT FK01_fornecedor_X_tipo_fornecedor FOREIGN KEY (id_tipo_fornecedor) REFERENCES alugel_impressora.dbo.tipo_fornecedor(id_tipo_fornecedor)
+    CONSTRAINT FK01_fornecedor_X_tipo_fornecedor FOREIGN KEY (id_tipo_fornecedor) REFERENCES aluguel_impressora.dbo.tipo_fornecedor(id_tipo_fornecedor)
   );
 END;

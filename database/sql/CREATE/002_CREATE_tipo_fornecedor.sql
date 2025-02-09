@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'tipo_fornecedor')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.tipo_fornecedor (
+  CREATE TABLE aluguel_impressora.dbo.tipo_fornecedor (
     id_tipo_fornecedor INT NOT NULL IDENTITY(1,1),
     cd_tipo_fornecedor INT NOT NULL UNIQUE,
     nm_tipo_fornecedor VARCHAR(30) NOT NULL,

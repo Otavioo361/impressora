@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = 'tipo_cliente')
 BEGIN
-  CREATE TABLE alugel_impressora.dbo.tipo_cliente (
+  CREATE TABLE aluguel_impressora.dbo.tipo_cliente (
     id_tipo_cliente INT NOT NULL IDENTITY(1,1),
     cd_tipo_cliente INT NOT NULL UNIQUE,
     nm_tipo_cliente VARCHAR(30) NOT NULL,

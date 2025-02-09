@@ -6,7 +6,7 @@ import sys
 template = """
 IF NOT EXISTS(SELECT 1 FROM sys.tables WHERE NAME = '{nm_tabela}')
 BEGIN
-    CREATE TABLE alugel_impressora.dbo.{nm_tabela} (
+    CREATE TABLE aluguel_impressora.dbo.{nm_tabela} (
         id_{nm_tabela} BIGTIN NOT NULL IDENTITY(1,1),
 
         dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
