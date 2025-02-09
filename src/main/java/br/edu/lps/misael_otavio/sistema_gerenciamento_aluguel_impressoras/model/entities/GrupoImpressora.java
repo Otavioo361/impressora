@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,6 +17,14 @@ public class GrupoImpressora {
     @Id
     @Column(name = "id_grupo_impressora", nullable = false)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "impressora_grupo_impressora",
+            joinColumns = @JoinColumn(name = "id_grupo_impressora"),
+            inverseJoinColumns = @JoinColumn(name = "id_impressora")
+    )
+    private Set<Impressora> impressoras;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_contrato", nullable = false)
