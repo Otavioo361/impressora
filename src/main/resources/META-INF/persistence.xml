@@ -1,10 +1,10 @@
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd" version="3.1">
-  <persistence-unit name="sqlserver-persistence-unit" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="aluguel-impressora-unit" transaction-type="RESOURCE_LOCAL">
     <properties>
       <!-- SQL Server Configuration -->
       <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=impressora"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=aluguel_impressora"/>
       <property name="jakarta.persistence.jdbc.user" value="sa"/>
       <property name="jakarta.persistence.jdbc.password" value="@sa12345"/>
 
