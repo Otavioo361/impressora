@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,6 +16,15 @@ public class Usuario {
     @Id
     @Column(name = "id_usuario", nullable = false)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_grupo_acesso",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_grupo_acesso")
+    )
+    private Set<GrupoAcesso> gruposAcesso;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_pessoa", nullable = false)

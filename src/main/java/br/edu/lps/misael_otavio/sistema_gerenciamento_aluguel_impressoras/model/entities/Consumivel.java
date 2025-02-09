@@ -23,7 +23,7 @@ public class Consumivel {
             joinColumns = @JoinColumn(name = "id_consumivel"),
             inverseJoinColumns = @JoinColumn(name = "id_taxa")
     )
-    private Set<GrupoAcesso> gruposAcesso;
+    private Set<Taxa> taxas;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_consumivel", nullable = false)

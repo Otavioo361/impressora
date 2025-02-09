@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,6 +16,22 @@ public class Impressora {
     @Id
     @Column(name = "id_impressora", nullable = false)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "impressora_consumivel",
+            joinColumns = @JoinColumn(name = "id_impressora"),
+            inverseJoinColumns = @JoinColumn(name = "id_consumivel")
+    )
+    private Set<Consumivel> consumiveis;
+
+    @ManyToMany
+    @JoinTable(
+            name = "impressora_taxa",
+            joinColumns = @JoinColumn(name = "id_impressora"),
+            inverseJoinColumns = @JoinColumn(name = "id_taxa")
+    )
+    private Set<Taxa> taxas;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_impressora", nullable = false)
