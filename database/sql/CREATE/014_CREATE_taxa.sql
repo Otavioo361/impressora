@@ -4,7 +4,7 @@ BEGIN
     id_taxa BIGINT NOT NULL IDENTITY(1,1),
     id_tipo_taxa INT NOT NULL,
     vl_taxa DECIMAL(10,2) NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_taxa_ativo BIT NOT NULL,

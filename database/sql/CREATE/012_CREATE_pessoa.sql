@@ -9,7 +9,7 @@ BEGIN
     cd_email VARCHAR(120) NOT NULL,
     nr_ddd INT NULL,
     nr_telefone INT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_pessoa PRIMARY KEY (id_pessoa),

@@ -9,7 +9,7 @@ BEGIN
     id_boleto BIGINT NULL,
     id_dado_cobranca_alternativo BIGINT NULL,
     in_dado_cobranca_ativo BIT NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_dado_cobranca PRIMARY KEY (id_dado_cobranca),

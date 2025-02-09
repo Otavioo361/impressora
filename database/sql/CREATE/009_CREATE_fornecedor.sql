@@ -9,7 +9,7 @@ BEGIN
     cd_telefone_contato_fornecedor VARCHAR(20) NULL,
     cd_email_contato_fornecedor VARCHAR(60) NULL,
     dt_inicio_contrato DATETIME NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_fornecedor_disponivel BIT NULL,

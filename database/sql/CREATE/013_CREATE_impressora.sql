@@ -7,7 +7,7 @@ BEGIN
     id_taxa_impressora INT NOT NULL,
     cd_serie_impressora VARCHAR(20) NOT NULL,
     cd_barras_impressora VARCHAR(9) NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     dt_ultima_locacao DATETIME NULL,

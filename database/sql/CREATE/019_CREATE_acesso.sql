@@ -9,7 +9,7 @@ BEGIN
     in_create BIT NOT NULL,
     in_update BIT NOT NULL,
     in_delete BIT NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     CONSTRAINT PK_acesso PRIMARY KEY (id_acesso),
     CONSTRAINT FK01_acesso_X_tela FOREIGN KEY (id_tela) REFERENCES aluguel_impressora.dbo.tela(id_tela)

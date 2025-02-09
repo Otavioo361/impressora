@@ -4,7 +4,7 @@ BEGIN
     id_forma_pagamento INT NOT NULL IDENTITY(1,1),
     cd_forma_pagamento INT NOT NULL UNIQUE,
     nm_forma_pagamento VARCHAR(30) NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_forma_pagamento_ativo BIT NOT NULL,

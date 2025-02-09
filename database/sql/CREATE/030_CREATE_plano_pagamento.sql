@@ -10,7 +10,7 @@ BEGIN
     in_a_vista BIT NOT NULL,
     in_cobranca_recorrente BIT NOT NULL,
     in_cobranca_primeira_ato BIT NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_plano_pagamento PRIMARY KEY (id_plano_pagamento),

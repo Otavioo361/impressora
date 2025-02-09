@@ -6,7 +6,7 @@ BEGIN
     nr_versao_contrato INT NOT NULL,
     id_cliente BIGINT NOT NULL,
     
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_contrato PRIMARY KEY (id_contrato),

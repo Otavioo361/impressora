@@ -5,7 +5,7 @@ BEGIN
         id_acesso_grupo_acesso BIGINT NOT NULL IDENTITY(1,1),
         id_grupo_acesso BIGINT NOT NULL,
         id_acesso BIGINT NOT NULL,
-        dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+        dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
         dt_alteracao DATETIME NULL,
         nm_usuario VARCHAR(60) NULL,
         CONSTRAINT PK_acesso_grupo_acesso PRIMARY KEY (id_acesso_grupo_acesso),

@@ -6,7 +6,7 @@ BEGIN
     id_taxa BIGINT NOT NULL,
     qmn_impressora INT NOT NULL,
     qmx_impressora INT NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_impressora_taxa PRIMARY KEY (id_impressora_taxa),

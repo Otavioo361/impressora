@@ -9,7 +9,7 @@ BEGIN
     nm_cep VARCHAR(11),
     nm_complemento VARCHAR(32),
     nm_referencia VARCHAR(32),
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_endereco PRIMARY KEY (id_endereco),

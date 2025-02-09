@@ -4,7 +4,7 @@ BEGIN
     id_cliente BIGINT NOT NULL IDENTITY(1,1),
     id_pessoa BIGINT NOT NULL,
     id_tipo_cliente INT NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_cliente PRIMARY KEY (id_cliente),

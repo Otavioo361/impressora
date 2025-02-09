@@ -7,7 +7,7 @@ BEGIN
     qt_impressora INT NULL,
     qt_impressora_disponivel INT NULL,
     qt_impressora_alugada INT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_tipo_impressora_ativo BIT NOT NULL,

@@ -8,7 +8,7 @@ BEGIN
     qt_impressora INT NULL,
     vl_aluguel_grupo_impressora DECIMAL(10,2),
 
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_grupo_impressora PRIMARY KEY (id_grupo_impressora),

@@ -5,7 +5,7 @@ BEGIN
     cd_banco INT NOT NULL,
     nm_banco VARCHAR(64) NOT NULL,
     in_banco_ativo BIT NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     CONSTRAINT PK_banco PRIMARY KEY (id_banco),

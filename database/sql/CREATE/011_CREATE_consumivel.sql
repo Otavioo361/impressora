@@ -6,7 +6,7 @@ BEGIN
     id_fornecedor_consumivel BIGINT NOT NULL,
     cd_consumivel INT NOT NULL,
     nm_consumivel VARCHAR(30) NOT NULL,
-    dt_inclusao DATETIME NOT NULL DEFAULT GETDATE(),
+    dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
     in_consumivel_ativo BIT NOT NULL,
