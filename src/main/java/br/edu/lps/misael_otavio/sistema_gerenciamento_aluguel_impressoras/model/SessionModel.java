@@ -1,23 +1,23 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Tela;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.GrupoAcesso;
+
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Getter
-@Setter
+@ToString
+@NoArgsConstructor
 @AllArgsConstructor
 public class SessionModel {
-    LocalDateTime dtIncioSessao;
-    boolean inAtivo;
-    Integer idLogin;
-    String userName;
-    String cpfCnpj;
-    String nmUsuario;
-    List<Tela> permissoes;
-    List<String> roles;
+    private final LocalDateTime dtIncioSessao = LocalDateTime.now();
+    private boolean inAtivo;
+    private Long idLogin;
+    private Long idUsuario;
+    private String userName;
+    private String cpfCnpj;
+    private String nmUsuario;
+    private Set<GrupoAcesso> permissoes;
 }
