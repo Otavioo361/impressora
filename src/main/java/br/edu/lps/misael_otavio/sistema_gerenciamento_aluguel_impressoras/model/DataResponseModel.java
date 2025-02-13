@@ -6,10 +6,10 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataResponseModel {
+public class DataResponseModel<T> {
     private boolean success;
     private String message;
-    private Object data;
+    private T data;
     private Object error;
 
 }
