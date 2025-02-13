@@ -17,8 +17,8 @@ VALUES
 ;
 
 
-INSERT INTO aluguel_impressora.dbo.marca_impressora (nm_marca_impressora, dt_inclusao, in_marca_impressora_ativo)
-SELECT nm_marca_impressora, GETDATE(), 1
+INSERT INTO aluguel_impressora.dbo.marca (nm_marca, dt_inclusao, in_marca_ativo)
+SELECT nm_marca, GETDATE(), 1
 FROM (VALUES
     ('HP'),
     ('Epson'),
@@ -38,10 +38,10 @@ FROM (VALUES
     ('Prusa'),
     ('Creality'),
     ('MakerBot')
-) AS marcas(nm_marca_impressora)
+) AS marcas(nm_marca)
 WHERE NOT EXISTS (
-    SELECT 1 FROM aluguel_impressora.dbo.marca_impressora mi
-    WHERE mi.nm_marca_impressora = marcas.nm_marca_impressora
+    SELECT 1 FROM aluguel_impressora.dbo.marca mi
+    WHERE mi.nm_marca = marcas.nm_marca
 );
 
 
@@ -50,7 +50,7 @@ INSERT INTO aluguel_impressora.dbo.modelo_impressora (
     id_marca_impressora, id_tipo_impressora, id_taxa, nm_modelo_impressora, qt_impressora, qt_impressora_disponivel, qt_impressora_alugada, dt_inclusao, in_modelo_impressora_ativo
 )
 SELECT
-    (SELECT id_marca_impressora FROM aluguel_impressora.dbo.marca_impressora WHERE nm_marca_impressora = modelos.nm_marca_impressora),
+    (SELECT id_marca FROM aluguel_impressora.dbo.marca WHERE nm_marca = modelos.nm_marca),
     (SELECT id_tipo_impressora FROM aluguel_impressora.dbo.tipo_impressora WHERE nm_tipo_impressora = modelos.nm_tipo_impressora),
     (SELECT id_taxa FROM aluguel_impressora.dbo.taxa WHERE id_tipo_taxa = modelos.id_tipo_taxa),
     modelos.nm_modelo_impressora,
@@ -89,12 +89,12 @@ FROM (VALUES
     ('Prusa', 'Impressora 3D', 'Prusa i3 MK3S+',2,1),
     ('Creality', 'Impressora 3D', 'Ender 3 V2',2,1),
     ('MakerBot', 'Impressora 3D', 'Replicator+',2,1)
-) AS modelos(nm_marca_impressora, nm_tipo_impressora, nm_modelo_impressora,id_tipo_taxa, quantidades)
+) AS modelos(nm_marca, nm_tipo_impressora, nm_modelo_impressora,id_tipo_taxa, quantidades)
 WHERE NOT EXISTS (
     SELECT 1 FROM aluguel_impressora.dbo.modelo_impressora mi
-    JOIN aluguel_impressora.dbo.marca_impressora m ON mi.id_marca_impressora = m.id_marca_impressora
+    JOIN aluguel_impressora.dbo.marca m ON mi.id_marca_impressora = m.id_marca
     JOIN aluguel_impressora.dbo.tipo_impressora t ON mi.id_tipo_impressora = t.id_tipo_impressora
-    WHERE m.nm_marca_impressora = modelos.nm_marca_impressora
+    WHERE m.nm_marca = modelos.nm_marca
     AND t.nm_tipo_impressora = modelos.nm_tipo_impressora
     AND mi.nm_modelo_impressora = modelos.nm_modelo_impressora
 );
@@ -113,8 +113,8 @@ SELECT
     0, -- Não alugada
     1  -- Disponível
 FROM aluguel_impressora.dbo.fornecedor f
-JOIN aluguel_impressora.dbo.marca_impressora ma ON f.nm_fornecedor LIKE ma.nm_marca_impressora+'%'
-JOIN aluguel_impressora.dbo.modelo_impressora m ON ma.id_marca_impressora = m.id_marca_impressora
+JOIN aluguel_impressora.dbo.marca ma ON f.nm_fornecedor LIKE ma.nm_marca+'%'
+JOIN aluguel_impressora.dbo.modelo_impressora m ON ma.id_marca = m.id_marca_impressora
 WHERE NOT EXISTS (
     SELECT 1 FROM aluguel_impressora.dbo.impressora i
     WHERE i.id_fornecedor_impressora = f.id_fornecedor AND i.id_modelo_impressora = m.id_modelo_impressora

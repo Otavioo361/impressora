@@ -14,7 +14,7 @@ BEGIN
     nm_usuario VARCHAR(60) NULL,
     in_modelo_impressora_ativo BIT NOT NULL,
     CONSTRAINT PK_modelo_impressora PRIMARY KEY (id_modelo_impressora),
-    CONSTRAINT FK01_modelo_impressora_X_marca_impressora FOREIGN KEY (id_marca_impressora) REFERENCES aluguel_impressora.dbo.marca_impressora(id_marca_impressora),
+    CONSTRAINT FK01_modelo_impressora_X_marca FOREIGN KEY (id_marca_impressora) REFERENCES aluguel_impressora.dbo.marca(id_marca),
     CONSTRAINT FK02_modelo_impressora_X_tipo_impressora FOREIGN KEY (id_tipo_impressora) REFERENCES aluguel_impressora.dbo.tipo_impressora(id_tipo_impressora),
     CONSTRAINT FK02_modelo_impressora_X_taxa FOREIGN KEY (id_taxa) REFERENCES aluguel_impressora.dbo.taxa(id_taxa)
 );
