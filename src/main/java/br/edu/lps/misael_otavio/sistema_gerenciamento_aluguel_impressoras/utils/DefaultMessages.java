@@ -2,10 +2,12 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils
 
 public enum DefaultMessages {
 
-    LOGIN_NAO_ENCONTRADO("Usuário não encontrado"),
+    CONSULTA_SUCESSO("Consulta de %s feita com sucesso!"),
+    CONSULTA_ERROR("Falha ao realizar a consulta de %s!"),
+    LOGIN_NAO_ENCONTRADO("Usuário não encontrado!"),
     USUARIO_SENHA_INCORRETOS("Email ou senha incorretos!"),
     LOGIN_SUCESSO("Usuário logado com sucesso!"),
-    EMAIL_INVALIDO("O Email informádo é inválido.");
+    EMAIL_INVALIDO("O Email informádo é inválido!");
     
     private String message;
     DefaultMessages(String message){
@@ -14,5 +16,8 @@ public enum DefaultMessages {
 
     public String getMessage(){
         return message;
+    }
+    public String formatMessage(String message){
+        return String.format(this.getMessage(),message);
     }
 }
