@@ -18,13 +18,13 @@ public class LoginController {
     private final LoginDao loginDao = new LoginDao();
     private final UsuarioDao usuarioDao = new UsuarioDao();
 
-    public DataResponseModel validarLogin(String email, String password){
+    public DataResponseModel<SessionModel> validarLogin(String email, String password){
         try {
 
             Login login = this.loginDao.findByEmail(email);
 
             if(!PasswordService.validarSenha(password,login.getHashPassword())){
-                return new DataResponseModel(
+                return new DataResponseModel<>(
                         false,
                         DefaultMessages.USUARIO_SENHA_INCORRETOS.getMessage(),
                         null,
@@ -48,14 +48,14 @@ public class LoginController {
             SessionStorageSingleton.set("nomeUsuario", usuario.getPessoa().getNmPessoa());
             SessionStorageSingleton.set("idUsuario", usuario.getId());
 
-            return new DataResponseModel(
+            return new DataResponseModel<>(
                     true,
                     DefaultMessages.LOGIN_SUCESSO.getMessage(),
-                    null,
+                    session,
                     null
             );
         }catch (AluguelImpressoraException e){
-            return new DataResponseModel(false,e.getMessage(),null,e);
+            return new DataResponseModel<>(false,e.getMessage(),null,e);
         }
     }
 }
