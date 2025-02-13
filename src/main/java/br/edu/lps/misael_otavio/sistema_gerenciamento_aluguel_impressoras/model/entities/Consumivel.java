@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -19,29 +18,34 @@ public class Consumivel {
     @Column(name = "id_consumivel", nullable = false)
     private Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "consumivel_taxa",
-            joinColumns = @JoinColumn(name = "id_consumivel"),
-            inverseJoinColumns = @JoinColumn(name = "id_taxa")
-    )
-    private Set<Taxa> taxas;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_consumivel", nullable = false)
-    private TipoConsumivel idTipoConsumivel;
+    private TipoConsumivel tipoConsumivel;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_fornecedor_consumivel", nullable = false)
-    private Fornecedor idFornecedorConsumivel;
+    private Fornecedor fornecedorConsumivel;
 
-    @Column(name = "cd_consumivel", nullable = false)
-    private Integer cdConsumivel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_impressora")
+    private Impressora impressora;
+
+    @Column(name = "cd_barras_consumivel", nullable = false, length = 30)
+    private String cdBarrasConsumivel;
 
     @Column(name = "nm_consumivel", nullable = false, length = 30)
     private String nmConsumivel;
 
-    @ColumnDefault("DATETIMEOFFSET(6)")
+    @Column(name = "dt_consumido")
+    private LocalDateTime dtConsumido;
+
+    @Column(name = "in_em_consumo", nullable = false)
+    private Boolean inEmConsumo = false;
+
+    @Column(name = "dt_validade_consumivel")
+    private LocalDateTime dtValidadeConsumivel;
+
+    @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
     private LocalDateTime dtInclusao;
 

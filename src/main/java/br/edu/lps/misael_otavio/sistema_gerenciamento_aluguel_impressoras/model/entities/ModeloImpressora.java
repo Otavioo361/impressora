@@ -3,7 +3,6 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
@@ -11,22 +10,22 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "modelo_impressora")
 public class ModeloImpressora {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_modelo_impressora", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_marca_impressora", nullable = false)
-    private MarcaImpressora marcaImpressora;
+    private Marca marcaImpressora;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_impressora", nullable = false)
     private TipoImpressora tipoImpressora;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_taxa", nullable = false)
     private Taxa taxa;
 

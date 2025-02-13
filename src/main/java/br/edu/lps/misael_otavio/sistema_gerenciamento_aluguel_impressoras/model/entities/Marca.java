@@ -6,7 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
@@ -14,15 +13,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@ToString
-@Table(name = "marca_impressora")
-public class MarcaImpressora {
+@Table(name = "marca")
+public class Marca {
     @Id
-    @Column(name = "id_marca_impressora", nullable = false)
+    @Column(name = "id_marca", nullable = false)
     private Integer id;
 
-    @Column(name = "nm_marca_impressora", nullable = false, length = 30)
-    private String nmMarcaImpressora;
+    @Column(name = "nm_marca", nullable = false, length = 30)
+    private String nmMarca;
 
     @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
@@ -34,7 +32,7 @@ public class MarcaImpressora {
     @Column(name = "nm_usuario", length = 60)
     private String nmUsuario;
 
-    @Column(name = "in_marca_impressora_ativo", nullable = false)
-    private Boolean inMarcaImpressoraAtivo = false;
+    @Column(name = "in_marca_ativo", nullable = false)
+    private Boolean inMarcaAtivo = false;
 
 }
