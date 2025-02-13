@@ -21,12 +21,16 @@ public class Taxa {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_taxa", nullable = false)
-    private TipoTaxa idTipoTaxa;
+    private TipoTaxa tipoTaxa;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_recorrencia")
+    private TipoRecorrencia tipoRecorrencia;
 
     @Column(name = "vl_taxa", nullable = false, precision = 10, scale = 2)
     private BigDecimal vlTaxa;
 
-    @ColumnDefault("DATETIMEOFFSET(6)")
+    @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
     private LocalDateTime dtInclusao;
 

@@ -20,7 +20,7 @@ public class Fornecedor {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_fornecedor", nullable = false)
-    private TipoFornecedor idTipoFornecedor;
+    private TipoFornecedor tipoFornecedor;
 
     @Column(name = "nm_fornecedor", nullable = false, length = 120)
     private String nmFornecedor;
@@ -40,7 +40,7 @@ public class Fornecedor {
     @Column(name = "dt_inicio_contrato")
     private LocalDateTime dtInicioContrato;
 
-    @ColumnDefault("DATETIMEOFFSET(6)")
+    @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
     private LocalDateTime dtInclusao;
 

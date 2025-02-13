@@ -36,7 +36,7 @@ public class TipoImpressora {
     @Column(name = "qt_impressora_alugada")
     private Integer qtImpressoraAlugada;
 
-    @ColumnDefault("DATETIMEOFFSET(6)")
+    @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
     private LocalDateTime dtInclusao;
 

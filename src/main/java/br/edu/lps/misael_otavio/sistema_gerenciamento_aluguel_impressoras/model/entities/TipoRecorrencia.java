@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @ToString
-@Table(name = "tipo_taxa")
-public class TipoTaxa {
+@Table(name = "tipo_recorrencia")
+public class TipoRecorrencia {
     @Id
-    @Column(name = "id_tipo_taxa", nullable = false)
+    @Column(name = "id_tipo_recorrencia", nullable = false)
     private Integer id;
 
-    @Column(name = "cd_tipo_taxa", nullable = false)
-    private Integer cdTipoTaxa;
+    @Column(name = "cd_tipo_recorrencia", nullable = false)
+    private Integer cdTipoRecorrencia;
 
-    @Column(name = "nm_tipo_taxa", nullable = false, length = 64)
-    private String nmTipoTaxa;
+    @Column(name = "nm_tipo_recorrencia", nullable = false, length = 64)
+    private String nmTipoRecorrencia;
 
     @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
@@ -37,7 +37,7 @@ public class TipoTaxa {
     @Column(name = "nm_usuario", length = 60)
     private String nmUsuario;
 
-    @Column(name = "in_tipo_taxa_ativo", nullable = false)
-    private Boolean inTipoTaxaAtivo = false;
+    @Column(name = "in_tipo_recorrencia_ativo", nullable = false)
+    private Boolean inTipoRecorrenciaAtivo = false;
 
 }
