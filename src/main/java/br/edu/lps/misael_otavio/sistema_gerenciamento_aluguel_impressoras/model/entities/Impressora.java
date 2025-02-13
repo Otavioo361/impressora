@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -19,32 +18,13 @@ public class Impressora {
     @Column(name = "id_impressora", nullable = false)
     private Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "impressora_consumivel",
-            joinColumns = @JoinColumn(name = "id_impressora"),
-            inverseJoinColumns = @JoinColumn(name = "id_consumivel")
-    )
-    private Set<Consumivel> consumiveis;
-
-    @ManyToMany
-    @JoinTable(
-            name = "impressora_taxa",
-            joinColumns = @JoinColumn(name = "id_impressora"),
-            inverseJoinColumns = @JoinColumn(name = "id_taxa")
-    )
-    private Set<Taxa> taxas;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_tipo_impressora", nullable = false)
-    private TipoImpressora idTipoImpressora;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_fornecedor_impressora", nullable = false)
-    private Fornecedor idFornecedorImpressora;
+    private Fornecedor fornecedorImpressora;
 
-    @Column(name = "id_taxa_impressora", nullable = false)
-    private Integer idTaxaImpressora;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_modelo_impressora", nullable = false)
+    private ModeloImpressora modeloImpressora;
 
     @Column(name = "cd_serie_impressora", nullable = false, length = 20)
     private String cdSerieImpressora;
@@ -52,7 +32,7 @@ public class Impressora {
     @Column(name = "cd_barras_impressora", nullable = false, length = 9)
     private String cdBarrasImpressora;
 
-    @ColumnDefault("DATETIMEOFFSET(6)")
+    @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
     private LocalDateTime dtInclusao;
 
