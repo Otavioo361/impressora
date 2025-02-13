@@ -5,16 +5,18 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Taxa;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Formatadores;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.modify.ModifyImpressoraScreen;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -25,6 +27,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ImpressoraCard extends JPanel {
+    private Impressora impressora;
     private String nmImpressora;
     private String cdSerieImpressora;
     private BigDecimal vlTaxaImpressora;
@@ -44,6 +47,7 @@ public class ImpressoraCard extends JPanel {
         this.inAlugada = impressora.getInImpressoraAlugada();
         this.dataImpressora = impressora.getDtInclusao();
         this.dataAluguelImpressora = impressora.getDtUltimaLocacao();
+        this.impressora = impressora;
         this.render();
     }
 
@@ -106,8 +110,19 @@ public class ImpressoraCard extends JPanel {
     private void render(){
         this.setLayout(new GridBagLayout());
         this.setBackground(new Color(230, 230, 230)); // Cor de fundo cinza claro
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ModifyImpressoraScreen impressoraScreen = new ModifyImpressoraScreen(FrMain.getFrame(),false,impressora);
+                impressoraScreen.setLocationRelativeTo(FrMain.getFrame());
+                impressoraScreen.setSize(FrMain.getFrame().getSize());
+                impressoraScreen.setVisible(true);
+            }
 
+            void onClick(MouseEvent mouseEvent) {}
+        });
         this.gbc = new GridBagConstraints();
         this.gbc.gridx = 0;
         this.gbc.gridy = GridBagConstraints.RELATIVE;
