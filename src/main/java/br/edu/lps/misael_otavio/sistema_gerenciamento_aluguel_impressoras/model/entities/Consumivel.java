@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "consumivel")
 public class Consumivel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_consumivel", nullable = false)
     private Long id;
 
@@ -25,6 +26,10 @@ public class Consumivel {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_fornecedor_consumivel", nullable = false)
     private Fornecedor fornecedorConsumivel;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_modelo_consumivel", nullable = false)
+    private ModeloConsumivel modeloConsumivel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_impressora")
