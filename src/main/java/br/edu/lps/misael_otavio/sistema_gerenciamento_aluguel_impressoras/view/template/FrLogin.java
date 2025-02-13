@@ -6,8 +6,11 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.LoginController;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.SessionModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.PopUpDefault;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -19,6 +22,7 @@ import javax.swing.SwingConstants;
  */
 public class FrLogin extends javax.swing.JFrame {
     private LoginController loginController ;
+    private PopUpDefault popUpDefault;
     /**
      * Creates new form NewJFrame
      */
@@ -26,6 +30,7 @@ public class FrLogin extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         initComponents();
         this.loginController =  new LoginController();
+        this.popUpDefault = new PopUpDefault(this);
     }
 
     /**
@@ -206,13 +211,13 @@ public class FrLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String email = emailInput.getText();
-        String password = String.valueOf(passwordInput.getPassword());
+        String email = "misaelg.freitas2000@gmail.com";//emailInput.getText();
+        String password = "123456789";//String.valueOf(passwordInput.getPassword());
         if(!Validators.validarEmail(email)){
             this.exibirPopUP(DefaultMessages.EMAIL_INVALIDO.getMessage());
             return;
         }
-         DataResponseModel resp = this.loginController.validarLogin(email, password);
+         DataResponseModel<SessionModel> resp = this.loginController.validarLogin(email, password);
         if(!resp.isSuccess()){
             this.exibirPopUP(resp.getMessage());
             return;
@@ -231,17 +236,7 @@ public class FrLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordInputActionPerformed
 
     void exibirPopUP(String message){
-        JDialog modal = new JDialog(this, "Mensagem", true);
-            modal.setSize(200, 150);
-            modal.setLocationRelativeTo(this); 
-
-            JLabel label = new JLabel(message, SwingConstants.CENTER);
-            modal.add(label);
-            JButton closeButton = new JButton("Fechar");
-            closeButton.addActionListener(e1 -> modal.dispose());
-            modal.add(closeButton, "South");
-
-            modal.setVisible(true);
+        this.popUpDefault.showPopUp(message);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
