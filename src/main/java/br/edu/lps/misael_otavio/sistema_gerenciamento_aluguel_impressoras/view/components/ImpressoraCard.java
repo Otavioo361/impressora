@@ -4,6 +4,8 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Taxa;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Formatadores;
@@ -19,6 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -66,12 +69,14 @@ public class ImpressoraCard extends JPanel {
     private void renderStatus() {
         JLabel statusLabel = new JLabel("Status: ");
         statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        Color cor = new Color(0, 162, 46);
         String text = "Disponivel";
-        if (inAlugada) {
+        if (Objects.nonNull(inAlugada) && inAlugada) {
             text = "Alugado";
+            cor = new Color(176, 6, 6);
         }
-        SimpleBadge statusBadge = new SimpleBadge(text,Color.RED,Color.WHITE,new Font("Arial", Font.BOLD, 14));
-
+        SimpleBadge statusBadge = new SimpleBadge(text,cor,Color.WHITE,new Font("Arial", Font.BOLD, 14));
+        statusLabel.setBackground(this.getBackground());
         JPanel status = new JPanel();
         status.setLayout(new GridBagLayout());
         status.add(statusLabel);
