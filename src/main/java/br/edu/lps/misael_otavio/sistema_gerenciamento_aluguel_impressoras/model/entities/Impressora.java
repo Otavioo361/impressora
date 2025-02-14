@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,7 +35,7 @@ public class Impressora {
     private String cdBarrasImpressora;
 
     @ColumnDefault("getdate()")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

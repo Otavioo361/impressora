@@ -3,6 +3,7 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
@@ -10,19 +11,17 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "modelo_consumivel")
 public class ModeloConsumivel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_modelo_consumivel", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_marca_consumivel", nullable = false)
     private Marca marcaConsumivel;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_tipo_consumivel", nullable = false)
-    private TipoConsumivel tipoConsumivel;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_taxa", nullable = false)
@@ -37,8 +36,8 @@ public class ModeloConsumivel {
     @Column(name = "qt_consumivel_disponivel")
     private Integer qtConsumivelDisponivel;
 
-    @Column(name = "qt_consumivel_alugada")
-    private Integer qtConsumivelAlugada;
+    @Column(name = "qt_consumivel_usado")
+    private Integer qtConsumivelUsado;
 
     @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)

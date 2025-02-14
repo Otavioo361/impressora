@@ -1,9 +1,6 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,8 +15,13 @@ import java.time.LocalDateTime;
 @Table(name = "tipo_consumivel")
 public class TipoConsumivel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_consumivel", nullable = false)
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_impressora")
+    private TipoImpressora tipoImpressora;
 
     @Column(name = "cd_tipo_consumivel", nullable = false)
     private Integer cdTipoConsumivel;
@@ -27,7 +29,7 @@ public class TipoConsumivel {
     @Column(name = "nm_tipo_consumivel", nullable = false, length = 30)
     private String nmTipoConsumivel;
 
-    @ColumnDefault("DATETIMEOFFSET(6)")
+    @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", nullable = false)
     private LocalDateTime dtInclusao;
 
@@ -40,7 +42,7 @@ public class TipoConsumivel {
     @Column(name = "in_tipo_consumivel_ativo", nullable = false)
     private Boolean inTipoConsumivelAtivo = false;
 
-    @Column(name = "dt_desativacao", nullable = false)
+    @Column(name = "dt_desativacao")
     private LocalDateTime dtDesativacao;
 
 }
