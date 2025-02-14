@@ -19,20 +19,17 @@ public class FrMain {
     private static final PopUpDefault popUp = new PopUpDefault(frame); //OBRIGATORIO ESTAR NESSA POSIÇÂO
     private static final CardLayout cardLayout = new CardLayout();
     private static final JPanel cardPanel = new JPanel(cardLayout);
-    private static final HashMap<ScreensName, CustomMenuButton> buttonsScreens = new HashMap<>();
-    //private static final RouterView routerView = new RouterView(cardPanel,cardLayout,buttonsScreens);
 
     public static void  criarInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
-
 
         frame.setLayout(new BorderLayout());
         JButton toggleButton = new JButton("Toggle Menu");
 
         JpHeader header = new JpHeader(toggleButton,screenWidth);
 
-        JpMenuLateral menuLateral = new JpMenuLateral(buttonsScreens,frame);
+        JpMenuLateral menuLateral = new JpMenuLateral(frame);
 
 
         frame.add(header, BorderLayout.NORTH);
