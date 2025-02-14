@@ -4,16 +4,24 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.modify;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ConsumivelController;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Consumivel;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Formatadores;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
 
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
 /**
  *
  * @author misael
  */
 public class ModifyImpressoraScreen extends javax.swing.JDialog {
-
+    private ConsumivelController consumivelController = new ConsumivelController();
     /**
      * Creates new form ModifyImpressoraScreen
      */
@@ -63,6 +71,7 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
         jlListaConsumiveis = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
+        btnSolicitarManutencao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -231,6 +240,13 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
             }
         });
 
+        btnSolicitarManutencao.setText("Solicitar Manutenção");
+        btnSolicitarManutencao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarManutencaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -260,6 +276,8 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91)
+                .addComponent(btnSolicitarManutencao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVoltar)
                 .addGap(77, 77, 77))
@@ -287,7 +305,9 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVoltar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVoltar)
+                            .addComponent(btnSolicitarManutencao))
                         .addContainerGap())))
         );
 
@@ -315,6 +335,10 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnSolicitarManutencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarManutencaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSolicitarManutencaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,12 +390,38 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
         this.jlDtAlugada.setText(Formatadores.formatDateTimeDate(imp.getDtUltimaLocacao()));
         this.jlNmFornecedor.setText(imp.getFornecedorImpressora().getNmFornecedor());
         this.jlVlTaxa.setText(Formatadores.formatMoney(imp.getModeloImpressora().getTaxa().getVlTaxa()));
-        imp.getImpressoraConsumivel().forEach(impressoraConsumivel -> {
-            this.jlListaConsumiveis.add(new JLabel(impressoraConsumivel.getConsumivel().getNmConsumivel()));
-        });
+        this.renderListaConsumivel(imp.getId());
+    }
+
+    private void renderListaConsumivel(Long idImpressora){
+        DataResponseModel<List<Consumivel>> resp = this.consumivelController.buscarPorImpressora(idImpressora);
+
+        if(!resp.isSuccess()){
+            this.jlListaConsumiveis.setListData(new String[]{});
+            FrMain.exibirPopUp(resp.getMessage());
+            return;
+        }
+
+        String[] data = new String[resp.getData().size()];
+        List<Consumivel> listaConsumivel = resp.getData();
+
+        for(int i = 0; i < resp.getData().size(); i++) {
+            Consumivel consumivel = listaConsumivel.get(i);
+            System.out.println(consumivel.toString());
+            data[i] = String.format("%s: %s -> %s %s",
+                    consumivel.getTipoConsumivel().getNmTipoConsumivel(),
+                    consumivel.getNmConsumivel(),
+                    Formatadores.formatMoney(consumivel.getModeloConsumivel().getTaxa().getVlTaxa()),
+                    Formatadores.formatDateTimeDate(consumivel.getDtConsumido())
+            );
+
+        }
+        System.out.println(Arrays.toString(data));
+        this.jlListaConsumiveis.setListData(data);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSolicitarManutencao;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
