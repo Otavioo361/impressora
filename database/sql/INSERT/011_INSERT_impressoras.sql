@@ -17,34 +17,6 @@ VALUES
 ;
 
 
-INSERT INTO aluguel_impressora.dbo.marca (nm_marca, dt_inclusao, in_marca_ativo)
-SELECT nm_marca, GETDATE(), 1
-FROM (VALUES
-    ('HP'),
-    ('Epson'),
-    ('Canon'),
-    ('Brother'),
-    ('Lexmark'),
-    ('Samsung'),
-    ('Ricoh'),
-    ('Zebra'),
-    ('Dymo'),
-    ('Bixolon'),
-    ('TSC'),
-    ('Xerox'),
-    ('Kyocera'),
-    ('OKI'),
-    ('Ultimaker'),
-    ('Prusa'),
-    ('Creality'),
-    ('MakerBot')
-) AS marcas(nm_marca)
-WHERE NOT EXISTS (
-    SELECT 1 FROM aluguel_impressora.dbo.marca mi
-    WHERE mi.nm_marca = marcas.nm_marca
-);
-
-
 
 INSERT INTO aluguel_impressora.dbo.modelo_impressora (
     id_marca_impressora, id_tipo_impressora, id_taxa, nm_modelo_impressora, qt_impressora, qt_impressora_disponivel, qt_impressora_alugada, dt_inclusao, in_modelo_impressora_ativo
