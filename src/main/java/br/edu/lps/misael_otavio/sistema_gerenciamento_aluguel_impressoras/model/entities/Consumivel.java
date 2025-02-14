@@ -51,7 +51,7 @@ public class Consumivel {
     private LocalDateTime dtValidadeConsumivel;
 
     @ColumnDefault("getdate()")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

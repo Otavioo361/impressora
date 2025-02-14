@@ -28,7 +28,7 @@ public class TipoCliente {
     private String nmTipoCliente;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

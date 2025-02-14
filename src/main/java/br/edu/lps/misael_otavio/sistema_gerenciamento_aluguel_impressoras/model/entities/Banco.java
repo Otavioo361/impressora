@@ -31,7 +31,7 @@ public class Banco {
     private Boolean inBancoAtivo = false;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

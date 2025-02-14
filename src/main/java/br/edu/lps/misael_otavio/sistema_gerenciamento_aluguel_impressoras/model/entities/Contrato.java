@@ -29,7 +29,7 @@ public class Contrato {
     private Cliente idCliente;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

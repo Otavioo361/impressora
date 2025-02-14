@@ -38,7 +38,7 @@ public class Login {
     private Boolean inLoginAtivo = false;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

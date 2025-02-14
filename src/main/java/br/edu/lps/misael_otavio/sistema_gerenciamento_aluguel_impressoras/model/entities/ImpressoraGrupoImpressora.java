@@ -28,7 +28,7 @@ public class ImpressoraGrupoImpressora {
     private Impressora idImpressora;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")

@@ -40,7 +40,7 @@ public class ModeloConsumivel {
     private Integer qtConsumivelUsado;
 
     @ColumnDefault("getdate()")
-    @Column(name = "dt_inclusao", nullable = false)
+    @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;
 
     @Column(name = "dt_alteracao")
