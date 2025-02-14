@@ -6,7 +6,7 @@ import jakarta.persistence.Query;
 import java.util.List;
 
 public interface DaoInterface<T> {
-    void save(T obj);
+    T save(T obj);
     void update(T obj);
     boolean delete(T obj);
     T findById(Long id);
