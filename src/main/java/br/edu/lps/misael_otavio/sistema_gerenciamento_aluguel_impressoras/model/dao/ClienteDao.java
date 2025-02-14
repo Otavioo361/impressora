@@ -29,8 +29,9 @@ public class ClienteDao implements DaoInterface<Cliente> {
             "\tOR (:email IS NOT NULL AND p.cd_email = :email)";
 
     @Override
-    public void save(Cliente obj) {
+    public Cliente save(Cliente obj) {
         entityManager.persist(obj);
+        return this.findById(obj.getId());
     }
 
     @Override
