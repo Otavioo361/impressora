@@ -1,0 +1,18 @@
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class ComboBoxItem {
+    private Long id;
+    private String nome;
+
+    @Override
+    public String toString(){
+        return nome;
+    }
+}
