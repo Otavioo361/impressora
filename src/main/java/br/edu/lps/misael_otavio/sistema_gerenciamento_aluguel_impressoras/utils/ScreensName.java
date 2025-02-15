@@ -6,7 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ScreensName {
-    IMPRESSORAS("impressoras","Impressoras"),
+    IMPRESSORAS("impressoras","Impressoras"),   
+    FORNECEDORES("fornecedores","Fornecedores"),
+
     HOME("home","Inicio"),
     ;
     private final String screenName;
