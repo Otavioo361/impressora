@@ -27,6 +27,12 @@ public class TipoRecorrencia {
     @Column(name = "nm_tipo_recorrencia", nullable = false, length = 64)
     private String nmTipoRecorrencia;
 
+    @Column(name = "ds_tipo_recorrencia", length = 64)
+    private String dsTipoRecorrencia;
+
+    @Column(name = "qt_dias_recorrencia")
+    private Integer qtDiasRecorrencia;
+
     @ColumnDefault("getdate()")
     @Column(name = "dt_inclusao", insertable = false)
     private LocalDateTime dtInclusao;

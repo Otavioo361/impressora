@@ -1,12 +1,12 @@
 INSERT INTO aluguel_impressora.dbo.tipo_recorrencia
-(cd_tipo_recorrencia, nm_tipo_recorrencia, nm_usuario, in_tipo_recorrencia_ativo)
+(cd_tipo_recorrencia, nm_tipo_recorrencia, ds_tipo_recorrencia, qt_dias_recorrencia, nm_usuario, in_tipo_recorrencia_ativo)
 VALUES
-(1, 'DIÁRIO', 'USUARIO_CRIACAO', 1),
-(2, 'MENSAL', 'USUARIO_CRIACAO', 1),
-(3, 'BIMESTRAL', 'USUARIO_CRIACAO', 1),
-(4, 'SEMESTRAL', 'USUARIO_CRIACAO', 1),
-(5, 'ANUAL', 'USUARIO_CRIACAO', 1),
-(6, 'ÚNICA', 'USUARIO_CRIACAO', 1)
+(1, 'DIÁRIO','dia',1, 'USUARIO_CRIACAO', 1),
+(2, 'MENSAL','mês',30, 'USUARIO_CRIACAO', 1),
+(3, 'BIMESTRAL','bimestre',60, 'USUARIO_CRIACAO', 1),
+(4, 'SEMESTRAL','semestre',180, 'USUARIO_CRIACAO', 1),
+(5, 'ANUAL','ano', 365,'USUARIO_CRIACAO', 1),
+(6, 'ÚNICA','única',0, 'USUARIO_CRIACAO', 1)
 ;
 
 INSERT INTO aluguel_impressora.dbo.tipo_taxa

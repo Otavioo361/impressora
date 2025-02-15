@@ -4,6 +4,8 @@ BEGIN
     id_tipo_recorrencia INT NOT NULL IDENTITY(1,1),
     cd_tipo_recorrencia INT NOT NULL UNIQUE,
     nm_tipo_recorrencia VARCHAR(64) NOT NULL,
+    ds_tipo_recorrencia VARCHAR(64) NULL,
+    qt_dias_recorrencia INT NULL,
     dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
