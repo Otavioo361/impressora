@@ -223,7 +223,7 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
     }
 
     private void initListaImpressora(){
-        DataResponseModel<List<Impressora>> resp = this.impressoraController.buscarImpressorasRecentes();
+        DataResponseModel<List<Impressora>> resp = this.impressoraController.findAll();
         if(!resp.isSuccess()){
             FrMain.exibirPopUp(resp.getMessage());
             return;
