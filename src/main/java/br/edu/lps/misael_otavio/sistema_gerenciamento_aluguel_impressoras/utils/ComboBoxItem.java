@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ComboBoxItem {
-    private Long id;
+    private String id;
     private String nome;
 
     @Override
