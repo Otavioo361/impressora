@@ -35,13 +35,15 @@ public class ModeloImpressoraDao implements DaoInterface<ModeloImpressora> {
 
     @Override
     public List<ModeloImpressora> findAll() {
-        String jpql = "SELECT m FROM ModeloImpressora m where m.inModeloImpressoraAtivo order by m.nmModeloImpressora ASC";
+        String jpql = "SELECT m FROM ModeloImpressora m JOIN FETCH m.taxa t JOIN FETCH t.tipoRecorrencia  order by m.nmModeloImpressora ASC";
         TypedQuery<ModeloImpressora> query = entityManager.createQuery(jpql,ModeloImpressora.class);
         return query.getResultList();
     }
 
     @Override
     public List<ModeloImpressora> findActivesOnly() {
-        return List.of();
+        String jpql = "SELECT m FROM ModeloImpressora m JOIN FETCH m.taxa t JOIN FETCH t.tipoRecorrencia WHERE m.inModeloImpressoraAtivo order by m.nmModeloImpressora ASC";
+        TypedQuery<ModeloImpressora> query = entityManager.createQuery(jpql,ModeloImpressora.class);
+        return query.getResultList();
     }
 }

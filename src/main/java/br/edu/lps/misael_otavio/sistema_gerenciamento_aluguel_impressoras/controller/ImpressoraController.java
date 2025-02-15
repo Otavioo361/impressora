@@ -34,9 +34,21 @@ public class ImpressoraController {
         }
     }
 
-    public DataResponseModel<List<Impressora>> buscarImpressorasRecentes() {
+    public DataResponseModel<List<Impressora>> findAll() {
         try {
-            List<Impressora> impressoras = this.impressoraDao.listarTop20();
+            List<Impressora> impressoras = this.impressoraDao.findAll();
+            return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),impressoras);
+
+        } catch (RuntimeException e) {
+            this.logger.error(DefaultMessages.CONSULTA_ERROR.formatMessage(name));
+            this.logger.error(e.getMessage());
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e );
+        }
+    }
+
+    public DataResponseModel<List<Impressora>> findActivesOnly() {
+        try {
+            List<Impressora> impressoras = this.impressoraDao.findActivesOnly();
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),impressoras);
 
         } catch (RuntimeException e) {
