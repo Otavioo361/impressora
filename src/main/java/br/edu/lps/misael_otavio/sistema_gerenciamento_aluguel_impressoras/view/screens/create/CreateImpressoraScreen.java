@@ -279,7 +279,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         });
     }
     private void buscarModeloImpressora(){
-        DataResponseModel<List<ModeloImpressora>> resp = this.modeloImpressoraController.findAll();
+        DataResponseModel<List<ModeloImpressora>> resp = this.modeloImpressoraController.findActivesOnly();
         if(!resp.isSuccess()){
             FrMain.exibirPopUp(resp.getMessage());
             this.dispose();
@@ -289,7 +289,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
     }
 
     private void buscarFornecedores(){
-        DataResponseModel<List<Fornecedor>> resp = this.fornecedorController.findAll();
+        DataResponseModel<List<Fornecedor>> resp = this.fornecedorController.findActivesOnly();
         if(!resp.isSuccess()){
             FrMain.exibirPopUp(resp.getMessage());
             this.dispose();
