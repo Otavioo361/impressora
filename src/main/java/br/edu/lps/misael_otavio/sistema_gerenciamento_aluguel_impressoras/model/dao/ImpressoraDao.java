@@ -55,9 +55,7 @@ public class ImpressoraDao implements DaoInterface<Impressora> {
         query.setParameter("id", id);
         return query.getSingleResult();
     }
-    public List<Impressora> listarTop20() {
-        return this.listar(20);
-    }
+
     @Override
     public List<Impressora> findAll() {
         return this.listar(100);
@@ -65,7 +63,16 @@ public class ImpressoraDao implements DaoInterface<Impressora> {
 
     @Override
     public List<Impressora> findActivesOnly() {
-        return List.of();
+        String queryFind = "SELECT\n" +
+                "  im\n" +
+                "FROM Impressora im\n" +
+                "JOIN FETCH im.modeloImpressora mi\n" +
+                "JOIN FETCH mi.taxa t\n" +
+                "JOIN FETCH t.tipoRecorrencia\n" +
+                " WHERE im.inImpressoraDisponivel AND NOT im.inImpressoraAlugada \n" +
+                "ORDER BY im.dtInclusao DESC";
+        TypedQuery<Impressora> query = entityManager.createQuery(queryFind, Impressora.class);
+        return query.getResultList();
     }
 
     private List<Impressora> listar(int quantidade) {
@@ -74,6 +81,7 @@ public class ImpressoraDao implements DaoInterface<Impressora> {
                 "FROM Impressora im\n" +
                 "JOIN FETCH im.modeloImpressora mi\n" +
                 "JOIN FETCH mi.taxa t\n" +
+                "JOIN FETCH t.tipoRecorrencia\n" +
                 "ORDER BY im.dtInclusao DESC";
         TypedQuery<Impressora> query = entityManager.createQuery(queryFind, Impressora.class);
         return query.setMaxResults(quantidade).getResultList();

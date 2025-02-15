@@ -3,18 +3,18 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Taxa;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Marca;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.TipoImpressora;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class TaxaDao implements DaoInterface<Taxa> {
+public class TipoImpressoraDao implements DaoInterface<TipoImpressora> {
     private final EntityManager entityManager = EntityManagerSingleton.createEntityManager();
 
     @Override
-    public void save(Taxa obj) {
+    public void save(TipoImpressora obj) {
         try {
             this.entityManager.getTransaction().begin();
             entityManager.persist(obj);
@@ -25,40 +25,39 @@ public class TaxaDao implements DaoInterface<Taxa> {
         }
     }
 
+
     @Override
-    public void update(Taxa obj) {
+    public void update(TipoImpressora obj) {
 
     }
 
     @Override
-    public boolean delete(Taxa obj) {
+    public boolean delete(TipoImpressora obj) {
         return false;
     }
 
     @Override
-    public Taxa findById(Long id) {
+    public TipoImpressora findById(Long id) {
         String queryFind = "SELECT\n" +
-                "  t\n" +
-                "FROM Taxa t\n" +
-                "JOIN FETCH t.tipoTaxa \n" +
-                "JOIN FETCH t.tipoRecorrencia \n" +
-                "WHERE t.id = :id \n";
-        TypedQuery<Taxa> query = entityManager.createQuery(queryFind, Taxa.class);
+                "  ti\n" +
+                "FROM TipoImpressora ti\n" +
+                "WHERE ti.id = :id \n";
+        TypedQuery<TipoImpressora> query = entityManager.createQuery(queryFind, TipoImpressora.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public List<Taxa> findAll() {
-        String jpql = "SELECT t FROM Taxa t JOIN FETCH t.tipoTaxa tt JOIN FETCH t.tipoRecorrencia ORDER BY tt.nmTipoTaxa ASC ";
-        TypedQuery<Taxa> query = entityManager.createQuery(jpql,Taxa.class);
+    public List<TipoImpressora> findAll() {
+        String jpql = "SELECT ti FROM TipoImpressora ti  ORDER BY ti.nmTipoImpressora ASC ";
+        TypedQuery<TipoImpressora> query = entityManager.createQuery(jpql,TipoImpressora.class);
         return query.getResultList();
     }
 
     @Override
-    public List<Taxa> findActivesOnly() {
-        String jpql = "SELECT t FROM Taxa t JOIN FETCH t.tipoTaxa tt JOIN FETCH t.tipoRecorrencia WHERE t.inTaxaAtivo ORDER BY tt.nmTipoTaxa ASC ";
-        TypedQuery<Taxa> query = entityManager.createQuery(jpql,Taxa.class);
+    public List<TipoImpressora> findActivesOnly() {
+        String jpql = "SELECT ti FROM TipoImpressora ti WHERE ti.inTipoImpressoraAtivo ORDER BY ti.nmTipoImpressora ASC ";
+        TypedQuery<TipoImpressora> query = entityManager.createQuery(jpql,TipoImpressora.class);
         return query.getResultList();
     }
 }

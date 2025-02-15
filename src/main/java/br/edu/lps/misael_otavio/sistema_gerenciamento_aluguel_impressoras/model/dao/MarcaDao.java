@@ -3,18 +3,17 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Taxa;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Marca;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class MarcaDao implements DaoInterface<Taxa> {
+public class MarcaDao implements DaoInterface<Marca> {
     private final EntityManager entityManager = EntityManagerSingleton.createEntityManager();
 
     @Override
-    public void save(Fornecedor obj) {
+    public void save(Marca obj) {
         try {
             this.entityManager.getTransaction().begin();
             entityManager.persist(obj);
@@ -25,52 +24,39 @@ public class MarcaDao implements DaoInterface<Taxa> {
         }
     }
 
+
     @Override
-    public void update(Fornecedor obj) {
+    public void update(Marca obj) {
 
     }
 
     @Override
-    public boolean delete(Fornecedor obj) {
+    public boolean delete(Marca obj) {
         return false;
     }
 
     @Override
-    public void save(Taxa obj) {
-
-    }
-
-    @Override
-    public void update(Taxa obj) {
-
-    }
-
-    @Override
-    public boolean delete(Taxa obj) {
-        return false;
-    }
-
-    @Override
-    public Fornecedor findById(Long id) {
+    public Marca findById(Long id) {
         String queryFind = "SELECT\n" +
                 "  f\n" +
-                "FROM Fornecedor f\n" +
-                "JOIN FETCH f.tipoFornecedor mi\n" +
+                "FROM Marca f\n" +
                 "WHERE f.id = :id \n";
-        TypedQuery<Fornecedor> query = entityManager.createQuery(queryFind, Fornecedor.class);
+        TypedQuery<Marca> query = entityManager.createQuery(queryFind, Marca.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public List<Fornecedor> findAll() {
-        String jpql = "SELECT f FROM Fornecedor f WHERE f.inFornecedorDisponivel ORDER BY f.nmFornecedor ASC ";
-        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql,Fornecedor.class);
+    public List<Marca> findAll() {
+        String jpql = "SELECT m FROM Marca m  ORDER BY m.nmMarca ASC ";
+        TypedQuery<Marca> query = entityManager.createQuery(jpql,Marca.class);
         return query.getResultList();
     }
 
     @Override
-    public List<Taxa> findActivesOnly() {
-        return List.of();
+    public List<Marca> findActivesOnly() {
+        String jpql = "SELECT m FROM Marca m WHERE m.inMarcaAtivo ORDER BY m.nmMarca ASC ";
+        TypedQuery<Marca> query = entityManager.createQuery(jpql,Marca.class);
+        return query.getResultList();
     }
 }
