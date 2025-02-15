@@ -6,6 +6,10 @@ import java.util.Objects;
 
 public class Validators {
 
+    public static boolean isListaValida(List lista){
+        return !(Objects.isNull(lista) || lista.isEmpty());
+    }
+
     public static boolean validarCpfCnpj(String cpfCnpj) {
         cpfCnpj = cpfCnpj.replaceAll("\\D", "");
         if(cpfCnpj.length() == 11) {
@@ -62,6 +66,28 @@ public class Validators {
             erros.add(nome+" tamanho invalido max permitido: "+tamanhoMax+" caracteres");
         }
         return campo;
+    }
+
+    public static Long validarCamposLong(String campo, String nome, List<String> erros){
+        if(Objects.isNull(campo) || campo.isEmpty()){
+            erros.add(nome+" nulo ou vazio!");
+            return 0L;
+        }
+        if(!campo.matches("^[0-9]+$")){
+            erros.add(nome +" invalido");
+        }
+        return Long.parseLong(campo);
+    }
+
+    public static Integer validarCamposIntger(String campo, String nome, List<String> erros){
+        if(Objects.isNull(campo) || campo.isEmpty()){
+            erros.add(nome+" nulo ou vazio!");
+            return 0;
+        }
+        if(!campo.matches("^[0-9]+$")){
+            erros.add(nome +" invalido");
+        }
+        return Integer.parseInt(campo);
     }
 
     public static Boolean validarCamposBoleanos(String campo,String nome,List<String> erros){
