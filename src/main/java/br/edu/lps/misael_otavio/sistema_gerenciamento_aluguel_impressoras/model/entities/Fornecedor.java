@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "fornecedor")
 public class Fornecedor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_fornecedor", nullable = false)
     private Long id;
 
@@ -24,6 +25,9 @@ public class Fornecedor {
 
     @Column(name = "nm_fornecedor", nullable = false, length = 120)
     private String nmFornecedor;
+
+    @Column(name = "cd_cnpj_fornecedor", nullable = false, length = 14)
+    private String cdCnpjFornecedor;
 
     @Column(name = "cd_url_site_fornecedor", length = 260)
     private String cdUrlSiteFornecedor;
