@@ -19,6 +19,11 @@ public class SimpleBadge extends JPanel{
     SimpleBadge(String text, Color bgColor, Color fgColor, Font font) {
         this.render(text, bgColor, fgColor, font);
     }
+
+    public static SimpleBadge create(String text, Color bgColor, Color fgColor, Font font){
+        return new SimpleBadge(text, bgColor, fgColor, font);
+    }
+
     private void render(String text, Color bgColor, Color fgColor, Font font) {
         JLabel label = new JLabel(text);
         this.setOpaque(false);
