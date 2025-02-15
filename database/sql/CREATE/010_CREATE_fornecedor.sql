@@ -4,6 +4,7 @@ BEGIN
     id_fornecedor BIGINT NOT NULL IDENTITY(1,1),
     id_tipo_fornecedor INT NOT NULL,
     nm_fornecedor VARCHAR(120) NOT NULL,
+    cd_cnpj_fornecedor VARCHAR(14) NOT NULL,
     cd_url_site_fornecedor VARCHAR(260) NULL,
     nm_contato_fornecedor VARCHAR(60) NULL,
     cd_telefone_contato_fornecedor VARCHAR(20) NULL,
