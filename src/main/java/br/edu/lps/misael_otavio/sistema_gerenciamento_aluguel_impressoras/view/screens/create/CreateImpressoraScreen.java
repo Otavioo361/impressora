@@ -14,7 +14,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ComboBoxItem;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,9 +65,10 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         txCdSerie = new javax.swing.JTextField();
         txCdBarras = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jcbInDisponivel = new javax.swing.JCheckBox();
+        jcbInAlugada = new javax.swing.JCheckBox();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jcbInDisponivel = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,10 +93,10 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jLabel5.setText("Cod Barras:");
 
-        jcbInDisponivel.setText("Impressora disponivel?");
-        jcbInDisponivel.addActionListener(new java.awt.event.ActionListener() {
+        jcbInAlugada.setText("Impressora alugada?");
+        jcbInAlugada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbInDisponivelActionPerformed(evt);
+                jcbInAlugadaActionPerformed(evt);
             }
         });
 
@@ -113,10 +114,23 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
             }
         });
 
+        jcbInDisponivel.setText("Impressora disponivel?");
+        jcbInDisponivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbInDisponivelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -128,25 +142,19 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txCdSerie)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jcbInDisponivel)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(jcbInDisponivel)
+                            .addComponent(txCdSerie))))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jcbFornecedores, 0, 300, Short.MAX_VALUE)
-                    .addComponent(txCdBarras))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbInAlugada)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jcbFornecedores, 0, 300, Short.MAX_VALUE)
+                        .addComponent(txCdBarras)))
                 .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,9 +171,11 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
                     .addComponent(txCdSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txCdBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(jcbInDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbInAlugada, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbInDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -198,9 +208,9 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbInDisponivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInDisponivelActionPerformed
+    private void jcbInAlugadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInAlugadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbInDisponivelActionPerformed
+    }//GEN-LAST:event_jcbInAlugadaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         HashMap<String,String> dados = this.pegarDadosPreenchidos();
@@ -222,6 +232,10 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
     private void jcbModeloImpressoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbModeloImpressoraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbModeloImpressoraActionPerformed
+
+    private void jcbInDisponivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInDisponivelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbInDisponivelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,7 +307,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         for(int i =0;i<this.modeloImpressoraLista.size();i++){
             ModeloImpressora modeloImpressora = this.modeloImpressoraLista.get(i);
             this.jcbModeloImpressora.addItem(new ComboBoxItem(
-                    modeloImpressora.getId(),
+                    String.valueOf(modeloImpressora.getId()),
                     String.format("%d- %s: %s",
                             modeloImpressora.getId(),
                             modeloImpressora.getMarcaImpressora().getNmMarca(),
@@ -309,7 +323,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         int fornecedorIndex = 0;
         for(int i =0;i<this.fornecedorLista.size();i++){
             Fornecedor fornecedor = this.fornecedorLista.get(i);
-            this.jcbFornecedores.addItem(new ComboBoxItem(fornecedor.getId(),fornecedor.getNmFornecedor()));
+            this.jcbFornecedores.addItem(new ComboBoxItem(String.valueOf(fornecedor.getId()),fornecedor.getNmFornecedor()));
             if(fornecedor.getId().equals(this.fornecedorId)){
                 fornecedorIndex = i;
             }
@@ -327,11 +341,15 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
                 this.modeloImpressoraId = Long.valueOf(mapa.get("idModeloImpressora"));
                 String cdBarra = mapa.get("cdBarrasImpressora");
                 String cdSerie = mapa.get("cdSerieImpressora");
+                
                 boolean disponivel = Boolean.parseBoolean(mapa.get("inImpressoraDisponivel"));
-
+                boolean alugada = Boolean.parseBoolean(mapa.get("inImpressoraAlugada"));
+                
                 this.txCdBarras.setText(cdBarra);
                 this.txCdSerie.setText(cdSerie);
-                this.jcbInDisponivel.setSelected(disponivel);
+                this.jcbInDisponivel.setSelected(disponivel);                
+                this.jcbInAlugada.setSelected(alugada);
+
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -345,7 +363,9 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         map.put("idModeloImpressora", String.valueOf(this.modeloImpressoraLista.get(this.jcbModeloImpressora.getSelectedIndex()).getId()));
         map.put("cdBarrasImpressora",this.txCdBarras.getText());
         map.put("cdSerieImpressora",this.txCdSerie.getText());
-        map.put("inImpressoraDisponivel", String.valueOf(this.jcbInDisponivel.isSelected()));
+        map.put("inImpressoraDisponivel", String.valueOf(this.jcbInDisponivel.isSelected()));        
+        map.put("inImpressoraAlugada", String.valueOf(this.jcbInAlugada.isSelected()));
+
         return map;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -358,6 +378,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<ComboBoxItem> jcbFornecedores;
+    private javax.swing.JCheckBox jcbInAlugada;
     private javax.swing.JCheckBox jcbInDisponivel;
     private javax.swing.JComboBox<ComboBoxItem> jcbModeloImpressora;
     private javax.swing.JTextField txCdBarras;
