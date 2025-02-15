@@ -14,8 +14,8 @@ public class ModeloImpressoraDao implements DaoInterface<ModeloImpressora> {
 
 
     @Override
-    public ModeloImpressora save(ModeloImpressora obj) {
-        return this.findById(obj.getId());
+    public void save(ModeloImpressora obj) {
+
     }
 
     @Override

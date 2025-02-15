@@ -25,7 +25,7 @@ public class ImpressoraController {
         try {
             Impressora impressora = validateImpressora.validarCamposEntrada(dados);
             System.out.println(impressora);
-            impressora = this.impressoraDao.save(impressora);
+            this.impressoraDao.save(impressora);
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CADASTRADO_SUCESSO.formatMessage(name), impressora);
         } catch (RuntimeException e) {
             this.logger.error(e.getMessage());

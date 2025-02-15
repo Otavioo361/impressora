@@ -25,8 +25,8 @@ public class ConsumivelDao implements DaoInterface<Consumivel> {
     }
 
     @Override
-    public Consumivel save(Consumivel obj) {
-        return this.findById(obj.getId());
+    public void save(Consumivel obj) {
+
     }
 
     @Override

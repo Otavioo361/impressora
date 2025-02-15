@@ -14,12 +14,12 @@ public class ImpressoraDao implements DaoInterface<Impressora> {
 
 
     @Override
-    public Impressora save(Impressora obj) {
+    public void save(Impressora obj) {
         try {
             this.entityManager.getTransaction().begin();
             entityManager.persist(obj);
             this.entityManager.getTransaction().commit();
-            return this.findById(obj.getId());
+
         }catch (RuntimeException e) {
             this.entityManager.getTransaction().rollback();
             throw new AluguelImpressoraException(e.getMessage());
