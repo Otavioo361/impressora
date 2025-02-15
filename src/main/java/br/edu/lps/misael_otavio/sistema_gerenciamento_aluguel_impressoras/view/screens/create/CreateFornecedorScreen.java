@@ -5,43 +5,47 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.FornecedorController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ImpressoraController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ModeloImpressoraController;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.TipoFornecedorController;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.LoggerSingleton;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.MaskFormatterFabric;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.SessionStorageSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.TipoFornecedor;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ComboBoxItem;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import org.slf4j.Logger;
+
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author misael
  */
-public class CreateImpressoraScreen extends javax.swing.JDialog {
-    private ImpressoraController impressoraController = new ImpressoraController();
-    private ModeloImpressoraController modeloImpressoraController = new ModeloImpressoraController();
-    private FornecedorController fornecedorController = new FornecedorController();
-    private List<ModeloImpressora> modeloImpressoraLista = new ArrayList<>();
-    private List<Fornecedor> fornecedorLista = new ArrayList<>();
+public class CreateFornecedorScreen extends javax.swing.JDialog {
+    private final Logger logger = LoggerSingleton.getLogger(this.getClass());
+    private final TipoFornecedorController tipoFornecedorController = new TipoFornecedorController();
+    private final FornecedorController fornecedorController = new FornecedorController();
+    private List<TipoFornecedor> tipoFornecedores = new ArrayList<>();
 
-    private Long modeloImpressoraId = 0L;
-    private Long fornecedorId = 0L;
+    private Integer tipoFornecdorId = 0;
+
     /**
      * Creates new form CreateImpressoraScreen
      */
-    public CreateImpressoraScreen(java.awt.Frame parent, boolean modal) {
+    public CreateFornecedorScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.buscarModeloImpressora();
-        this.buscarFornecedores();
+        this.buscarTipoFornecedor();
+        this.montarMascaras();
         this.preencherCampos();
         this.iniciarComboBox();
     }
@@ -57,47 +61,48 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jcbModeloImpressora = new javax.swing.JComboBox<>();
+        jcbTipoFornecedor = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jcbFornecedores = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        txCdSerie = new javax.swing.JTextField();
-        txCdBarras = new javax.swing.JTextField();
+        txNmFornecedor = new javax.swing.JTextField();
+        txNmContatoFornecedor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jcbInDisponivel = new javax.swing.JCheckBox();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jcbInDisponivel = new javax.swing.JCheckBox();
+        jLabel6 = new javax.swing.JLabel();
+        txEmailFornecedor = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txCdTelefone = new javax.swing.JFormattedTextField();
+        txCnpjFornecedor = new javax.swing.JFormattedTextField();
+        txSiteFornecedor = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txDataContratacao = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel1.setText("DETALHES IMPRESSORA");
 
-        jcbModeloImpressora.addActionListener(new java.awt.event.ActionListener() {
+        jcbTipoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbModeloImpressoraActionPerformed(evt);
+                jcbTipoFornecedorActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jLabel2.setText("Modelo: ");
+        jLabel2.setText("Tipo Fornecedor: ");
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jLabel3.setText("Fornecedor:");
+        jLabel3.setText("CNPJ:");
 
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jLabel4.setText("N° Série");
+        jLabel4.setText("Nome:");
 
         jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jLabel5.setText("Cod Barras:");
-
-        jcbInDisponivel.setText("Impressora disponivel?");
-        jcbInDisponivel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbInDisponivelActionPerformed(evt);
-            }
-        });
+        jLabel5.setText("Contato:");
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,59 +118,112 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
             }
         });
 
+        jcbInDisponivel.setText("Fornecedor disponivel?");
+        jcbInDisponivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbInDisponivelActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel6.setText("EMAIL:");
+
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel7.setText("Telefone:");
+
+        txCdTelefone.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel8.setText("SITE (URL):");
+
+        txDataContratacao.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jLabel9.setText("Data Contracao:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcbModeloImpressora, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txCdSerie)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jcbInDisponivel)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jcbFornecedores, 0, 300, Short.MAX_VALUE)
-                    .addComponent(txCdBarras))
-                .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcbTipoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txSiteFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txNmFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbInDisponivel))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(txDataContratacao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txNmContatoFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(txCnpjFornecedor)
+                            .addComponent(txCdTelefone))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbModeloImpressora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbTipoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jcbFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(txCnpjFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txCdSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txNmFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(txCdBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(txNmContatoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txCdTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txSiteFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txDataContratacao)
+                        .addComponent(jLabel9)))
+                .addGap(18, 56, Short.MAX_VALUE)
                 .addComponent(jcbInDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -177,35 +235,31 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-                .addGap(304, 304, 304))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(45, 45, 45)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbInDisponivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInDisponivelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbInDisponivelActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         HashMap<String,String> dados = this.pegarDadosPreenchidos();
         System.out.println(dados);
-        DataResponseModel<Impressora> resp = this.impressoraController.save(dados);
+        DataResponseModel<Fornecedor> resp = this.fornecedorController.save(dados);
         FrMain.exibirPopUp(resp.getMessage());
         if(resp.isSuccess()) {
            this.dispose();
@@ -219,9 +273,13 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void jcbModeloImpressoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbModeloImpressoraActionPerformed
+    private void jcbTipoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoFornecedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbModeloImpressoraActionPerformed
+    }//GEN-LAST:event_jcbTipoFornecedorActionPerformed
+
+    private void jcbInDisponivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInDisponivelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbInDisponivelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,20 +298,21 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CreateImpressoraScreen dialog = new CreateImpressoraScreen(new javax.swing.JFrame(), true);
+                CreateFornecedorScreen dialog = new CreateFornecedorScreen(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -264,88 +323,91 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
             }
         });
     }
-    private void buscarModeloImpressora(){
-        DataResponseModel<List<ModeloImpressora>> resp = this.modeloImpressoraController.findAll();
+    private void buscarTipoFornecedor(){
+        DataResponseModel<List<TipoFornecedor>> resp = this.tipoFornecedorController.findAll();
         if(!resp.isSuccess()){
             FrMain.exibirPopUp(resp.getMessage());
             this.dispose();
             return;
         }
-        this.modeloImpressoraLista = resp.getData();
+        this.tipoFornecedores = resp.getData();
     }
 
-    private void buscarFornecedores(){
-        DataResponseModel<List<Fornecedor>> resp = this.fornecedorController.findAll();
-        if(!resp.isSuccess()){
-            FrMain.exibirPopUp(resp.getMessage());
-            this.dispose();
-            return;
+    private void montarMascaras(){
+        try {
+            MaskFormatter telMask = MaskFormatterFabric.getMaskFormatter("(##) # ####-####");
+            telMask.install(this.txCdTelefone);
+            MaskFormatter mask = MaskFormatterFabric.getMaskFormatter("##.###.###/####-##");
+            mask.install(this.txCnpjFornecedor);
+            MaskFormatter dateMask = MaskFormatterFabric.getMaskFormatter("##/##/####");
+            dateMask.install(this.txDataContratacao);
+        } catch (ParseException e) {
+            this.logger.error("Erro ao tentar montar Mascaras ", e);
         }
-        this.fornecedorLista = resp.getData();
     }
+
     private void iniciarComboBox(){
-        if(Objects.isNull(this.modeloImpressoraLista) || Objects.isNull(this.fornecedorLista) || this.modeloImpressoraLista.isEmpty() || this.fornecedorLista.isEmpty()) {
+        if(Objects.isNull(this.tipoFornecedores) || this.tipoFornecedores.isEmpty()) {
             FrMain.exibirPopUp(DefaultMessages.ERRO_DADOS_NAO_ENCOTRADO.getMessage());
             this.dispose();
             return;
         }
-        int modeloIndex = 0;
-        for(int i =0;i<this.modeloImpressoraLista.size();i++){
-            ModeloImpressora modeloImpressora = this.modeloImpressoraLista.get(i);
-            this.jcbModeloImpressora.addItem(new ComboBoxItem(
-                    modeloImpressora.getId(),
-                    String.format("%d- %s: %s",
-                            modeloImpressora.getId(),
-                            modeloImpressora.getMarcaImpressora().getNmMarca(),
-                            modeloImpressora.getNmModeloImpressora()
+        int tpFIndex = 0;
+        for(int i =0;i<this.tipoFornecedores.size();i++){
+            TipoFornecedor dado = this.tipoFornecedores.get(i);
+            this.jcbTipoFornecedor.addItem(new ComboBoxItem(
+                   String.valueOf(tpFIndex),
+                    String.format("%d- %s",
+                            dado.getId(),
+                            dado.getNmTipoFornecedor()
                     )
             ));
-            if(modeloImpressora.getId().equals(this.modeloImpressoraId)){
-                modeloIndex = i;
+            if(dado.getId().equals(this.tipoFornecdorId)){
+                tpFIndex = i;
             }
         }
-        this.jcbModeloImpressora.setSelectedIndex(modeloIndex);
+        this.jcbTipoFornecedor.setSelectedIndex(tpFIndex);
 
-        int fornecedorIndex = 0;
-        for(int i =0;i<this.fornecedorLista.size();i++){
-            Fornecedor fornecedor = this.fornecedorLista.get(i);
-            this.jcbFornecedores.addItem(new ComboBoxItem(fornecedor.getId(),fornecedor.getNmFornecedor()));
-            if(fornecedor.getId().equals(this.fornecedorId)){
-                fornecedorIndex = i;
-            }
-        }
-        this.jcbFornecedores.setSelectedIndex(fornecedorIndex);
 
     }
     private void preencherCampos(){
         try {
 
-            Object dados = SessionStorageSingleton.get("cadastroImpressora");
-            if (dados instanceof HashMap) {
+            Object dados = SessionStorageSingleton.get("cadastroFornecedor");
+            if (dados instanceof HashMap<?,?>) {
                 HashMap<String, String> mapa = (HashMap<String, String>) dados;
-                this.fornecedorId = Long.valueOf(mapa.get("idFornecedorImpressora"));
-                this.modeloImpressoraId = Long.valueOf(mapa.get("idModeloImpressora"));
-                String cdBarra = mapa.get("cdBarrasImpressora");
-                String cdSerie = mapa.get("cdSerieImpressora");
-                boolean disponivel = Boolean.parseBoolean(mapa.get("inImpressoraDisponivel"));
+                this.tipoFornecdorId = Integer.valueOf(mapa.get("idTipoFornecedor"));
+                
+                this.jcbInDisponivel.setSelected(Boolean.parseBoolean(mapa.get("inImpressoraDisponivel")));
 
-                this.txCdBarras.setText(cdBarra);
-                this.txCdSerie.setText(cdSerie);
-                this.jcbInDisponivel.setSelected(disponivel);
+                this.txCnpjFornecedor.setText(mapa.get("cdCpfCnpjFornecedor"));
+                this.txEmailFornecedor.setText(mapa.get("cdEmailFornecedor"));
+                this.txNmFornecedor.setText(mapa.get("nmFornecedor"));
+                this.txNmFornecedor.setText(mapa.get("nmContatoFornecedor"));
+                this.txNmContatoFornecedor.setText(mapa.get("cdTelefone"));
+                this.txSiteFornecedor.setText(mapa.get("cdUrlFornecedor"));
+                this.txDataContratacao.setText(mapa.get("dtInicioContratacao"));
+
             }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+            throw new AluguelImpressoraException("Dado de sessão do fornecedor inválido");
+        }catch (RuntimeException e){
+            this.logger.error("Falha ao tentar repreencher os camos: {}",e.getMessage());
             return;
         }
     }
 
     private HashMap<String,String> pegarDadosPreenchidos(){
         HashMap<String,String> map = new HashMap<>();
-        map.put("idFornecedorImpressora", String.valueOf(this.fornecedorLista.get(this.jcbFornecedores.getSelectedIndex()).getId()));
-        map.put("idModeloImpressora", String.valueOf(this.modeloImpressoraLista.get(this.jcbModeloImpressora.getSelectedIndex()).getId()));
-        map.put("cdBarrasImpressora",this.txCdBarras.getText());
-        map.put("cdSerieImpressora",this.txCdSerie.getText());
-        map.put("inImpressoraDisponivel", String.valueOf(this.jcbInDisponivel.isSelected()));
+        map.put("idTipoFornecedor", String.valueOf(this.tipoFornecedores.get(this.jcbTipoFornecedor.getSelectedIndex()).getId()));
+        map.put("cdCpfCnpjFornecedor",this.txCnpjFornecedor.getText());
+        map.put("cdEmailFornecedor",this.txEmailFornecedor.getText());
+        map.put("nmFornecedor",this.txNmFornecedor.getText());
+        map.put("nmContatoFornecedor",this.txNmFornecedor.getText());
+        map.put("cdTelefone",this.txCdTelefone.getText());
+        map.put("cdUrlFornecedor",this.txSiteFornecedor.getText());
+        map.put("dtInicioContratacao",this.txDataContratacao.getText());
+        map.put("inFornecedorDisponivel", String.valueOf(this.jcbInDisponivel.isSelected()));
+
         return map;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,11 +418,19 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<ComboBoxItem> jcbFornecedores;
     private javax.swing.JCheckBox jcbInDisponivel;
-    private javax.swing.JComboBox<ComboBoxItem> jcbModeloImpressora;
-    private javax.swing.JTextField txCdBarras;
-    private javax.swing.JTextField txCdSerie;
+    private javax.swing.JComboBox<ComboBoxItem> jcbTipoFornecedor;
+    private javax.swing.JFormattedTextField txCdTelefone;
+    private javax.swing.JFormattedTextField txCnpjFornecedor;
+    private javax.swing.JFormattedTextField txDataContratacao;
+    private javax.swing.JTextField txEmailFornecedor;
+    private javax.swing.JTextField txNmContatoFornecedor;
+    private javax.swing.JTextField txNmFornecedor;
+    private javax.swing.JTextField txSiteFornecedor;
     // End of variables declaration//GEN-END:variables
 }

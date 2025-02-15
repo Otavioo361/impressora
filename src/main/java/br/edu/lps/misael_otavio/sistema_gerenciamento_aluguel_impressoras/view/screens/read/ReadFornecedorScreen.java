@@ -4,13 +4,12 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ImpressoraController;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.FornecedorController;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.ImpressoraCard;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateImpressoraScreen;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.modify.ModifyImpressoraScreen;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.FornecedorCard;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateFornecedorScreen;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
 import java.awt.*;
 import java.util.List;
@@ -20,19 +19,17 @@ import javax.swing.*;
  *
  * @author misael
  */
-public class ReadImpressoraScreen extends javax.swing.JDialog {
-    private final ImpressoraController impressoraController = new ImpressoraController();
-    private List<Impressora> impressoras;
+public class ReadFornecedorScreen extends javax.swing.JDialog {
+    private final FornecedorController fornecedorController = new FornecedorController();
+    private List<Fornecedor> dados;
     private JPanel contentPanel;
-    private JScrollPane jspListaImpressora;
-    /**
-     * Creates new form Impressora
-     */
-    public ReadImpressoraScreen(java.awt.Frame parent, boolean modal) {
+    private JScrollPane jspListaDados;
+
+    public ReadFornecedorScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.initListaImpressora();
-        this.renderImpressoraList();
+        this.initListaDados();
+        this.renderDados();
     }
 
     /**
@@ -47,7 +44,7 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         textoBusca = new javax.swing.JTextField();
-        btnNovaImpressora = new javax.swing.JButton();
+        btnNovoFornecedor = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         jpBody = new javax.swing.JPanel();
@@ -64,16 +61,16 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
             }
         });
 
-        btnNovaImpressora.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        btnNovaImpressora.setText("+ Impressora");
-        btnNovaImpressora.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoFornecedor.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnNovoFornecedor.setText("+ FORNECEDOR");
+        btnNovoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovaImpressoraActionPerformed(evt);
+                btnNovoFornecedorActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        jLabel2.setText("IMPRESSORAS");
+        jLabel2.setText("FORNECEDORES");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btnBuscar.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
@@ -89,18 +86,18 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
+                .addGap(153, 153, 153)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNovaImpressora, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btnNovoFornecedor)
+                .addContainerGap(146, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -113,7 +110,7 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(textoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
-                    .addComponent(btnNovaImpressora))
+                    .addComponent(btnNovoFornecedor))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -154,13 +151,13 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnNovaImpressoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaImpressoraActionPerformed
-        CreateImpressoraScreen impressoraScreen = new CreateImpressoraScreen(FrMain.getFrame(),false);
-        impressoraScreen.setLocationRelativeTo(FrMain.getFrame());
-        impressoraScreen.setSize(FrMain.getFrame().getSize());
-        impressoraScreen.setVisible(true);
-        System.out.println("qw3oḱeqpwiojreikjnfg");
-    }//GEN-LAST:event_btnNovaImpressoraActionPerformed
+    private void btnNovoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoFornecedorActionPerformed
+        CreateFornecedorScreen fornecedorScreen = new CreateFornecedorScreen(FrMain.getFrame(),false);
+        fornecedorScreen.setLocationRelativeTo(FrMain.getFrame());
+        fornecedorScreen.setSize(FrMain.getFrame().getSize());
+        fornecedorScreen.setVisible(true);
+
+    }//GEN-LAST:event_btnNovoFornecedorActionPerformed
 
     private void textoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBuscaActionPerformed
         // TODO add your handling code here:
@@ -173,7 +170,7 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -183,14 +180,30 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReadImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReadImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReadImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReadImpressoraScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReadFornecedorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -211,7 +224,7 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ReadImpressoraScreen dialog = new ReadImpressoraScreen(new javax.swing.JFrame(), true);
+                ReadFornecedorScreen dialog = new ReadFornecedorScreen(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -223,37 +236,38 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         });
     }
 
-    private void initListaImpressora(){
-        DataResponseModel<List<Impressora>> resp = this.impressoraController.buscarImpressorasRecentes();
+    private void initListaDados(){
+        DataResponseModel<List<Fornecedor>> resp = this.fornecedorController.findAll();
         if(!resp.isSuccess()){
             FrMain.exibirPopUp(resp.getMessage());
             return;
         }
-        this.impressoras = resp.getData();
+        this.dados = resp.getData();
     }
 
-    private void renderImpressoraList() {
+    private void renderDados() {
         this.contentPanel = new JPanel();
         this.contentPanel.setLayout(new GridLayout(0, 4));
         this.jpBody.setLayout(new BoxLayout(jpBody, BoxLayout.Y_AXIS));
 
-        if (this.impressoras == null || this.impressoras.isEmpty()) {
+        if (this.dados == null || this.dados.isEmpty()) {
             return;
         }
 
-        for (Impressora imp : this.impressoras) {
-            this.contentPanel.add(new ImpressoraCard(imp));
+        for (Fornecedor forn : this.dados) {
+            FornecedorCard card = new FornecedorCard(forn);
+            this.contentPanel.add(card);
         }
 
-        this.jspListaImpressora = new JScrollPane(this.contentPanel);
-        this.jspListaImpressora.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        this.jpBody.add(this.jspListaImpressora);
+        this.jspListaDados = new JScrollPane(this.contentPanel);
+        this.jspListaDados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.jpBody.add(this.jspListaDados);
         this.revalidate();
         this.repaint();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnNovaImpressora;
+    private javax.swing.JButton btnNovoFornecedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

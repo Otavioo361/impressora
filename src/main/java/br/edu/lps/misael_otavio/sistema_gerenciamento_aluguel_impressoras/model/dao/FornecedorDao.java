@@ -1,9 +1,9 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -13,8 +13,15 @@ public class FornecedorDao implements DaoInterface<Fornecedor> {
     private final EntityManager entityManager = EntityManagerSingleton.createEntityManager();
 
     @Override
-    public Fornecedor save(Fornecedor obj) {
-        return new Fornecedor();
+    public void save(Fornecedor obj) {
+        try {
+            this.entityManager.getTransaction().begin();
+            entityManager.persist(obj);
+            this.entityManager.getTransaction().commit();
+        }catch (RuntimeException e) {
+            this.entityManager.getTransaction().rollback();
+            throw new AluguelImpressoraException(e.getMessage());
+        }
     }
 
     @Override
@@ -29,7 +36,14 @@ public class FornecedorDao implements DaoInterface<Fornecedor> {
 
     @Override
     public Fornecedor findById(Long id) {
-        return null;
+        String queryFind = "SELECT\n" +
+                "  f\n" +
+                "FROM Fornecedor f\n" +
+                "JOIN FETCH f.tipoFornecedor mi\n" +
+                "WHERE f.id = :id \n";
+        TypedQuery<Fornecedor> query = entityManager.createQuery(queryFind, Fornecedor.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override
