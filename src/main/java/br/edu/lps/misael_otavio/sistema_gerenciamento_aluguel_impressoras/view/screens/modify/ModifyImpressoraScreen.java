@@ -9,12 +9,10 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Consumivel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Formatadores;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  *

@@ -9,8 +9,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.ImpressoraCard;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateImpressoraScreen;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.modify.ModifyImpressoraScreen;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
 import java.awt.*;
 import java.util.List;
