@@ -10,7 +10,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Formatadores;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.modify.ModifyImpressoraScreen;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrMain;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -75,7 +75,7 @@ public class ImpressoraCard extends JPanel {
             text = "Alugado";
             cor = new Color(176, 6, 6);
         }
-        SimpleBadge statusBadge = new SimpleBadge(text,cor,Color.WHITE,new Font("Arial", Font.BOLD, 14));
+        SimpleBadge statusBadge = SimpleBadge.create(text,cor,Color.WHITE,new Font("Arial", Font.BOLD, 14));
         statusLabel.setBackground(this.getBackground());
         JPanel status = new JPanel();
         status.setLayout(new GridBagLayout());
@@ -104,10 +104,11 @@ public class ImpressoraCard extends JPanel {
 
     private void renderDataImpressora() {
         String text = "Data aquisição";
-        if (this.inAlugada) {
-            text = "Data aluguel";
-        }
         JLabel dataLabel = new JLabel(String.format(text + " : " + Formatadores.formatDateTimeDate(this.dataImpressora)));
+        if (Objects.nonNull(this.inAlugada)) {
+            text = "Data aluguel";
+            dataLabel = new JLabel(String.format(text + " : " + Formatadores.formatDateTimeDate(this.dataAluguelImpressora)));
+        }
         dataLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         this.add(dataLabel,this.gbc);
     }
