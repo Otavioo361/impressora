@@ -32,10 +32,11 @@ public class JpMenuLateral extends JPanel {
     private void instanciarBotoes(){
         CustomMenuButton btn = this.fabricMenuButton(ScreensName.HOME);
         btn.addActionListener(e -> {
-            HomeScreen dlghome = new HomeScreen();
-            dlghome.setLocationRelativeTo(this.mainFrame);
-            dlghome.setSize(this.mainFrame.getSize());
-            dlghome.setVisible(true);
+            for (Window window : this.mainFrame.getOwnedWindows()) { // Obtém todas as janelas associadas ao JFrame
+                if (window instanceof JDialog) {
+                    window.dispose();
+                }
+            }
         });
         this.addButton(btn);
 

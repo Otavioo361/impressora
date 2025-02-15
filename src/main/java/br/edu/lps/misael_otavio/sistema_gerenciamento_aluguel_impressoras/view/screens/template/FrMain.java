@@ -1,6 +1,7 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.PopUpDefault;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.HomeScreen;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -14,12 +15,13 @@ public class FrMain {
     @Getter
     private static final JFrame frame = new JFrame("Aluguel impressoras");
     private static final PopUpDefault popUp = new PopUpDefault(frame); //OBRIGATORIO ESTAR NESSA POSIÇÂO
-    private static final CardLayout cardLayout = new CardLayout();
-    private static final JPanel cardPanel = new JPanel(cardLayout);
+    private static final HomeScreen homePanel = new HomeScreen();
 
     public static void  criarInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
+
+        frame.setLocationRelativeTo(null);
 
         frame.setLayout(new BorderLayout());
         JButton toggleButton = new JButton("Toggle Menu");
@@ -31,7 +33,7 @@ public class FrMain {
 
         frame.add(header, BorderLayout.NORTH);
         frame.add(menuLateral, BorderLayout.WEST);
-        frame.add(cardPanel, BorderLayout.CENTER);
+        frame.add(homePanel, BorderLayout.CENTER);
 
         toggleButton.addActionListener(e -> {
             menuLateral.setVisible(!menuLateral.isVisible());

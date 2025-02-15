@@ -22,10 +22,11 @@ public class FrLogin extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public FrLogin() {
-        this.setLocationRelativeTo(null);
         initComponents();
         this.loginController =  new LoginController();
         this.popUpDefault = new PopUpDefault(this);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
