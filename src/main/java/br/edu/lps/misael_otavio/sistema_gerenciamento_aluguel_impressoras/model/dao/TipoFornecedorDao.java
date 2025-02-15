@@ -37,4 +37,9 @@ public class TipoFornecedorDao implements DaoInterface<TipoFornecedor> {
         TypedQuery<TipoFornecedor> query = entityManager.createQuery(jpql,TipoFornecedor.class);
         return query.getResultList();
     }
+
+    @Override
+    public List<TipoFornecedor> findActivesOnly() {
+        return List.of();
+    }
 }

@@ -62,6 +62,12 @@ public class ImpressoraDao implements DaoInterface<Impressora> {
     public List<Impressora> findAll() {
         return this.listar(100);
     }
+
+    @Override
+    public List<Impressora> findActivesOnly() {
+        return List.of();
+    }
+
     private List<Impressora> listar(int quantidade) {
         String queryFind = "SELECT\n" +
                 "  im\n" +

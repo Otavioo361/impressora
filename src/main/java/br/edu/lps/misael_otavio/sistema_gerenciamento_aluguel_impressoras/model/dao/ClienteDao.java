@@ -70,4 +70,9 @@ public class ClienteDao implements DaoInterface<Cliente> {
     public List<Cliente> findAll() {
         return null;
     }
+
+    @Override
+    public List<Cliente> findActivesOnly() {
+        return List.of();
+    }
 }

@@ -11,4 +11,5 @@ public interface DaoInterface<T> {
     boolean delete(T obj);
     T findById(Long id);
     List<T> findAll();
+    List<T> findActivesOnly();
 }

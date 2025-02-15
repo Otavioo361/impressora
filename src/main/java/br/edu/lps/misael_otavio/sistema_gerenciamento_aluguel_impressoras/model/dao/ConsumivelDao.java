@@ -48,4 +48,9 @@ public class ConsumivelDao implements DaoInterface<Consumivel> {
     public List<Consumivel> findAll() {
         return List.of();
     }
+
+    @Override
+    public List<Consumivel> findActivesOnly() {
+        return List.of();
+    }
 }

@@ -4,12 +4,13 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.except
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Taxa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class FornecedorDao implements DaoInterface<Fornecedor> {
+public class MarcaDao implements DaoInterface<Taxa> {
     private final EntityManager entityManager = EntityManagerSingleton.createEntityManager();
 
     @Override
@@ -35,6 +36,21 @@ public class FornecedorDao implements DaoInterface<Fornecedor> {
     }
 
     @Override
+    public void save(Taxa obj) {
+
+    }
+
+    @Override
+    public void update(Taxa obj) {
+
+    }
+
+    @Override
+    public boolean delete(Taxa obj) {
+        return false;
+    }
+
+    @Override
     public Fornecedor findById(Long id) {
         String queryFind = "SELECT\n" +
                 "  f\n" +
@@ -54,7 +70,7 @@ public class FornecedorDao implements DaoInterface<Fornecedor> {
     }
 
     @Override
-    public List<Fornecedor> findActivesOnly() {
+    public List<Taxa> findActivesOnly() {
         return List.of();
     }
 }
