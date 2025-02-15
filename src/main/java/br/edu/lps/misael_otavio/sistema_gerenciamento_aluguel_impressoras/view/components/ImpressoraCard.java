@@ -37,6 +37,7 @@ public class ImpressoraCard extends JPanel {
     private Boolean inAlugada;
     private LocalDateTime dataAluguelImpressora;    
     private LocalDateTime dataImpressora;
+    private String recorrencia;
 
     private GridBagConstraints gbc;
 
@@ -50,7 +51,10 @@ public class ImpressoraCard extends JPanel {
         this.inAlugada = impressora.getInImpressoraAlugada();
         this.dataImpressora = impressora.getDtInclusao();
         this.dataAluguelImpressora = impressora.getDtUltimaLocacao();
+        this.recorrencia = txImp.getTipoRecorrencia().getDsTipoRecorrencia();
+
         this.impressora = impressora;
+
         this.render();
     }
 
@@ -97,7 +101,7 @@ public class ImpressoraCard extends JPanel {
 
     private void renderVlTaxaImpressora() {
 
-        JLabel taxaLabel = new JLabel(String.format("Taxa: %s /mês", Formatadores.formatMoney(this.vlTaxaImpressora)));
+        JLabel taxaLabel = new JLabel(String.format("Taxa: %s /%s", Formatadores.formatMoney(this.vlTaxaImpressora),this.recorrencia));
         taxaLabel.setFont(new Font("Arial", Font.BOLD, 16));
         this.add(taxaLabel,this.gbc);
     }
