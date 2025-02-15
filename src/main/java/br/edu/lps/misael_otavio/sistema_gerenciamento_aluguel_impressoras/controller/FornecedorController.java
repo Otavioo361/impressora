@@ -49,4 +49,21 @@ public class FornecedorController {
             return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }
     }
+
+
+    public DataResponseModel<List<Fornecedor>> findActivesOnly() {
+        try {
+            List<Fornecedor> dados = this.fornecedorDao.findActivesOnly();
+            return new DataResponseModel<>(
+                    true,
+                    DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),
+                    dados,
+                    null
+            );
+        } catch (RuntimeException e) {
+            this.logger.error(e.getMessage());
+            this.logger.error(Arrays.toString(e.getStackTrace()));
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
+        }
+    }
 }
