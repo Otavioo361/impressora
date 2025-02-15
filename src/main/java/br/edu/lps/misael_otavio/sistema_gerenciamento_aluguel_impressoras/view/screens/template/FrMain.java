@@ -1,7 +1,5 @@
-package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template;
+package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ScreensName;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.CustomMenuButton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.PopUpDefault;
 import lombok.Getter;
 
@@ -9,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.HashMap;
 
 public class FrMain {
     private static final int screenWidth = 1240;

@@ -1,6 +1,6 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.template.FrLogin;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrLogin;
 
 public class SistemaGerenciamentoAluguelImpressoras {
 
