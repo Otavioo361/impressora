@@ -1,8 +1,13 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Validators {
 
     public static boolean validarCpfCnpj(String cpfCnpj) {
+        cpfCnpj = cpfCnpj.replaceAll("\\D", "");
         if(cpfCnpj.length() == 11) {
             int[] digitos = cpfCnpj.chars().map(c -> c - '0').toArray();
             int dv1 = calcularDigitosCPF(digitos, 9);
@@ -29,9 +34,8 @@ public class Validators {
     }
 
     public static boolean validarTelefone(String telefone) {
-        // Regex para validar telefone (com ou sem DDD)
-        String telefoneRegex = "^\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}$";
-        return telefone.matches(telefoneRegex);
+        String telefoneRegex = "^\\(\\d{2}\\) \\d \\d{4}-\\d{4}$";
+        return telefone.matches(telefoneRegex) ;
     }
 
     public static boolean validarEmail(String email) {
@@ -39,6 +43,35 @@ public class Validators {
         String emailRegex = "^[\\w-\\.]+@[\\w-\\.]+\\.[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
     }
+
+
+    public static String apenasDigitos(String value){
+        return value.replaceAll("[^0-9]", "");
+    }
+
+    public static String validarCampoString(String campo, String nome, int tamanhoMax, List<String> erros){
+        if(Objects.isNull(campo) || campo.isEmpty()){
+            erros.add(nome+" nulo ou vazio!");
+            return "";
+        }
+        if(!campo.matches("^[a-zA-Z0-9]+$")){
+            erros.add(nome+" não aceita caracteres especiais");
+            return "";
+        }
+        if(campo.length() > tamanhoMax){
+            erros.add(nome+" tamanho invalido max permitido: "+tamanhoMax+" caracteres");
+        }
+        return campo;
+    }
+
+    public static Boolean validarCamposBoleanos(String campo,String nome,List<String> erros){
+        if(Objects.isNull(campo) || campo.isEmpty()){
+            erros.add(nome+" nulo ou vazio!");
+            return false;
+        }
+        return Boolean.parseBoolean(campo);
+    }
+
 
     /**
      * Calcula um dígito verificador do CPF.
@@ -71,4 +104,5 @@ public class Validators {
         int remainder = sum % 11;
         return remainder < 2 ? 0 : 11 - remainder;
     }
+
 }
