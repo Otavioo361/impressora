@@ -8,6 +8,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.c
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.HomeScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadFornecedorScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadImpressoraScreen;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadModeloImpressoraScreen;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -48,12 +49,20 @@ public class JpMenuLateral extends JPanel {
         this.addButton(btn);
         
         btn = this.fabricMenuButton(ScreensName.FORNECEDORES);
-        
         btn.addActionListener(e -> {
             ReadFornecedorScreen dlgImpressora = new ReadFornecedorScreen(this.mainFrame, false);
             dlgImpressora.setLocationRelativeTo(this.mainFrame);
             dlgImpressora.setSize(mainFrame.getSize());
             dlgImpressora.setVisible(true);
+        });
+        this.addButton(btn);
+
+        btn = this.fabricMenuButton(ScreensName.MODELO_IMPRESSORA);
+        btn.addActionListener(e -> {
+            ReadModeloImpressoraScreen dialog = new ReadModeloImpressoraScreen(this.mainFrame, false);
+            dialog.setLocationRelativeTo(this.mainFrame);
+            dialog.setSize(mainFrame.getSize());
+            dialog.setVisible(true);
         });
         this.addButton(btn);
     }
