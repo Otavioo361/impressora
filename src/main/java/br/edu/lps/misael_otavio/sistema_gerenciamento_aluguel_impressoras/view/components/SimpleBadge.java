@@ -24,6 +24,13 @@ public class SimpleBadge extends JPanel{
         return new SimpleBadge(text, bgColor, fgColor, font);
     }
 
+    public static SimpleBadge createSuccess(String text) {
+        return SimpleBadge.create(text, new Color(0, 162, 46), Color.WHITE, new Font("Arial", Font.BOLD, 14));
+    }
+    public static SimpleBadge createError(String text){
+        return SimpleBadge.create(text,new Color(176, 6, 6),Color.WHITE,new Font("Arial", Font.BOLD, 14));
+    }
+
     private void render(String text, Color bgColor, Color fgColor, Font font) {
         JLabel label = new JLabel(text);
         this.setOpaque(false);
