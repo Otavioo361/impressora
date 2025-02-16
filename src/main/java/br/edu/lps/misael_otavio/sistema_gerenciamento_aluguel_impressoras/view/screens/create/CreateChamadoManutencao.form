@@ -49,7 +49,7 @@
               <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
               <Component id="btnVoltar" min="-2" pref="127" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="181" max="-2" attributes="0"/>
+              <Component id="btnAddChamado" min="-2" pref="181" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -65,7 +65,7 @@
               <Component id="jScrollPane1" min="-2" pref="289" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="btnAddChamado" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="btnVoltar" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -105,7 +105,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnAddChamado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="18" style="1"/>

@@ -31,7 +31,7 @@ public class CreateChamadoManutencao extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnAddChamado = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -46,8 +46,8 @@ public class CreateChamadoManutencao extends javax.swing.JDialog {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton1.setText("Abrir Chamado");
+        btnAddChamado.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnAddChamado.setText("Abrir Chamado");
 
         btnVoltar.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
         btnVoltar.setText("Cancelar");
@@ -80,7 +80,7 @@ public class CreateChamadoManutencao extends javax.swing.JDialog {
                 .addGap(119, 119, 119)
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(146, 146, 146)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddChamado, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,7 +94,7 @@ public class CreateChamadoManutencao extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddChamado, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -150,8 +150,8 @@ public class CreateChamadoManutencao extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddChamado;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;

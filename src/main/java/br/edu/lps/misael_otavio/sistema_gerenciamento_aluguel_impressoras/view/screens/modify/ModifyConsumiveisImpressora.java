@@ -29,9 +29,9 @@ public class ModifyConsumiveisImpressora extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAdicConsu = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -40,15 +40,15 @@ public class ModifyConsumiveisImpressora extends javax.swing.JDialog {
 
         jLabel2.setText("Consumiveis:");
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
-        jButton1.setText("Adicionar");
+        btnAdicConsu.setFont(new java.awt.Font("Liberation Sans", 1, 14)); // NOI18N
+        btnAdicConsu.setText("Adicionar");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton2.setText("Voltar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -58,7 +58,7 @@ public class ModifyConsumiveisImpressora extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
+                    .addComponent(btnVoltar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(61, 61, 61)
@@ -66,7 +66,7 @@ public class ModifyConsumiveisImpressora extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton1))
+                            .addComponent(btnAdicConsu))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(210, 210, 210)
                             .addComponent(jLabel1))))
@@ -80,20 +80,20 @@ public class ModifyConsumiveisImpressora extends javax.swing.JDialog {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton1)
+                    .addComponent(btnAdicConsu)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnVoltar)
                 .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,8 +138,8 @@ public class ModifyConsumiveisImpressora extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAdicConsu;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

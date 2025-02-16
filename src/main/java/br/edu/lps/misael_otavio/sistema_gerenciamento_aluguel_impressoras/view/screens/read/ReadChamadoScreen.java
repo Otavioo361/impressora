@@ -4,6 +4,9 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateChamadoManutencao;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
+
 /**
  *
  * @author Otavio
@@ -31,8 +34,8 @@ public class ReadChamadoScreen extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnNovoChamado = new javax.swing.JButton();
         jpBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -43,14 +46,14 @@ public class ReadChamadoScreen extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabel2.setText("Pesquisa:");
 
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jButton1.setText("Buscar");
+        btnBuscar.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        btnBuscar.setText("Buscar");
 
-        jButton2.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jButton2.setText("+Chamado");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoChamado.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnNovoChamado.setText("+Chamado");
+        btnNovoChamado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnNovoChamadoActionPerformed(evt);
             }
         });
 
@@ -66,9 +69,9 @@ public class ReadChamadoScreen extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(btnNovoChamado))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(400, 400, 400)
                         .addComponent(jLabel1)))
@@ -83,8 +86,8 @@ public class ReadChamadoScreen extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnBuscar)
+                    .addComponent(btnNovoChamado))
                 .addGap(46, 46, 46))
         );
 
@@ -126,9 +129,14 @@ public class ReadChamadoScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnNovoChamadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoChamadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        CreateChamadoManutencao chamadoScreen = new CreateChamadoManutencao(FrMain.getFrame(),false);
+        chamadoScreen.setLocationRelativeTo(FrMain.getFrame());
+        chamadoScreen.setSize(FrMain.getFrame().getSize());
+        chamadoScreen.setVisible(true);
+        
+    }//GEN-LAST:event_btnNovoChamadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,8 +181,8 @@ public class ReadChamadoScreen extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnNovoChamado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
