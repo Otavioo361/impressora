@@ -19,13 +19,13 @@ public class Cliente {
     @Column(name = "id_cliente", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_pessoa", nullable = false)
     private Pessoa pessoa;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo_cliente", nullable = false)
-    private TipoCliente idTipoCliente;
+    private TipoCliente tipoCliente;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", insertable = false)

@@ -1,9 +1,11 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.LoggerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -30,8 +32,14 @@ public class ClienteDao implements DaoInterface<Cliente> {
 
     @Override
     public void save(Cliente obj) {
-        entityManager.persist(obj);
-
+        try {
+            this.entityManager.getTransaction().begin();
+            entityManager.persist(obj);
+            this.entityManager.getTransaction().commit();
+        }catch (RuntimeException e) {
+            this.entityManager.getTransaction().rollback();
+            throw new AluguelImpressoraException(e.getMessage());
+        }
     }
 
     @Override
@@ -68,11 +76,15 @@ public class ClienteDao implements DaoInterface<Cliente> {
 
     @Override
     public List<Cliente> findAll() {
-        return null;
+        String jpql = "SELECT f FROM Cliente f JOIN FETCH f.pessoa p LEFT JOIN p.pessoaFisica LEFT JOIN p.pessoaJuridica ORDER BY p.nmPessoa  ASC ";
+        TypedQuery<Cliente> query = entityManager.createQuery(jpql,Cliente.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Cliente> findActivesOnly() {
-        return List.of();
+        String jpql = "SELECT f FROM Cliente f JOIN FETCH f.pessoa p JOIN FETCH p.pessoaFisica JOIN FETCH p.pessoaJuridica ORDER BY p.nmPessoa  ASC ";
+        TypedQuery<Cliente> query = entityManager.createQuery(jpql,Cliente.class);
+        return query.getResultList();
     }
 }

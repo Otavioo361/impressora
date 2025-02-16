@@ -20,11 +20,11 @@ public class Pessoa {
     @Column(name = "id_pessoa", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_pessoa_fisica")
     private PessoaFisica pessoaFisica;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_pessoa_juridica")
     private PessoaJuridica pessoaJuridica;
 

@@ -6,6 +6,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ScreensName;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.CustomMenuButton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.HomeScreen;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadClienteScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadFornecedorScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadImpressoraScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadModeloImpressoraScreen;
@@ -32,29 +33,34 @@ public class JpMenuLateral extends JPanel {
     private void instanciarBotoes(){
         CustomMenuButton btn = this.fabricMenuButton(ScreensName.HOME);
         btn.addActionListener(e -> {
-            for (Window window : this.mainFrame.getOwnedWindows()) { // Obtém todas as janelas associadas ao JFrame
-                if (window instanceof JDialog) {
-                    window.dispose();
-                }
-            }
+           FrMain.clearAllDialogs();
         });
         this.addButton(btn);
 
         btn = this.fabricMenuButton(ScreensName.IMPRESSORAS);
         btn.addActionListener(e -> {
-            ReadImpressoraScreen dlgImpressora = new ReadImpressoraScreen(this.mainFrame, false);
-            dlgImpressora.setLocationRelativeTo(this.mainFrame);
-            dlgImpressora.setSize(mainFrame.getSize());
-            dlgImpressora.setVisible(true);
+            ReadImpressoraScreen dialog = new ReadImpressoraScreen(this.mainFrame, false);
+            dialog.setLocationRelativeTo(this.mainFrame);
+            dialog.setSize(mainFrame.getSize());
+            dialog.setVisible(true);
         });
         this.addButton(btn);
-        
+
+        btn = this.fabricMenuButton(ScreensName.CLIENTES);
+        btn.addActionListener(e -> {
+            ReadClienteScreen dialog = new ReadClienteScreen(this.mainFrame, false);
+            dialog.setLocationRelativeTo(this.mainFrame);
+            dialog.setSize(mainFrame.getSize());
+            dialog.setVisible(true);
+        });
+        this.addButton(btn);
+
         btn = this.fabricMenuButton(ScreensName.FORNECEDORES);
         btn.addActionListener(e -> {
-            ReadFornecedorScreen dlgImpressora = new ReadFornecedorScreen(this.mainFrame, false);
-            dlgImpressora.setLocationRelativeTo(this.mainFrame);
-            dlgImpressora.setSize(mainFrame.getSize());
-            dlgImpressora.setVisible(true);
+            ReadFornecedorScreen dialog = new ReadFornecedorScreen(this.mainFrame, false);
+            dialog.setLocationRelativeTo(this.mainFrame);
+            dialog.setSize(mainFrame.getSize());
+            dialog.setVisible(true);
         });
         this.addButton(btn);
 

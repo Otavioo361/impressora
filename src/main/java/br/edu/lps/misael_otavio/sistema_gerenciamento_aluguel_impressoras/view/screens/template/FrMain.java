@@ -55,7 +55,13 @@ public class FrMain {
         popUp.showPopUp(message);
     }
 
-
+    public static void clearAllDialogs(){
+        for (Window window : frame.getOwnedWindows()) {
+            if (window instanceof JDialog) {
+                window.dispose();
+            }
+        }
+    }
 
 
 }

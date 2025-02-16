@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum ScreensName {
     IMPRESSORAS("impressoras","Impressoras"),
     FORNECEDORES("fornecedores","Fornecedores"),
+    CLIENTES("clientes","Clientes"),
     MODELO_IMPRESSORA("modeloImpressora","Modelos de impressora"),
     HOME("home","Inicio"),
     ;

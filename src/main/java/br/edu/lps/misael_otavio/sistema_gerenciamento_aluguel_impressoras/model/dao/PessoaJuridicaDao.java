@@ -3,17 +3,18 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaFisica;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaJuridica;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class FornecedorDao implements DaoInterface<Fornecedor> {
+public class PessoaJuridicaDao implements DaoInterface<PessoaJuridica> {
     private final EntityManager entityManager = EntityManagerSingleton.createEntityManager();
 
     @Override
-    public void save(Fornecedor obj) {
+    public void save(PessoaJuridica obj) {
         try {
             this.entityManager.getTransaction().begin();
             entityManager.persist(obj);
@@ -25,38 +26,34 @@ public class FornecedorDao implements DaoInterface<Fornecedor> {
     }
 
     @Override
-    public void update(Fornecedor obj) {
+    public void update(PessoaJuridica obj) {
 
     }
 
     @Override
-    public boolean delete(Fornecedor obj) {
+    public boolean delete(PessoaJuridica obj) {
         return false;
     }
 
     @Override
-    public Fornecedor findById(Long id) {
-        String queryFind = "SELECT\n" +
-                "  f\n" +
-                "FROM Fornecedor f\n" +
-                "JOIN FETCH f.tipoFornecedor mi\n" +
-                "WHERE f.id = :id \n";
-        TypedQuery<Fornecedor> query = entityManager.createQuery(queryFind, Fornecedor.class);
+    public PessoaJuridica findById(Long id) {
+        String queryFind = "SELECT pj FROM PessoaJuridica pj WHERE pj.id = :id \n";
+        TypedQuery<PessoaJuridica> query = entityManager.createQuery(queryFind, PessoaJuridica.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public List<Fornecedor> findAll() {
-        String jpql = "SELECT f FROM Fornecedor f  ORDER BY f.nmFornecedor ASC ";
-        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql,Fornecedor.class);
+    public List<PessoaJuridica> findAll() {
+        String jpql = "SELECT pj FROM PessoaJuridica pj ORDER BY pj.dtInclusao  ASC ";
+        TypedQuery<PessoaJuridica> query = entityManager.createQuery(jpql,PessoaJuridica.class);
         return query.getResultList();
     }
 
     @Override
-    public List<Fornecedor> findActivesOnly() {
-        String jpql = "SELECT f FROM Fornecedor f WHERE f.inFornecedorDisponivel ORDER BY f.nmFornecedor ASC ";
-        TypedQuery<Fornecedor> query = entityManager.createQuery(jpql,Fornecedor.class);
+    public List<PessoaJuridica> findActivesOnly() {
+        String jpql = "SELECT pj FROM PessoaJuridica pj ORDER BY pj.dtInclusao  ASC ";
+        TypedQuery<PessoaJuridica> query = entityManager.createQuery(jpql,PessoaJuridica.class);
         return query.getResultList();
     }
 }

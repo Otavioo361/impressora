@@ -2,14 +2,15 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ClienteException;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Pessoa;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaFisica;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaJuridica;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -18,66 +19,50 @@ import java.util.Objects;
  * @author otavi
  */
 public class ValidateCliente {
+    private List<String> erros;
 
+    public Cliente validarCamposEntrada(HashMap<String,String> camposEntrada) {
+        this.erros = new ArrayList<>();
 
-    public Cliente validaCamposEntrada(String nome, String email, String cpfCnpj, String telefone, String nascimento, String abertura) {
         Cliente cliente = new Cliente();
-        Pessoa pessoa = new Pessoa();
-        if (nome.isEmpty()) {
-            throw new AluguelImpressoraException("Error - Campo vazio: 'nome'.");
-        }
-        pessoa.setNmPessoa(nome);
-        if (email.isEmpty()) {
-            throw new AluguelImpressoraException("Error - Campo vazio: 'email'.");
-        }
-        if (!Validators.validarEmail(email)) {
-            throw new AluguelImpressoraException("Error - E-mail inválido.");
-        }
-        pessoa.setCdEmail(email);
-        cpfCnpj = cpfCnpj.replaceAll("\\D", "");
-        if(!Validators.validarCpfCnpj(cpfCnpj)){
-            throw new ClienteException("Error - Cpf ou Cnpj inválido.");
-        }
-        pessoa.setCdCpfCnpj(cpfCnpj);
+        TipoCliente tipoCliente = new TipoCliente();
+        tipoCliente.setId(1);
+        cliente.setTipoCliente(tipoCliente);
 
-
-        if (!Validators.validarTelefone(telefone)) {
-            throw new AluguelImpressoraException("Error - Telefone inválido.");
-        }
-        telefone = telefone.replaceAll("\\D", "");
-        pessoa.setNrDdd(Integer.parseInt(telefone.substring(0, 2)));
-        pessoa.setNrTelefone(Integer.parseInt(telefone.substring(2)));
-
-        this.validaPessoaFisicaJuridica(pessoa,nascimento,abertura);
-
-        cliente.setPessoa(pessoa);
+        cliente.setPessoa(new ValidatePessoa().validarCamposEntrada(camposEntrada));
         return cliente;
     }
-    private void validaPessoaFisicaJuridica(Pessoa pessoa, String nascimento,String abertura){
-        boolean ehPessoaFisica = pessoa.getCdCpfCnpj().length() == 11;
-        if(ehPessoaFisica){
-            if(nascimento==null || nascimento.isEmpty()){
-                return;
-            }
-            if(nascimento.contains("/")){
-                nascimento = LocalDate.parse(nascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            }
-            LocalDate dtNasc = LocalDate.parse(nascimento);
-            PessoaFisica pessoaFisica = new PessoaFisica();
-            pessoaFisica.setDtNascimento(dtNasc);
-            pessoa.setPessoaFisica(pessoaFisica);
-        }else{
-            if(abertura==null || abertura.isEmpty()){
-                return;
-            }
-            if(abertura.contains("/")){
-                abertura = LocalDate.parse(abertura, DateTimeFormatter.ofPattern("dd/MM/yyyy")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            }
-            LocalDate dtAb = LocalDate.parse(abertura);
-            PessoaJuridica juridica = new PessoaJuridica();
-            juridica.setDtAbertura(dtAb);
-            pessoa.setPessoaJuridica(juridica);
+
+
+
+    private String validarTelefone(String telefone) {
+        if(Validators.validarTelefone(telefone)) {
+            return Validators.apenasDigitos(telefone);
         }
+        this.erros.add("Telefone inválido!");
+        return "000000000000";
     }
 
+    private String validarCpfCpnj(String cnpj) {
+        cnpj = Validators.apenasDigitos(cnpj);
+        if(Validators.validarCpfCnpj(cnpj)) {
+            return cnpj;
+        }
+        this.erros.add("CPF ou CNPJ inválido");
+        return "";
+    }
+    private String validarEmail(String email) {
+        if(Validators.validarEmail(email) && email.length() >= 120) {
+            return email;
+        }
+        this.erros.add("Email inválido");
+        return "";
+    }
+
+    private LocalDate validarDatas(String data){
+        if(Objects.isNull(data)) {
+            return null;
+        }
+        return LocalDate.parse(data , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 }
