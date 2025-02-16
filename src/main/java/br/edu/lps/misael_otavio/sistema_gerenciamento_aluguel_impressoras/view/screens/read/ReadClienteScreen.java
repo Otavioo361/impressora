@@ -5,14 +5,10 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read;
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ClienteController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.FornecedorController;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.ClienteCard;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.FornecedorCard;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateClienteScreen;
-
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
 import java.awt.*;

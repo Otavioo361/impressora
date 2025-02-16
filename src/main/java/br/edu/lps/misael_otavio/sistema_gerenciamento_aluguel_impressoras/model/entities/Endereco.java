@@ -21,7 +21,17 @@ public class Endereco {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_uf", nullable = false)
-    private Uf idUf;
+    private Uf uf;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
+
+    @Column(name = "nm_endereco")
+    private String nmEndereco;
+
+    @Column(name = "nm_cidade", length = 60)
+    private String nmCidade;
 
     @Column(name = "nr_logradouro")
     private Integer nrLogradouro;

@@ -5,6 +5,8 @@ BEGIN
     id_cliente BIGINT NULL,
     id_uf INT NOT NULL,
     nr_logradouro INT,
+    nm_endereco VARCHAR(60),
+    nm_cidade VARCHAR(60),
     nm_logradouro VARCHAR(120),
     nm_bairro VARCHAR(30),
     nm_cep VARCHAR(11),

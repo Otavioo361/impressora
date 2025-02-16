@@ -1,6 +1,5 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,10 +55,6 @@ public class Validators {
     public static String validarCampoString(String campo, String nome, int tamanhoMax, List<String> erros){
         if(Objects.isNull(campo) || campo.isEmpty()){
             erros.add(nome+" nulo ou vazio!");
-            return "";
-        }
-        if(!campo.matches("^[a-zA-Z0-9]+$")){
-            erros.add(nome+" não aceita caracteres especiais");
             return "";
         }
         if(campo.length() > tamanhoMax){

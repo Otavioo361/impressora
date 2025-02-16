@@ -367,8 +367,6 @@ public class CreateFornecedorScreen extends javax.swing.JDialog {
             }
         }
         this.jcbTipoFornecedor.setSelectedIndex(tpFIndex);
-
-
     }
     private void preencherCampos(){
         try {
