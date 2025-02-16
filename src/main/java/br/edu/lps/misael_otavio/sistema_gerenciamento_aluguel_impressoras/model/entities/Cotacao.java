@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "cotacao")
 public class Cotacao {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cotacao", nullable = false)
     private Long id;
 

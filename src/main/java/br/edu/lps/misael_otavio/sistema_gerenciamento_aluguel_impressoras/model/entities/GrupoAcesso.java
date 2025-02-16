@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(name = "grupo_acesso")
 public class GrupoAcesso {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grupo_acesso", nullable = false)
     private Long id;
 

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "consumivel_taxa")
 public class ConsumivelTaxa {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_consumivel_taxa", nullable = false)
     private Long id;
 

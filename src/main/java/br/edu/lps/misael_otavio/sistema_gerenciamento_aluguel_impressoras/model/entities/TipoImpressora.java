@@ -1,9 +1,6 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "tipo_impressora")
 public class TipoImpressora {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_impressora", nullable = false)
     private Integer id;
 

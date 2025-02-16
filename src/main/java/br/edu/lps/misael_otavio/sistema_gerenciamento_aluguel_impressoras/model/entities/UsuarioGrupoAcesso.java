@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = "usuario_grupo_acesso")
 public class UsuarioGrupoAcesso {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario_grupo_acesso", nullable = false)
     private Long id;
 
