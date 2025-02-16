@@ -7,7 +7,6 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.transaction.Transactional;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.valid.ValidateImpressora;
 import org.slf4j.Logger;
 
@@ -20,7 +19,7 @@ public class ImpressoraController {
     private ImpressoraDao impressoraDao = new ImpressoraDao();
     private ValidateImpressora validateImpressora = new ValidateImpressora();
     private Logger logger = LoggerSingleton.getLogger(this.getClass());
-    @Transactional
+
     public DataResponseModel<Impressora> save(HashMap<String, String> dados) {
         try {
             Impressora impressora = validateImpressora.validarCamposEntrada(dados);
@@ -45,6 +44,19 @@ public class ImpressoraController {
             return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e );
         }
     }
+
+    public DataResponseModel<List<Impressora>> findByIdModelo(Long idModelo,Integer quantidade) {
+        try {
+            List<Impressora> impressoras = this.impressoraDao.findByIdModelo(idModelo,quantidade);
+            return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),impressoras);
+
+        } catch (RuntimeException e) {
+            this.logger.error(DefaultMessages.CONSULTA_ERROR.formatMessage(name));
+            this.logger.error(e.getMessage());
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e );
+        }
+    }
+
 
     public DataResponseModel<List<Impressora>> findActivesOnly() {
         try {

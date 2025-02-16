@@ -307,6 +307,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         for(int i =0;i<this.modeloImpressoraLista.size();i++){
             ModeloImpressora modeloImpressora = this.modeloImpressoraLista.get(i);
             this.jcbModeloImpressora.addItem(new ComboBoxItem(
+                    i,
                     String.valueOf(modeloImpressora.getId()),
                     String.format("%d- %s: %s",
                             modeloImpressora.getId(),
@@ -323,7 +324,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
         int fornecedorIndex = 0;
         for(int i =0;i<this.fornecedorLista.size();i++){
             Fornecedor fornecedor = this.fornecedorLista.get(i);
-            this.jcbFornecedores.addItem(new ComboBoxItem(String.valueOf(fornecedor.getId()),fornecedor.getNmFornecedor()));
+            this.jcbFornecedores.addItem(new ComboBoxItem(i,String.valueOf(fornecedor.getId()),fornecedor.getNmFornecedor()));
             if(fornecedor.getId().equals(this.fornecedorId)){
                 fornecedorIndex = i;
             }

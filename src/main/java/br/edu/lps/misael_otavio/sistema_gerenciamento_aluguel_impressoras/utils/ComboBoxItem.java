@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ComboBoxItem {
+    private int index;
     private String id;
     private String nome;
 

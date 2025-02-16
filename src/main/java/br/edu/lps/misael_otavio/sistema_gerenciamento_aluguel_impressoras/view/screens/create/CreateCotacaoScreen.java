@@ -4,15 +4,10 @@
  */
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create;
 
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.FornecedorController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ImpressoraController;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ModeloImpressoraController;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.SessionStorageSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ComboBoxItem;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadImpressoraScreen;
@@ -30,9 +25,14 @@ import java.util.Objects;
  * @author misael
  */
 public class CreateCotacaoScreen extends javax.swing.JDialog {
-    private Cliente cliente;
-    private final HashMap<String,Boolean> checkList = new HashMap<>();
+    private final ContratoController contratController = new ContratoController();
 
+    private Cliente cliente;
+    private Contrato contrato;
+
+
+
+    private final HashMap<String,Boolean> checkList = new HashMap<>();
     private int concluido = 0;
     /**
      * Creates new form CreateImpressoraScreen
@@ -48,7 +48,17 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
         this.cliente = cliente;
         this.barraProgresso.setMinimum(0);
         this.barraProgresso.setMaximum(6);
-
+        this.barraProgresso.setValue(0);
+        this.cadastrarContrato();
+    }
+    public CreateCotacaoScreen(java.awt.Frame parent, boolean modal, Contrato contrato) {
+        super(parent, modal);
+        initComponents();
+        this.cliente = contrato.getCliente();
+        this.contrato = contrato;
+        this.barraProgresso.setMinimum(0);
+        this.barraProgresso.setMaximum(6);
+        this.barraProgresso.setValue(0);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -332,7 +342,7 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadEnderecosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadEnderecosActionPerformed
-        CreateEnderecoScreen dialog = new CreateEnderecoScreen(FrMain.getFrame(), false, this.cliente, checkList);
+        CreateEnderecoScreen dialog = new CreateEnderecoScreen(FrMain.getFrame(), false, this.contrato, checkList);
         dialog.setLocationRelativeTo(FrMain.getFrame());
         dialog.setSize(FrMain.getFrame().getSize());
         dialog.setVisible(true);
@@ -345,7 +355,16 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCadEnderecosActionPerformed
 
     private void btnCadGpImpressoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadGpImpressoraActionPerformed
-        // TODO add your handling code here:
+        CreateGrupoEmpressoraScreen dialog = new CreateGrupoEmpressoraScreen(FrMain.getFrame(), false, this.contrato, checkList);
+        dialog.setLocationRelativeTo(FrMain.getFrame());
+        dialog.setSize(FrMain.getFrame().getSize());
+        dialog.setVisible(true);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                atualizarProgresso();
+            }
+        });
     }//GEN-LAST:event_btnCadGpImpressoraActionPerformed
 
     private void btnCadServAdicionaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadServAdicionaisActionPerformed
@@ -431,6 +450,24 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
         });
     }
 
+    private void cadastrarContrato(){
+        HashMap<String,String> mapa = new HashMap<>();
+        mapa.put("idCliente",String.valueOf(this.cliente.getId()));
+        mapa.put("nmUsuario",SessionStorageSingleton.get("nmUsuario").toString());
+        DataResponseModel<Contrato> resp =  this.contratController.save(mapa);
+        if(!resp.isSuccess()){
+            FrMain.exibirPopUp("Falha ao cadastrar dados da cotação");
+            this.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowActivated(WindowEvent e) {
+                    dispose();
+                }
+            });
+        }
+        this.contrato = resp.getData();
+
+    }
+
     private void atualizarProgresso(){
         this.checkList.values().forEach(value->{
             if(value){
@@ -444,6 +481,7 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
 
     private void atualizarCheckList(){
         this.jcbEndereco.setSelected(this.checkList.getOrDefault("endereco",false));
+        this.jcbEndereco.setSelected(this.checkList.getOrDefault("impressoras",false));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

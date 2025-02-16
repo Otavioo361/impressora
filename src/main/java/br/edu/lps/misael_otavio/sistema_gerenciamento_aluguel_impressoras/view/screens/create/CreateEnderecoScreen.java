@@ -11,10 +11,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factor
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.MaskFormatterFabric;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.SessionStorageSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Endereco;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.TipoFornecedor;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Uf;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.service.EnderecoService;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ComboBoxItem;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
@@ -46,6 +43,7 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
 
 
     private Cliente cliente ;
+    private Contrato contrato;
     private List<Uf> ufLista;
     private HashMap<String,Uf> ufMap = new HashMap<>();
     private HashMap<String,Boolean> checkList;
@@ -56,10 +54,11 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    public CreateEnderecoScreen(java.awt.Frame parent, boolean modal, Cliente cliente, HashMap<String,Boolean> checkList) {
+    public CreateEnderecoScreen(java.awt.Frame parent, boolean modal, Contrato contrato, HashMap<String,Boolean> checkList) {
         super(parent, modal);
         initComponents();
-        this.cliente = cliente;
+        this.contrato = contrato;
+        this.cliente = contrato.getCliente();
         this.checkList = checkList;
         this.buscarUF();
         this.montarMascaras();
@@ -474,10 +473,11 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
             this.dispose();
             return;
         }
-        this.ufLista.forEach(uf -> {
-            this.jcbUf.addItem(new ComboBoxItem(String.valueOf(uf.getId()),uf.getNmEstado()));
+        for (int i =0; i<this.ufLista.size(); i++) {
+            Uf uf = this.ufLista.get(i);
+            this.jcbUf.addItem(new ComboBoxItem(i,String.valueOf(uf.getId()),uf.getNmEstado()));
             this.ufMap.put(uf.getCdUf().toUpperCase(),uf);
-        });
+        }
     }
 
     private HashMap<String,String> pegarDadosPreenchidos(){

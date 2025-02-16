@@ -329,18 +329,20 @@ public class CreateModeloImpressoraScreen extends javax.swing.JDialog {
             return;
         }
 
+        for (int i=0; i<this.marcasLista.size(); i++){
+            Marca marca = this.marcasLista.get(i);
+            this.jcbMarcaImpressora.addItem(new ComboBoxItem(i,String.valueOf(marca.getId()), marca.getNmMarca()));
+        }
 
-        this.marcasLista.forEach(marca -> {
-            this.jcbMarcaImpressora.addItem(new ComboBoxItem(String.valueOf(marca.getId()), marca.getNmMarca()));
-        });
+        for (int i=0; i<this.taxaLista.size(); i++){
+            Taxa taxa = this.taxaLista.get(i);
+            this.jcbTaxa.addItem(new ComboBoxItem(i,String.valueOf(taxa.getId()), taxa.getTipoTaxa().getNmTipoTaxa()));
+        }
 
-        this.taxaLista.forEach(taxa -> {
-            this.jcbTaxa.addItem(new ComboBoxItem(String.valueOf(taxa.getId()), taxa.getTipoTaxa().getNmTipoTaxa()));
-        });
-
-        this.tipoImpressoraLista.forEach(tpImp -> {
-            this.jcbTipoModeloImpressora.addItem(new ComboBoxItem(String.valueOf(tpImp.getId()), tpImp.getNmTipoImpressora()));
-        });
+        for (int i=0; i<this.tipoImpressoraLista.size(); i++){
+            TipoImpressora tpImp = this.tipoImpressoraLista.get(i);
+            this.jcbTipoModeloImpressora.addItem(new ComboBoxItem(i,String.valueOf(tpImp.getId()), tpImp.getNmTipoImpressora()));
+        }
 
 
     }

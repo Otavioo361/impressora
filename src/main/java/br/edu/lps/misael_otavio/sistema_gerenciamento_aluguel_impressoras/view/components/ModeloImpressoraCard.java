@@ -34,7 +34,7 @@ public class ModeloImpressoraCard extends JPanel {
     private LocalDateTime dtCadastroModelo;
     private boolean inDisponivel;
     private String recorrencia;
-
+    private int quantidadeImpressoras;
 
     private GridBagConstraints gbc;
 
@@ -47,6 +47,20 @@ public class ModeloImpressoraCard extends JPanel {
         this.inDisponivel = mdImp.getInModeloImpressoraAtivo();
         this.mdImpressora = mdImp;
         this.recorrencia = txImp.getTipoRecorrencia().getDsTipoRecorrencia();
+        this.quantidadeImpressoras = 0;
+        this.render();
+    }
+
+    public ModeloImpressoraCard(ModeloImpressora mdImp,int quantidadeImpressoras){
+        Taxa txImp = mdImp.getTaxa();
+
+        this.nmImpressora = mdImp.getNmModeloImpressora();
+        this.vlTaxaImpressora =  txImp.getVlTaxa();
+        this.dtCadastroModelo = mdImp.getDtInclusao();
+        this.inDisponivel = mdImp.getInModeloImpressoraAtivo();
+        this.mdImpressora = mdImp;
+        this.recorrencia = txImp.getTipoRecorrencia().getDsTipoRecorrencia();
+        this.quantidadeImpressoras = quantidadeImpressoras;
         this.render();
     }
 
@@ -75,6 +89,15 @@ public class ModeloImpressoraCard extends JPanel {
         this.add(nomeLabel,this.gbc);
     }
 
+    private void renderQuantidade() {
+        if(this.quantidadeImpressoras == 0){
+            return;
+        }
+        JLabel nomeLabel = new JLabel(String.valueOf(this.quantidadeImpressoras));
+        nomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        this.add(nomeLabel,this.gbc);
+    }
+
 
     private void renderVlTaxaImpressora() {
 
@@ -96,13 +119,6 @@ public class ModeloImpressoraCard extends JPanel {
         this.setBackground(new Color(230, 230, 230)); // Cor de fundo cinza claro
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-        });
         this.gbc = new GridBagConstraints();
         this.gbc.gridx = 0;
         this.gbc.gridy = GridBagConstraints.RELATIVE;
@@ -113,6 +129,7 @@ public class ModeloImpressoraCard extends JPanel {
         this.renderVlTaxaImpressora();
         this.renderStatus();
         this.renderDataImpressora();
+        this.renderQuantidade();
         this.setVisible(true);
     }
 

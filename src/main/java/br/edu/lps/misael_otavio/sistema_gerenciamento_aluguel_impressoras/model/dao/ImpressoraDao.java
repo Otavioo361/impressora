@@ -5,6 +5,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factor
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -75,6 +76,18 @@ public class ImpressoraDao implements DaoInterface<Impressora> {
         return query.getResultList();
     }
 
+    public List<Impressora> findByIdModelo(Long idModelo,Integer quantidate) {
+        String queryFind = "SELECT\n" +
+                "  im\n" +
+                "FROM Impressora im\n" +
+                "JOIN FETCH im.modeloImpressora mi\n" +
+                "JOIN FETCH mi.taxa t\n" +
+                "WHERE im.modeloImpressora.id = :idModelo AND im.inImpressoraDisponivel AND NOT im.inImpressoraAlugada \n" +
+                "ORDER BY im.dtInclusao ASC";
+        TypedQuery<Impressora> query = entityManager.createQuery(queryFind, Impressora.class);
+        query.setParameter("idModelo", idModelo);
+        return query.setMaxResults(quantidate).getResultList();
+    }
     private List<Impressora> listar(int quantidade) {
         String queryFind = "SELECT\n" +
                 "  im\n" +

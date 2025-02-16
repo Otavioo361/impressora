@@ -45,6 +45,13 @@ public class EnderecoDao implements DaoInterface<Endereco> {
         return null;
     }
 
+    public List<Endereco> findByClienteId(Long clienteId) {
+        String jpql = "SELECT e FROM Endereco e JOIN FETCH e.uf WHERE e.cliente.id = :idCliente";
+        TypedQuery<Endereco> query = entityManager.createQuery(jpql,Endereco.class);
+        query.setParameter("idCliente", clienteId);
+        return query.getResultList();
+    }
+
     @Override
     public List<Endereco> findAll() {
         String jpql = "SELECT e FROM Endereco e JOIN FETCH e.uf";

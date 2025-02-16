@@ -6,6 +6,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factor
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.interfaces.DaoInterface;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.GrupoImpressora;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -33,6 +34,10 @@ public class ClienteDao implements DaoInterface<Cliente> {
     @Override
     public void save(Cliente obj) {
         try {
+            Cliente cliente = this.validaClienteExistente(obj);
+            if (cliente != null) {
+                throw new AluguelImpressoraException("Cpf ou email já existente");
+            }
             this.entityManager.getTransaction().begin();
             entityManager.persist(obj);
             this.entityManager.getTransaction().commit();
@@ -64,6 +69,8 @@ public class ClienteDao implements DaoInterface<Cliente> {
         qry.setParameter("email", email);
         return qry.getSingleResult();
     }
+
+
 
     public Cliente validaClienteExistente(Cliente cliente){
         return this.findByCpnfCpnpjOrEmail(cliente.getPessoa().getCdCpfCnpj(),cliente.getPessoa().getCdEmail());

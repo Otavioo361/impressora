@@ -7,7 +7,7 @@ BEGIN
     nm_grupo_impressora VARCHAR(64),
     qt_impressora INT NULL,
     vl_aluguel_grupo_impressora DECIMAL(10,2),
-
+    in_grupo_finalizado BIT NULL,
     dt_inclusao DATETIME2(0) NOT NULL DEFAULT GETDATE(),
     dt_alteracao DATETIME NULL,
     nm_usuario VARCHAR(60) NULL,
@@ -16,3 +16,4 @@ BEGIN
     CONSTRAINT FK01_grupo_impressora_X_endereco FOREIGN KEY (id_endereco) REFERENCES aluguel_impressora.dbo.endereco(id_endereco)
   );
 END;
+  

@@ -8,7 +8,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -21,21 +22,21 @@ public class GrupoImpressora {
     @Column(name = "id_grupo_impressora", nullable = false)
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "impressora_grupo_impressora",
             joinColumns = @JoinColumn(name = "id_grupo_impressora"),
             inverseJoinColumns = @JoinColumn(name = "id_impressora")
     )
-    private Set<Impressora> impressoras;
+    private List<Impressora> impressoras;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_contrato", nullable = false)
-    private Contrato idContrato;
+    private Contrato contrato;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_endereco", nullable = false)
-    private Endereco idEndereco;
+    private Endereco endereco;
 
     @Column(name = "nm_grupo_impressora", length = 64)
     private String nmGrupoImpressora;
@@ -45,6 +46,10 @@ public class GrupoImpressora {
 
     @Column(name = "vl_aluguel_grupo_impressora", precision = 10, scale = 2)
     private BigDecimal vlAluguelGrupoImpressora;
+
+    @Column(name = "in_grupo_finalizado")
+    private Boolean inGrupoFinalizado;
+
 
     @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", insertable = false)

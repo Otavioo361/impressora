@@ -27,7 +27,7 @@ public class Contrato {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente idCliente;
+    private Cliente cliente;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", insertable = false)

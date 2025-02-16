@@ -22,7 +22,6 @@ public class ModeloImpressoraController {
     public DataResponseModel<ModeloImpressora> save(HashMap<String,String> dados) {
         try {
             ModeloImpressora mdImp = this.validateModeloImpressora.validarCamposEntrada(dados);
-
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CADASTRADO_SUCESSO.formatMessage(name), mdImp);
         } catch (RuntimeException e) {
             this.logger.error(e.getMessage());
@@ -34,31 +33,21 @@ public class ModeloImpressoraController {
     public DataResponseModel<List<ModeloImpressora>> findAll() {
         try {
             List<ModeloImpressora> dados = this.modeloImpressoraDao.findAll();
-            return new DataResponseModel<>(
-                    true,
-                    DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),
-                    dados,
-                    null
-            );
+            return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),dados);
         }catch (RuntimeException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            return new DataResponseModel<>(false, DefaultMessages.CONSULTA_ERROR.formatMessage(name),null,e);
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }
     }
     public DataResponseModel<List<ModeloImpressora>> findActivesOnly() {
         try {
             List<ModeloImpressora> dados = this.modeloImpressoraDao.findActivesOnly();
-            return new DataResponseModel<>(
-                    true,
-                    DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),
-                    dados,
-                    null
-            );
+            return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),dados);
         }catch (RuntimeException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            return new DataResponseModel<>(false, DefaultMessages.CONSULTA_ERROR.formatMessage(name),null,e);
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }
     }
 }

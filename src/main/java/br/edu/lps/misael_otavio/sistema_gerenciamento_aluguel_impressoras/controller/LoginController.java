@@ -46,6 +46,7 @@ public class LoginController {
 
             SessionStorageSingleton.set("session", session);
             SessionStorageSingleton.set("nomeUsuario", usuario.getPessoa().getNmPessoa());
+            SessionStorageSingleton.set("nmUsuario", usuario.getNmUsuario());
             SessionStorageSingleton.set("idUsuario", usuario.getId());
 
             return new DataResponseModel<>(

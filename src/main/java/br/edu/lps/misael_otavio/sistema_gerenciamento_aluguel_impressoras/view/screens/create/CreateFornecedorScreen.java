@@ -356,6 +356,7 @@ public class CreateFornecedorScreen extends javax.swing.JDialog {
         for(int i =0;i<this.tipoFornecedores.size();i++){
             TipoFornecedor dado = this.tipoFornecedores.get(i);
             this.jcbTipoFornecedor.addItem(new ComboBoxItem(
+                    i,
                    String.valueOf(tpFIndex),
                     String.format("%d- %s",
                             dado.getId(),
