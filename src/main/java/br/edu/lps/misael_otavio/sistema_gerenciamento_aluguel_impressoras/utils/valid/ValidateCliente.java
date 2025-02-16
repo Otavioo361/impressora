@@ -29,6 +29,8 @@ public class ValidateCliente {
         tipoCliente.setId(1);
         cliente.setTipoCliente(tipoCliente);
 
+        cliente.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
+
         cliente.setPessoa(new ValidatePessoa().validarCamposEntrada(camposEntrada));
         return cliente;
     }

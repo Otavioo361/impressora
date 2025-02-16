@@ -29,6 +29,7 @@ public class ValidateFornecedor {
         fornecedor.setCdUrlSiteFornecedor(this.validarSiteURL(camposEntrada.get("cdUrlFornecedor")));
         fornecedor.setInFornecedorDisponivel(Validators.validarCamposBoleanos(camposEntrada.get("inFornecedorDisponivel"),"Fornecedor disponivel",this.erros));
         fornecedor.setDtInicioContrato(this.validarDataContrataca(camposEntrada.get("dtInicioContratacao")));
+        fornecedor.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
 
         TipoFornecedor tipoFornecedor = new TipoFornecedor();
         tipoFornecedor.setId(Integer.parseInt(camposEntrada.get("idTipoFornecedor")));

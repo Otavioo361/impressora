@@ -5,6 +5,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class ValidateImpressora {
         impressora.setCdBarrasImpressora(this.validarCampoString(camposEntrada.get("cdBarrasImpressora"),"Codigo de barras",9));
         impressora.setCdSerieImpressora(this.validarCampoString(camposEntrada.get("cdSerieImpressora"),"Codigo de serie",20));
         impressora.setInImpressoraDisponivel(this.validarCamposBoleanos(camposEntrada.get("inImpressoraDisponivel"),"Impressora disponivel"));
+        impressora.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
 
         ModeloImpressora modeloImpressora = new ModeloImpressora();
         modeloImpressora.setId(this.validarCamposNumericos(camposEntrada.get("idModeloImpressora"),"Modelo impressora"));

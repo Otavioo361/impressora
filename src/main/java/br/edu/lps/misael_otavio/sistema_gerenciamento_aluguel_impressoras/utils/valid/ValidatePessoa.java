@@ -28,7 +28,7 @@ public class ValidatePessoa {
 
         pessoa.setNmPessoa(Validators.validarCampoString(camposEntrada.get("txNmCliente"),"Nome cliente",60,this.erros));
         pessoa.setCdEmail(this.validarEmail(camposEntrada.get("txEmailCliente")));
-
+        pessoa.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
 
         String telefone = this.validarTelefone(camposEntrada.get("txCdTelefone"));
         pessoa.setNrDdd(Integer.parseInt(telefone.substring(0, 2)));

@@ -406,6 +406,8 @@ public class CreateFornecedorScreen extends javax.swing.JDialog {
         map.put("dtInicioContratacao",this.txDataContratacao.getText());
         map.put("inFornecedorDisponivel", String.valueOf(this.jcbInDisponivel.isSelected()));
 
+        map.put("nmUsuario",SessionStorageSingleton.get("nmUsuario").toString());
+
         return map;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

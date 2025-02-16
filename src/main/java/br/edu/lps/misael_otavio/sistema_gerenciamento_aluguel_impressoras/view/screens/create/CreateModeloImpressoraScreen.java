@@ -364,7 +364,7 @@ public class CreateModeloImpressoraScreen extends javax.swing.JDialog {
 
         map.put("inImpressoraDisponivel", String.valueOf(this.jcbInDisponivel.isSelected()));
         map.put("nmModeloImpressopra", String.valueOf(this.txNmModelo.getText()));
-
+        map.put("nmUsuario", SessionStorageSingleton.get("nmUsuario").toString());
 
         return map;
     }

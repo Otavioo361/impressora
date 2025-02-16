@@ -483,6 +483,8 @@ public class CreateClienteScreen extends javax.swing.JDialog {
         map.put("txNmNaturezaJuridica", this.txNmNaturezaJuridica.getText());
         map.put("txNmRazaoSocial", this.txNmRazaoSocial.getText());
 
+        map.put("nmUsuario",SessionStorageSingleton.get("nmUsuario").toString());
+
         return map;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

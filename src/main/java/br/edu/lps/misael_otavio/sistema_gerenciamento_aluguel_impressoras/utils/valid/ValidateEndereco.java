@@ -27,6 +27,7 @@ public class ValidateEndereco {
         endereco.setNrLogradouro(Validators.validarCamposIntger(camposEntrada.get("txNrLogradouro"),"Numero logradouro",this.erros));
         endereco.setNmCidade(Validators.validarCampoString(camposEntrada.get("txNmCidade"),"Cidade",60,this.erros));
         endereco.setNmReferencia(Validators.validarCampoString(camposEntrada.get("txReferencia"),"referencia",32,this.erros));
+        endereco.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
 
         Uf uf = new Uf();
         uf.setId(Validators.validarCamposIntger(camposEntrada.get("idUf"),"UF",this.erros));

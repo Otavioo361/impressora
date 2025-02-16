@@ -27,6 +27,9 @@ public class ValidatePessoaJuridica {
         pessoaJuridica.setDtAbertura(this.validarDatas(camposEntrada.get("txDtAbertura")));
         pessoaJuridica.setNmNaturezaJurica(Validators.validarCampoString(camposEntrada.get("txNmNaturezaJuridica"),"Natureza juridica",120,this.erros));
         pessoaJuridica.setNmRazaoSocial(Validators.validarCampoString(camposEntrada.get("txNmRazaoSocial"),"Razão social",60,this.erros));
+
+        pessoaJuridica.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
+
         return pessoaJuridica;
 
     }

@@ -27,6 +27,9 @@ public class ValidatePessoaFisica {
         PessoaFisica pessoaFisica = new PessoaFisica();
         pessoaFisica.setDtNascimento(this.validarDatas(camposEntrada.get("txDtNascimento")));
         pessoaFisica.setInPpe(Validators.validarCamposBoleanos(camposEntrada.get("jcbInPPE"),"Nome cliente",this.erros));
+        pessoaFisica.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
+
+
         return pessoaFisica;
     }
 

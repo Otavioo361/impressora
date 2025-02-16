@@ -496,8 +496,6 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
         map.put("txNrLogradouro",this.txNrLogradouro.getText());
         map.put("txReferencia",this.txReferencia.getText());
         map.put("idCliente",String.valueOf(this.cliente.getId()));
-        map.put("nmUsuario",SessionStorageSingleton.get("nmUsuario").toString());
-
 
         return map;
     }

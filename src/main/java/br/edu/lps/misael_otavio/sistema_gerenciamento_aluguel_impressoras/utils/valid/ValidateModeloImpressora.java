@@ -15,8 +15,8 @@ public class ValidateModeloImpressora {
 
         ModeloImpressora mdImpressora = new ModeloImpressora();
         mdImpressora.setNmModeloImpressora(Validators.validarCampoString(camposEntrada.get("nmModeloImpressopra"),"Nome do modelo",64,this.erros));
-
         mdImpressora.setInModeloImpressoraAtivo(Validators.validarCamposBoleanos(camposEntrada.get("inImpressoraDisponivel"),"Disponivel",this.erros));
+        mdImpressora.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
 
         Taxa taxa = new Taxa();
         taxa.setId(Validators.validarCamposLong(camposEntrada.get("idTaxa"),"Taxa",this.erros));
