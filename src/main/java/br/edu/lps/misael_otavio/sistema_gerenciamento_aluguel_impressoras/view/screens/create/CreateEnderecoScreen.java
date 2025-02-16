@@ -48,7 +48,7 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
     private Cliente cliente ;
     private List<Uf> ufLista;
     private HashMap<String,Uf> ufMap = new HashMap<>();
-
+    private HashMap<String,Boolean> checkList;
     /**
      * Creates new form CreateImpressoraScreen
      */
@@ -56,10 +56,11 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    public CreateEnderecoScreen(java.awt.Frame parent, boolean modal, Cliente cliente) {
+    public CreateEnderecoScreen(java.awt.Frame parent, boolean modal, Cliente cliente, HashMap<String,Boolean> checkList) {
         super(parent, modal);
         initComponents();
         this.cliente = cliente;
+        this.checkList = checkList;
         this.buscarUF();
         this.montarMascaras();
         this.iniciarComboBox();
@@ -332,11 +333,12 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
         FrMain.exibirPopUp(resp.getMessage());
         if(resp.isSuccess()) {
             this.dispose();
+            this.checkList.put("endereco",true);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-
+        this.checkList.put("endereco",this.checkList.getOrDefault("endereco",false));
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 

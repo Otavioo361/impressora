@@ -18,6 +18,8 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadImpressoraScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,9 @@ import java.util.Objects;
  */
 public class CreateCotacaoScreen extends javax.swing.JDialog {
     private Cliente cliente;
+    private final HashMap<String,Boolean> checkList = new HashMap<>();
+
+    private int concluido = 0;
     /**
      * Creates new form CreateImpressoraScreen
      */
@@ -41,6 +46,8 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.cliente = cliente;
+        this.barraProgresso.setMinimum(0);
+        this.barraProgresso.setMaximum(6);
 
     }
     /**
@@ -235,21 +242,19 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(96, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnFormaPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCadEnderecos, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnCadGpImpressora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnParcelamento, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnCadServAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDadosAdicionais, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnFormaPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCadEnderecos, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCadGpImpressora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnParcelamento, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCadServAdicionais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDadosAdicionais, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnVerValores)
                         .addGap(18, 18, 18)
@@ -257,7 +262,8 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(btnImprimir)
                         .addGap(18, 18, 18)
-                        .addComponent(btnContratar)))
+                        .addComponent(btnContratar))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -297,22 +303,23 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(barraProgresso, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(barraProgresso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -325,10 +332,16 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadEnderecosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadEnderecosActionPerformed
-        CreateEnderecoScreen dialog = new CreateEnderecoScreen(FrMain.getFrame(), false,this.cliente);
+        CreateEnderecoScreen dialog = new CreateEnderecoScreen(FrMain.getFrame(), false, this.cliente, checkList);
         dialog.setLocationRelativeTo(FrMain.getFrame());
         dialog.setSize(FrMain.getFrame().getSize());
         dialog.setVisible(true);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                atualizarProgresso();
+            }
+        });
     }//GEN-LAST:event_btnCadEnderecosActionPerformed
 
     private void btnCadGpImpressoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadGpImpressoraActionPerformed
@@ -418,8 +431,20 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
         });
     }
 
+    private void atualizarProgresso(){
+        this.checkList.values().forEach(value->{
+            if(value){
+                this.concluido ++;
+            }
+        });
 
+        this.barraProgresso.setValue(this.concluido);
+        this.atualizarCheckList();
+    }
 
+    private void atualizarCheckList(){
+        this.jcbEndereco.setSelected(this.checkList.getOrDefault("endereco",false));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barraProgresso;
