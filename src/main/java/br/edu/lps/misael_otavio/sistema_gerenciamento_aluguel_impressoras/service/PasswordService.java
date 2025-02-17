@@ -4,9 +4,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordService {
     public static String hash(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+        return BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
     public static boolean validarSenha(String senha, String passwordHash){
-        return BCrypt.checkpw (senha,passwordHash);
+            return BCrypt.checkpw (senha,passwordHash);
     }
 }

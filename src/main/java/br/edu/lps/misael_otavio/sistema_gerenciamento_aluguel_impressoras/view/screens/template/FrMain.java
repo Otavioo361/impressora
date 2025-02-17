@@ -1,5 +1,8 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.SessionModel;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Acesso;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ScreensName;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.PopUpDefault;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.HomeScreen;
 import lombok.Getter;
@@ -16,8 +19,12 @@ public class FrMain {
     private static final JFrame frame = new JFrame("Aluguel impressoras");
     private static final PopUpDefault popUp = new PopUpDefault(frame); //OBRIGATORIO ESTAR NESSA POSIÇÂO
     private static final HomeScreen homePanel = new HomeScreen();
+    @Getter
+    private static SessionModel sessionModel;
 
-    public static void  criarInterface() {
+
+    public void  criarInterface(SessionModel session) {
+        sessionModel = session;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(screenWidth, screenHeight);
 
@@ -28,7 +35,7 @@ public class FrMain {
 
         JpHeader header = new JpHeader(toggleButton,screenWidth);
 
-        JpMenuLateral menuLateral = new JpMenuLateral(frame);
+        JpMenuLateral menuLateral = new JpMenuLateral(frame,sessionModel);
 
 
         frame.add(header, BorderLayout.NORTH);
@@ -53,6 +60,20 @@ public class FrMain {
     }
     public static void exibirPopUp(String message){
         popUp.showPopUp(message);
+    }
+
+    public static Acesso getAcesso(ScreensName screensName){
+        return sessionModel.getAcessos().get(screensName.getScreenName());
+    }
+
+    public static void logout(){
+        sessionModel = null;
+        clearAllDialogs();
+        frame.setVisible(false);
+        frame.dispose();
+
+        new FrLogin().setVisible(true);
+
     }
 
     public static void clearAllDialogs(){

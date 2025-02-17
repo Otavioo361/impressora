@@ -1,11 +1,15 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.LoginException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.EntityManagerSingleton;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.LoggerSingleton;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Login;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Usuario;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.UsuarioGrupoAcesso;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -23,9 +27,14 @@ public class UsuarioDao {
             "WHERE u.id = :idUsuario";
 
     public Usuario findGrupoAcessoByUsuario(Long idUsuario) {
-        Query query = entityManager.createQuery(queryFindUsuario, UsuarioGrupoAcesso.class);
+        TypedQuery<Usuario> query = entityManager.createQuery(queryFindUsuario, Usuario.class);
         query.setParameter("idUsuario", idUsuario);
-        return (Usuario)query.getSingleResult();
+        List<Usuario> usuarioGrupoAcessos = query.getResultList();
+        if (usuarioGrupoAcessos.isEmpty()) {
+            logger.error("Usuario sem grupos de acesso");
+            throw new LoginException(DefaultMessages.USUARIO_SEM_PERMISSOES);
+        }
+        return usuarioGrupoAcessos.get(0);
     }
 
 }

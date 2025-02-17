@@ -6,7 +6,10 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.
 
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.ClienteController;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Acesso;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ScreensName;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.ClienteCard;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateClienteScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
@@ -25,11 +28,20 @@ public class ReadClienteScreen extends javax.swing.JDialog {
     private JPanel contentPanel;
     private JScrollPane jspListaDados;
 
+    private final Acesso acessoCliente = FrMain.getAcesso(ScreensName.CLIENTES);
+
     public ReadClienteScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        if(!Validators.validarPermissaoR(acessoCliente)){
+            return;
+        }
         initComponents();
         this.initListaDados();
         this.renderDados();
+
+        if(!Validators.validarPermissaoRC(acessoCliente)){
+            this.btnNovoFornecedor.setEnabled(false);
+        }
     }
 
     /**
@@ -152,10 +164,14 @@ public class ReadClienteScreen extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNovoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoFornecedorActionPerformed
-        CreateClienteScreen fornecedorScreen = new CreateClienteScreen(FrMain.getFrame(),false);
-        fornecedorScreen.setLocationRelativeTo(FrMain.getFrame());
-        fornecedorScreen.setSize(FrMain.getFrame().getSize());
-        fornecedorScreen.setVisible(true);
+        if(!Validators.validarPermissaoRCU(acessoCliente)) {
+            FrMain.exibirPopUp("Permissão insuficiente");
+            return;
+        }
+        CreateClienteScreen dialog = new CreateClienteScreen(FrMain.getFrame(),false);
+        dialog.setLocationRelativeTo(FrMain.getFrame());
+        dialog.setSize(FrMain.getFrame().getSize());
+        dialog.setVisible(true);
 
     }//GEN-LAST:event_btnNovoFornecedorActionPerformed
 
