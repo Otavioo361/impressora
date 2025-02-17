@@ -3,6 +3,7 @@ package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ClienteException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 
 import java.time.LocalDate;
@@ -32,6 +33,9 @@ public class ValidateCliente {
         cliente.setNmUsuario(Validators.validarCampoString(camposEntrada.get("nmUsuario"),"Usuario",60,this.erros));
 
         cliente.setPessoa(new ValidatePessoa().validarCamposEntrada(camposEntrada));
+        if(!this.erros.isEmpty()){
+            this.throwException();
+        }
         return cliente;
     }
 
@@ -66,5 +70,8 @@ public class ValidateCliente {
             return null;
         }
         return LocalDate.parse(data , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+    private void throwException(){
+        throw new AluguelImpressoraException(DefaultMessages.ERRO_FOMULARIO.formatMessage(this.erros));
     }
 }

@@ -1,5 +1,7 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Acesso;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -52,6 +54,16 @@ public class Validators {
         return value.replaceAll("[^0-9]", "");
     }
 
+    public static boolean validarPermissaoR(Acesso acesso){
+        return  Objects.nonNull(acesso) && acesso.getInRead();
+    }
+    public static boolean validarPermissaoRC(Acesso acesso){
+        return Objects.nonNull(acesso) && acesso.getInRead() && acesso.getInCreate();
+    }
+    public static boolean validarPermissaoRCU(Acesso acesso){
+        return Objects.nonNull(acesso) && acesso.getInRead() && acesso.getInCreate() && acesso.getInUpdate();
+    }
+
     public static String validarCampoString(String campo, String nome, int tamanhoMax, List<String> erros){
         if(Objects.isNull(campo) || campo.isEmpty()){
             erros.add(nome+" nulo ou vazio!");
@@ -83,6 +95,17 @@ public class Validators {
             erros.add(nome +" invalido");
         }
         return Integer.parseInt(campo);
+    }
+
+    public static Short validarCamposShort(String campo, String nome, List<String> erros){
+        if(Objects.isNull(campo) || campo.isEmpty()){
+            erros.add(nome+" nulo ou vazio!");
+            return 0;
+        }
+        if(!campo.matches("^[0-9]+$")){
+            erros.add(nome +" invalido");
+        }
+        return Short.parseShort(campo);
     }
 
     public static Boolean validarCamposBoleanos(String campo,String nome,List<String> erros){

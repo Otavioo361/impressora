@@ -1,9 +1,11 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.valid;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.AluguelImpressoraException;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Pessoa;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaFisica;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.PessoaJuridica;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 
 import java.time.LocalDate;
@@ -41,7 +43,9 @@ public class ValidatePessoa {
         }else {
             this.validarPessoaJuridica(camposEntrada,pessoa);
         }
-
+        if(!this.erros.isEmpty()){
+            this.throwException();
+        }
 
         return pessoa;
     }
@@ -82,5 +86,9 @@ public class ValidatePessoa {
             return null;
         }
         return LocalDate.parse(data , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    private void throwException(){
+        throw new AluguelImpressoraException(DefaultMessages.ERRO_FOMULARIO.formatMessage(this.erros));
     }
 }

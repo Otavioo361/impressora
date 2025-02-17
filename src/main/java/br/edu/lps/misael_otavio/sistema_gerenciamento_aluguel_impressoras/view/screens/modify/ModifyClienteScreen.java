@@ -10,16 +10,19 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.contro
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Formatadores;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ScreensName;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.Validators;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.ContratoCard;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.components.GrupoImpressoraCard;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateCotacaoScreen;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.create.CreateSatisfacao;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -36,6 +39,10 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
     private JPanel contentPanel;
     private JScrollPane jspListaDados;
 
+    private final Acesso acessoCliente = FrMain.getAcesso(ScreensName.CLIENTES);
+    private final Acesso acessoContrato = FrMain.getAcesso(ScreensName.NOVO_CONTRATO);
+
+
     /**
      * Creates new form ModifyImpressoraScreen
      */
@@ -46,11 +53,18 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
 
     public ModifyClienteScreen(java.awt.Frame parent, boolean modal, Cliente cliente) {
         super(parent, modal);
+
+        if(!Validators.validarPermissaoR(acessoCliente)){
+            return;
+        }
         initComponents();
         this.cliente = cliente;
         preencherCampos(cliente);
         this.buscarContratos();
         this.atualizaListaContrato();
+        if(!Validators.validarPermissaoRCU(acessoContrato)) {
+            this.btnNovoContrato.setEnabled(false);
+        }
     }
 
     /**
@@ -76,8 +90,9 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
         jlNrTelefone = new javax.swing.JLabel();
         jpBody = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        btnNovoContrato = new javax.swing.JButton();
+        btnPesquisaSatisfacao = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        btnNovoContrato = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -179,14 +194,14 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpBody, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,11 +219,11 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
                 .addGap(92, 92, 92))
         );
 
-        btnNovoContrato.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        btnNovoContrato.setText("Nova Cotação");
-        btnNovoContrato.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisaSatisfacao.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnPesquisaSatisfacao.setText("Pesquisa Satisfacao");
+        btnPesquisaSatisfacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoContratoActionPerformed(evt);
+                btnPesquisaSatisfacaoActionPerformed(evt);
             }
         });
 
@@ -216,6 +231,14 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
+            }
+        });
+
+        btnNovoContrato.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        btnNovoContrato.setText("Nova Cotação");
+        btnNovoContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoContratoActionPerformed(evt);
             }
         });
 
@@ -227,8 +250,10 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
                 .addContainerGap(91, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnPesquisaSatisfacao)
+                        .addGap(18, 18, 18)
                         .addComponent(btnNovoContrato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -238,9 +263,10 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisaSatisfacao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovoContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
@@ -253,13 +279,24 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void btnNovoContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoContratoActionPerformed
-       FrMain.clearAllDialogs();
-        CreateCotacaoScreen screen = new CreateCotacaoScreen(FrMain.getFrame(),false, this.cliente);
+    private void btnPesquisaSatisfacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaSatisfacaoActionPerformed
+        CreateSatisfacao screen = new CreateSatisfacao(FrMain.getFrame(),false, this.cliente);
         screen.setLocationRelativeTo(FrMain.getFrame());
         screen.setSize(FrMain.getFrame().getSize());
         screen.setVisible(true);
 
+    }//GEN-LAST:event_btnPesquisaSatisfacaoActionPerformed
+
+    private void btnNovoContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoContratoActionPerformed
+        if(!Validators.validarPermissaoRCU(acessoContrato)) {
+            FrMain.exibirPopUp("Permissão insuficiente");
+            return;
+        }
+        FrMain.clearAllDialogs();
+        CreateCotacaoScreen screen = new CreateCotacaoScreen(FrMain.getFrame(),false, this.cliente);
+        screen.setLocationRelativeTo(FrMain.getFrame());
+        screen.setSize(FrMain.getFrame().getSize());
+        screen.setVisible(true);
     }//GEN-LAST:event_btnNovoContratoActionPerformed
 
     /**
@@ -350,6 +387,7 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNovoContrato;
+    private javax.swing.JButton btnPesquisaSatisfacao;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

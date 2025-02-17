@@ -6,11 +6,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ScreensName {
-    IMPRESSORAS("impressoras","Impressoras"),
-    FORNECEDORES("fornecedores","Fornecedores"),
-    CLIENTES("clientes","Clientes"),
-    MODELO_IMPRESSORA("modeloImpressora","Modelos de impressora"),
-    HOME("home","Inicio"),
+    IMPRESSORAS("IMPRESSORA","Impressoras"),
+    FORNECEDORES("FORNECEDOR","Fornecedores"),
+    CLIENTES("CLIENTE","Clientes"),
+    MODELO_IMPRESSORA("MODELO_IMPRESSORA","Modelos de impressora"),
+    NOVO_CONTRATO("NOVO_CONTRATO","Novo contrato"),
+    HOME("HOME","Inicio"),
+    LOGOUT("LOGOUT","SAIR"),
     ;
     private final String screenName;
     private final String label;

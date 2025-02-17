@@ -36,8 +36,8 @@ public class Usuario {
     @Column(name = "nm_usuario", nullable = false, length = 30)
     private String nmUsuario;
 
-    @Column(name = "nm_password", length = 128)
-    private String nmPassword;
+    @Column(name = "hash_password", length = 128)
+    private String hash_password;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", insertable = false)

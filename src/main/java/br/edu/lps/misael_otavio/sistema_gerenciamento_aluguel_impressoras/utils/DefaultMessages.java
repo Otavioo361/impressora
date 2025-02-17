@@ -11,6 +11,7 @@ public enum DefaultMessages {
     CADASTRADO_ERROR("Falha ao cadastrar %s"),
     USUARIO_SENHA_INCORRETOS("Email ou senha incorretos!"),
     LOGIN_NAO_ENCONTRADO("Usuário não encontrado!"),
+    USUARIO_SEM_PERMISSOES("Usuário não possui permissões!"),
     EMAIL_INVALIDO("O Email informádo é inválido!"),
     CONSULTA_ERROR("Falha ao realizar a consulta de %s!"),
     ERRO_FOMULARIO("<html>Falha ao processar formulario.<br> Erros: <br>&nbsp;&nbsp;&nbsp;&nbsp; %s </html>"),

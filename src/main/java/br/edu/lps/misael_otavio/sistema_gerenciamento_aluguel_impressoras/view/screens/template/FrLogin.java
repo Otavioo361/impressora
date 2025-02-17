@@ -207,8 +207,8 @@ public class FrLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String email = "misaelg.freitas2000@gmail.com";//emailInput.getText();
-        String password = "123456789";//String.valueOf(passwordInput.getPassword());
+        String email = emailInput.getText();
+        String password = String.valueOf(passwordInput.getPassword());
         if(!Validators.validarEmail(email)){
             this.exibirPopUP(DefaultMessages.EMAIL_INVALIDO.getMessage());
             return;
@@ -219,7 +219,8 @@ public class FrLogin extends javax.swing.JFrame {
             return;
         }
         this.setVisible(false);
-        FrMain.criarInterface();
+        new FrMain().criarInterface(resp.getData());
+        this.dispose();
        
     }//GEN-LAST:event_btnLoginActionPerformed
 

@@ -6,13 +6,13 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factor
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.SessionModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.LoginDao;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.UsuarioDao;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Login;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Sessao;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Usuario;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.service.PasswordService;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
 import lombok.extern.java.Log;
+
+import java.util.HashMap;
 
 public class LoginController {
     private final LoginDao loginDao = new LoginDao();
@@ -41,7 +41,8 @@ public class LoginController {
                     usuario.getNmUsuario(),
                     login.getCdCpfCnpj(),
                     usuario.getPessoa().getNmPessoa(),
-                    usuario.getGruposAcesso()
+                    usuario.getGruposAcesso(),
+                    this.montarTelas(usuario)
             );
 
             SessionStorageSingleton.set("session", session);
@@ -58,5 +59,15 @@ public class LoginController {
         }catch (AluguelImpressoraException e){
             return new DataResponseModel<>(false,e.getMessage(),null,e);
         }
+    }
+
+    private HashMap<String, Acesso> montarTelas(Usuario usuario){
+        HashMap<String, Acesso> telas = new HashMap<>();
+        for(GrupoAcesso grupoAcesso : usuario.getGruposAcesso()){
+            for (Acesso acesso : grupoAcesso.getAcessos()){
+              telas.put(acesso.getTela().getCdTela(), acesso);
+            }
+        }
+        return telas;
     }
 }

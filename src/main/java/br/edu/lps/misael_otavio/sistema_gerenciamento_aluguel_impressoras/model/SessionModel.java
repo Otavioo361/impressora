@@ -1,10 +1,12 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Acesso;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.GrupoAcesso;
 
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Set;
 
 @Getter
@@ -20,4 +22,5 @@ public class SessionModel {
     private String cpfCnpj;
     private String nmUsuario;
     private Set<GrupoAcesso> permissoes;
+    private HashMap<String, Acesso> acessos;
 }
