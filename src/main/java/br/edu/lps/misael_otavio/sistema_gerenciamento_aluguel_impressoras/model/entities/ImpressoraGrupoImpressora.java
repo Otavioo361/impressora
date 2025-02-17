@@ -22,11 +22,11 @@ public class ImpressoraGrupoImpressora {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_grupo_impressora", nullable = false)
-    private GrupoImpressora idGrupoImpressora;
+    private GrupoImpressora grupoImpressora;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "id_impressora", nullable = false)
-    private Impressora idImpressora;
+    private Impressora impressora;
 
     @ColumnDefault("DATETIMEOFFSET(6)")
     @Column(name = "dt_inclusao", insertable = false)

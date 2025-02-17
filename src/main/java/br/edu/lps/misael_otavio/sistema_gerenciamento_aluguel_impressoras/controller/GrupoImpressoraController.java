@@ -5,8 +5,10 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factor
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.EnderecoDao;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.GrupoImpressoraDao;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.ImpressoraGrupoImpressoraDao;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Endereco;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.GrupoImpressora;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ImpressoraGrupoImpressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.service.GrupoImpressoraService;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
@@ -23,6 +25,7 @@ import java.util.List;
 public class GrupoImpressoraController {
     private static final String name = GrupoImpressora.class.getSimpleName();
     private final GrupoImpressoraDao grupoImpressoraDao = new GrupoImpressoraDao();
+    private final ImpressoraGrupoImpressoraController impressoraGrupoImpressoraController = new ImpressoraGrupoImpressoraController();
     private final ValidateGrupoImpressora validateGrupoImpressora = new ValidateGrupoImpressora();
     private final Logger logger = LoggerSingleton.getLogger(GrupoImpressoraController.class);
 
@@ -42,7 +45,8 @@ public class GrupoImpressoraController {
     public DataResponseModel<GrupoImpressora> update(HashMap<String,String> dados) {
         try {
             GrupoImpressora grupoImpressora = validateGrupoImpressora.validarCamposEntrada(dados);
-            this.grupoImpressoraDao.save(grupoImpressora);
+            this.grupoImpressoraDao.update(grupoImpressora);
+
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CADASTRADO_SUCESSO.formatMessage(name), grupoImpressora);
         } catch (RuntimeException e) {
             this.logger.error(e.getMessage());
@@ -72,14 +76,13 @@ public class GrupoImpressoraController {
         try {
             GrupoImpressora grupoImpressora = validateGrupoImpressora.validarImpressoras(idGrupoImpressora);
             GrupoImpressoraService.preencherImpressoras(grupoImpressora,dados);
-
-            this.grupoImpressoraDao.update(grupoImpressora);
+            this.impressoraGrupoImpressoraController.save(grupoImpressora);
 
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CADASTRADO_SUCESSO.formatMessage(name), grupoImpressora);
         } catch (RuntimeException e) {
             this.logger.error(e.getMessage());
             this.logger.error(Arrays.toString(e.getStackTrace()));
-            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CADASTRADO_ERROR.formatMessage(name),e);
         }
     }
 

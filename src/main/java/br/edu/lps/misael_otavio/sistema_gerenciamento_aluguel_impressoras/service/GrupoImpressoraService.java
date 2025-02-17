@@ -7,6 +7,7 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Impressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.ModeloImpressora;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Taxa;
+import lombok.Value;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -22,9 +23,8 @@ public class GrupoImpressoraService {
         });
         grupoImpressora.setImpressoras(lsImpr);
         grupoImpressora.setQtImpressora(lsImpr.size());
-
     }
-
+    
     private static List<Impressora> buscarImpressoras(Long idModelo, Integer quantidade) {
         DataResponseModel<List<Impressora>> resp = impressoraController.findByIdModelo(idModelo, quantidade);
         if(!resp.isSuccess()){

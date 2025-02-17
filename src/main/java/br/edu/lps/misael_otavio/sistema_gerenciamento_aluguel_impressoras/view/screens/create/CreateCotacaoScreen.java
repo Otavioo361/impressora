@@ -10,11 +10,17 @@ import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.*;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.ComboBoxItem;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.GeradorPDFContrato;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.read.ReadImpressoraScreen;
 import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.view.screens.template.FrMain;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.printing.PDFPageable;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,11 +32,12 @@ import java.util.Objects;
  */
 public class CreateCotacaoScreen extends javax.swing.JDialog {
     private final ContratoController contratController = new ContratoController();
+    private final GrupoImpressoraController grupoImpressoraController = new GrupoImpressoraController();
 
     private Cliente cliente;
     private Contrato contrato;
 
-
+    private List<GrupoImpressora> grupoImpressora;
 
     private final HashMap<String,Boolean> checkList = new HashMap<>();
     private int concluido = 0;
@@ -242,6 +249,11 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
 
         btnImprimir.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         btnImprimir.setText("IMPRIMIR");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         btnEnviarPorEmail.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         btnEnviarPorEmail.setText("Enviar por Email");
@@ -319,7 +331,6 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
                         .addComponent(barraProgresso, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -407,6 +418,19 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDadosAdicionaisActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        this.buscarGrupoImpressora();
+        System.out.println(this.grupoImpressora);
+        try {
+            GeradorPDFContrato  geradorPDFContrato  = new GeradorPDFContrato(this.contrato,this.grupoImpressora);
+            geradorPDFContrato.gerarPDF();
+
+        }catch (IOException ex){
+            FrMain.exibirPopUp("Falha ao tentar carregar o PDF");
+        }
+
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -450,6 +474,15 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
         });
     }
 
+    private void buscarGrupoImpressora(){
+
+        DataResponseModel<List<GrupoImpressora>> resp = this.grupoImpressoraController.findByContratoId(this.contrato.getId());
+        if(!resp.isSuccess()){
+            FrMain.exibirPopUp(resp.getMessage());
+        }
+        this.grupoImpressora = resp.getData();
+    }
+
     private void cadastrarContrato(){
         HashMap<String,String> mapa = new HashMap<>();
         mapa.put("idCliente",String.valueOf(this.cliente.getId()));
@@ -482,6 +515,19 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
     private void atualizarCheckList(){
         this.jcbEndereco.setSelected(this.checkList.getOrDefault("endereco",false));
         this.jcbEndereco.setSelected(this.checkList.getOrDefault("impressoras",false));
+    }
+
+    private void imprimirPDF(String caminhoPDF) {
+        try {
+            PDDocument document = PDDocument.load(new File(caminhoPDF));
+            PrinterJob printerJob = PrinterJob.getPrinterJob();
+            printerJob.setPageable(new PDFPageable(document));
+            if (printerJob.printDialog()) {
+                printerJob.print();
+            }
+        } catch (Exception e) {
+            FrMain.exibirPopUp("Erro ao tentar imprimir o PDF");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

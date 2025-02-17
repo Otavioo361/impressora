@@ -36,7 +36,14 @@ public class GrupoImpressoraDao implements DaoInterface<GrupoImpressora> {
 
     @Override
     public void update(GrupoImpressora obj) {
-        entityManager.merge(obj);;
+        try {
+            this.entityManager.getTransaction().begin();
+            entityManager.merge(obj);;
+            this.entityManager.getTransaction().commit();
+        }catch (RuntimeException e) {
+            this.entityManager.getTransaction().rollback();
+            throw new AluguelImpressoraException(e.getMessage());
+        }
     }
 
     @Override
@@ -65,7 +72,15 @@ public class GrupoImpressoraDao implements DaoInterface<GrupoImpressora> {
     }
 
     public List<GrupoImpressora> findByContratoId(Long contratoId) {
-        String jpql = "SELECT gimp FROM GrupoImpressora gimp WHERE gimp.contrato.id = :idContrato";
+        String jpql = "SELECT gimp \n" +
+                "FROM GrupoImpressora gimp \n" +
+                "  LEFT JOIN gimp.impressoras imp \n" +
+                "  LEFT JOIN imp.modeloImpressora mimp \n" +
+                "  LEFT JOIN mimp.taxa \n" +
+                "  LEFT JOIN mimp.marcaImpressora \n" +
+                "  JOIN FETCH gimp.endereco  \n" +
+                "\n" +
+                "WHERE gimp.contrato.id = :idContrato";
         TypedQuery<GrupoImpressora> query = entityManager.createQuery(jpql,GrupoImpressora.class);
         query.setParameter("idContrato", contratoId);
         return query.getResultList();

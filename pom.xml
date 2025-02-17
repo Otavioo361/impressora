@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.edu.lps.misael_otavio</groupId>
     <artifactId>sistema-gerenciamento-aluguel-impressoras</artifactId>
@@ -8,7 +9,9 @@
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.SistemaGerenciamentoAluguelImpressoras</exec.mainClass>
+        <exec.mainClass>
+            br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.SistemaGerenciamentoAluguelImpressoras
+        </exec.mainClass>
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -79,6 +82,24 @@
             <artifactId>org-jdesktop-animation-timing</artifactId>
             <version>1.0-201002281504</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>html2pdf</artifactId>
+            <version>6.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.27</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tom-roush</groupId>
+            <artifactId>pdfbox-android</artifactId>
+            <version>2.0.27.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

@@ -1,5 +1,7 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils;
 
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Endereco;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -12,6 +14,10 @@ public class Formatadores {
 
     public static String formatTelefone(String telefone) {
         return String.format("(%s) %s %s-%s",telefone.substring(0,2),telefone.charAt(3),telefone.substring(4,7),telefone.substring(7));
+    }
+
+    public static String formatEndereco(Endereco endereco) {
+            return String.format("%s, N° %d, Bairro %s, %s - %s ",endereco.getNmLogradouro(), endereco.getNrLogradouro(), endereco.getNmBairro(), endereco.getNmCidade(),endereco.getUf().getCdUf());
     }
 
     public static String formataCpfCnpj(String cpfCnpj) {

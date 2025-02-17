@@ -8,6 +8,7 @@ public enum DefaultMessages {
     CADASTRADO_SUCESSO("%s cadastrado com sucesso!"),
     LOGIN_SUCESSO("Usuário logado com sucesso!"),
     //ERROS
+    CADASTRADO_ERROR("Falha ao cadastrar %s"),
     USUARIO_SENHA_INCORRETOS("Email ou senha incorretos!"),
     LOGIN_NAO_ENCONTRADO("Usuário não encontrado!"),
     EMAIL_INVALIDO("O Email informádo é inválido!"),
