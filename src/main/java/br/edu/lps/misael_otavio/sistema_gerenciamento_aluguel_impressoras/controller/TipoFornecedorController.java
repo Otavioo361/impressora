@@ -21,7 +21,7 @@ public class TipoFornecedorController {
                     null
             );
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            
             e.printStackTrace();
             return new DataResponseModel<>(false, DefaultMessages.CONSULTA_ERROR.formatMessage(name), null, e);
         }

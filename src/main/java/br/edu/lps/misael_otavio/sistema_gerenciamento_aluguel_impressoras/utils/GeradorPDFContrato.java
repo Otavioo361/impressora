@@ -36,7 +36,7 @@ public class GeradorPDFContrato {
         } else {
             documentsPath = Paths.get(userHome, "Documents").toString();
         }
-        this.output = Paths.get(documentsPath, "contrato.pdf");
+        this.output = Paths.get(documentsPath, this.contrato.getNrContrato()+"_contrato.pdf");
     }
 
     public void gerarPDF() throws IOException {
@@ -52,14 +52,12 @@ public class GeradorPDFContrato {
         StringBuilder gruposHtml = this.gerarGrupos();
 
         htmlTemplate = htmlTemplate.replace("{{#grupos_impressora}}", gruposHtml.toString());
-        System.out.println(htmlTemplate);
         HtmlConverter.convertToPdf(htmlTemplate, new FileOutputStream(this.output.toString()));
     }
 
     private StringBuilder gerarGrupos() {
         StringBuilder gruposHtml = new StringBuilder();
         if (this.gruposImpressora.isEmpty()) {
-            System.out.println("sem grupos");
             return gruposHtml;
         }
         for (GrupoImpressora grupo : this.gruposImpressora) {

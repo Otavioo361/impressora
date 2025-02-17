@@ -35,7 +35,6 @@ public class ModeloImpressoraController {
             List<ModeloImpressora> dados = this.modeloImpressoraDao.findAll();
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),dados);
         }catch (RuntimeException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
             return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }
@@ -45,7 +44,7 @@ public class ModeloImpressoraController {
             List<ModeloImpressora> dados = this.modeloImpressoraDao.findActivesOnly();
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),dados);
         }catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            
             e.printStackTrace();
             return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }

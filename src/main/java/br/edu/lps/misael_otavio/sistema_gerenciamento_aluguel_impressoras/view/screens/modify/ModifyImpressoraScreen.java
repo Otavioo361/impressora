@@ -405,7 +405,6 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
 
         for(int i = 0; i < resp.getData().size(); i++) {
             Consumivel consumivel = listaConsumivel.get(i);
-            System.out.println(consumivel.toString());
             data[i] = String.format("%s: %s -> %s %s",
                     consumivel.getTipoConsumivel().getNmTipoConsumivel(),
                     consumivel.getNmConsumivel(),
@@ -414,7 +413,6 @@ public class ModifyImpressoraScreen extends javax.swing.JDialog {
             );
 
         }
-        System.out.println(Arrays.toString(data));
         this.jlListaConsumiveis.setListData(data);
     }
 

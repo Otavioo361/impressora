@@ -30,8 +30,6 @@ public class ValidateModeloImpressora {
         tpImp.setId(Validators.validarCamposIntger(camposEntrada.get("idTipoImpressora"),"Tipo impressora",this.erros));
         mdImpressora.setTipoImpressora(tpImp);
 
-        System.out.println(erros);
-
         if(!this.erros.isEmpty()){
             this.throwException();
         }

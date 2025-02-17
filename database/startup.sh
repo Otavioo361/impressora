@@ -6,7 +6,7 @@ pastas=("CREATE" "INSERT")
 
 arquivos=$(ls /tmp/scripts/*/*.sql -1)
 echo "Executando pasta $pasta"
-echo $arquivos
+
 for arquivo in $arquivos
 do
   echo "Executing file: $arquivo"

@@ -420,11 +420,10 @@ public class CreateCotacaoScreen extends javax.swing.JDialog {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         this.buscarGrupoImpressora();
-        System.out.println(this.grupoImpressora);
         try {
             GeradorPDFContrato  geradorPDFContrato  = new GeradorPDFContrato(this.contrato,this.grupoImpressora);
             geradorPDFContrato.gerarPDF();
-
+            FrMain.exibirPopUp("Pdf do contrato Disponibilizado na pasta de documentos.");
         }catch (IOException ex){
             FrMain.exibirPopUp("Falha ao tentar carregar o PDF");
         }

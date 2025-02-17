@@ -402,7 +402,6 @@ public class ModifyGrupoImpressoraScreen extends javax.swing.JDialog {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);
-                    System.out.println("removendo " + key.toString());
                     modeloQuantiade.remove(key);
                     atualizarListaSelecionados();
                 }

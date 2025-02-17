@@ -214,11 +214,10 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         HashMap<String,String> dados = this.pegarDadosPreenchidos();
-        System.out.println(dados);
         DataResponseModel<Impressora> resp = this.impressoraController.save(dados);
         FrMain.exibirPopUp(resp.getMessage());
         if(resp.isSuccess()) {
-           this.dispose();
+            this.dispose();
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -353,7 +352,7 @@ public class CreateImpressoraScreen extends javax.swing.JDialog {
 
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            
             return;
         }
     }

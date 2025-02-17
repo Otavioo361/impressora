@@ -22,13 +22,11 @@ public class ImpressoraController {
 
     public DataResponseModel<Impressora> save(HashMap<String, String> dados) {
         try {
-            Impressora impressora = validateImpressora.validarCamposEntrada(dados);
-            System.out.println(impressora);
+            Impressora impressora = validateImpressora.validarCamposEntrada(dados);;
             this.impressoraDao.save(impressora);
             return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CADASTRADO_SUCESSO.formatMessage(name), impressora);
         } catch (RuntimeException e) {
             this.logger.error(e.getMessage());
-            e.printStackTrace();
             return DataResponseFabric.fabricFailResponse(e.getMessage(),e );
         }
     }

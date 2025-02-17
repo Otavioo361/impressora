@@ -327,7 +327,6 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         HashMap<String,String> dados = this.pegarDadosPreenchidos();
-        System.out.println(dados);
         DataResponseModel<Endereco> resp = this.enderecoController.save(dados);
         FrMain.exibirPopUp(resp.getMessage());
         if(resp.isSuccess()) {
@@ -442,7 +441,6 @@ public class CreateEnderecoScreen extends javax.swing.JDialog {
 
     private void buscarUF(){
         DataResponseModel<List<Uf>> resp = ufController.findActiveOnly();
-        System.out.println(resp);
         if(!resp.isSuccess()) {
             FrMain.exibirPopUp(resp.getMessage());
             this.dispose();

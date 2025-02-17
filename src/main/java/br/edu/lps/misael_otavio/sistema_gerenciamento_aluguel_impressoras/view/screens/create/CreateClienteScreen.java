@@ -448,7 +448,6 @@ public class CreateClienteScreen extends javax.swing.JDialog {
                         txCpfCnpjCliente.setFormatterFactory(new DefaultFormatterFactory(cpfMask));
                         txCpfCnpjCliente.setText(value);
                     }
-                    System.out.println(value);
                 }
             });
 

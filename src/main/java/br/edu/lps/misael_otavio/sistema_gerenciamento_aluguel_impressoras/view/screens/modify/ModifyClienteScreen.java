@@ -338,7 +338,6 @@ public class ModifyClienteScreen extends javax.swing.JDialog {
         for (Contrato dados : this.contratoLista) {
             ContratoCard card = new ContratoCard(dados);
             this.contentPanel.add(card);
-            System.out.println(dados);
         }
 
         this.jspListaDados = new JScrollPane(this.contentPanel);

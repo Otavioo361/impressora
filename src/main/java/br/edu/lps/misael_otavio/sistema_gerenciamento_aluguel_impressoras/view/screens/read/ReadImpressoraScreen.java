@@ -158,7 +158,6 @@ public class ReadImpressoraScreen extends javax.swing.JDialog {
         impressoraScreen.setLocationRelativeTo(FrMain.getFrame());
         impressoraScreen.setSize(FrMain.getFrame().getSize());
         impressoraScreen.setVisible(true);
-        System.out.println("qw3oḱeqpwiojreikjnfg");
     }//GEN-LAST:event_btnNovaImpressoraActionPerformed
 
     private void textoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoBuscaActionPerformed

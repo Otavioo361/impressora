@@ -289,7 +289,6 @@ public class ReadClienteScreen extends javax.swing.JDialog {
         for (Cliente dados : this.dados) {
             ClienteCard card = new ClienteCard(dados);
             this.contentPanel.add(card);
-            System.out.println(dados);
         }
 
         this.jspListaDados = new JScrollPane(this.contentPanel);

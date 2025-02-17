@@ -21,7 +21,6 @@ public class GrupoImpressoraDao implements DaoInterface<GrupoImpressora> {
     public void save(GrupoImpressora obj) {
         try {
             this.entityManager.getTransaction().begin();
-            System.out.println(obj);
             GrupoImpressora gpImp = this.findByNameAndContrato(obj.getContrato().getId(),obj.getNmGrupoImpressora());
             if (gpImp != null) {
                 throw new AluguelImpressoraException("Grupo impressora já existente na base de dados");
