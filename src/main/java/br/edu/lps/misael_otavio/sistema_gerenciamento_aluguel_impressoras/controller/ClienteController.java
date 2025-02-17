@@ -1,85 +1,72 @@
 package br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.Valid.ValidateCliente;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.exception.ImpreException;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.Cliente;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.ClienteDAO;
-import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.controller.TMCadCliente;
 
-import javax.swing.JTable;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.DataResponseFabric;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.factory.LoggerSingleton;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.DataResponseModel;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.ClienteDao;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.dao.FornecedorDao;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Cliente;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.model.entities.Fornecedor;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.DefaultMessages;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.valid.ValidateCliente;
+import br.edu.lps.misael_otavio.sistema_gerenciamento_aluguel_impressoras.utils.valid.ValidateFornecedor;
+import org.slf4j.Logger;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class ClienteController {
-    private ClienteDAO repositorio;
+    private static final String name = Cliente.class.getSimpleName();
+    private final ClienteDao clienteDao = new ClienteDao();
+    private final ValidateCliente validateCliente = new ValidateCliente();
+    private final Logger logger = LoggerSingleton.getLogger(ClienteController.class);
 
- 
+    private final PessoaController pessoaController = new PessoaController();
 
-    // Construtor do Controller
-    public ClienteController() {
-        repositorio = new ClienteDAO();        
+    public DataResponseModel<Cliente> save(HashMap<String,String> dados) {
+        try {
+            Cliente cliente = validateCliente.validarCamposEntrada(dados);
+            this.clienteDao.save(cliente);
+            return DataResponseFabric.fabricSuccessResponse(DefaultMessages.CADASTRADO_SUCESSO.formatMessage(name), cliente);
+        } catch (RuntimeException e) {
+            this.logger.error(e.getMessage());
+            e.printStackTrace();
+            this.logger.error(Arrays.toString(e.getStackTrace()));
+            return DataResponseFabric.fabricFailResponse(e.getMessage(),e );
+        }
     }
 
-    // Método para cadastrar um cliente
-    public void cadastrarCliente(String nome, String email, String cpfCnpj, String telefone) {
-        ValidateCliente valid = new ValidateCliente();
-        
-        // Valida os campos de entrada
-        Cliente novoCliente = valid.validaCamposEntrada(nome, email, cpfCnpj, telefone);
-        
-        // Verifica se já existe um cliente com o mesmo e-mail
-        if (repositorio.findByEmail(novoCliente.getEmail()) != null) {
-            throw new ImpreException("Error - Já existe um cliente com este 'email'.");
+    public DataResponseModel<List<Cliente>> findAll() {
+        try {
+            List<Cliente> dados = this.clienteDao.findAll();
+            return new DataResponseModel<>(
+                    true,
+                    DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),
+                    dados,
+                    null
+            );
+        } catch (RuntimeException e) {
+            this.logger.error(e.getMessage());
+            this.logger.error(Arrays.toString(e.getStackTrace()));
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }
-        
-        // Verifica se já existe um cliente com o mesmo CPF/CNPJ
-        if (repositorio.findByCpfCnpj(novoCliente.getCpf_cnpj()) != null) {
-            throw new ImpreException("Error - Já existe um cliente com este 'CPF/CNPJ'.");
-        }
-        
-        // Salva o novo cliente no repositório
-        repositorio.save(novoCliente);
     }
 
-    // Método para atualizar as informações de um cliente
-    public void atualizarCliente(int idCliente, String nome, String email, String cpfCnpj, String telefone) {
-        ValidateCliente valid = new ValidateCliente();
-        
-        // Valida os campos de entrada
-        Cliente novoCliente = valid.validaCamposEntrada(nome, email, cpfCnpj, telefone);
-        novoCliente.setId(idCliente);
 
-        // Verifica se já existe um cliente com o mesmo e-mail
-        if (repositorio.findByEmail(novoCliente.getEmail()) != null && !repositorio.findByEmail(novoCliente.getEmail()).getId().equals(idCliente)) {
-            throw new ImpreException("Error - Já existe um cliente com este 'email'.");
+    public DataResponseModel<List<Cliente>> findActivesOnly() {
+        try {
+            List<Cliente> dados = this.clienteDao.findActivesOnly();
+            return new DataResponseModel<>(
+                    true,
+                    DefaultMessages.CONSULTA_SUCESSO.formatMessage(name),
+                    dados,
+                    null
+            );
+        } catch (RuntimeException e) {
+            this.logger.error(e.getMessage());
+            this.logger.error(Arrays.toString(e.getStackTrace()));
+            return DataResponseFabric.fabricFailResponse(DefaultMessages.CONSULTA_ERROR.formatMessage(name),e);
         }
-        
-        // Verifica se já existe um cliente com o mesmo CPF/CNPJ
-        if (repositorio.findByCpfCnpj(novoCliente.getCpf_cnpj()) != null && !repositorio.findByCpfCnpj(novoCliente.getCpf_cnpj()).getId().equals(idCliente)) {
-            throw new ImpreException("Error - Já existe um cliente com este 'CPF/CNPJ'.");
-        }
-
-        // Atualiza as informações do cliente no repositório
-        repositorio.update(novoCliente);
     }
-    
-
-    // Método para atualizar a tabela de clientes
-    public void atualizarTabela(JTable grd) {
-        Util.jTableShow(grd, new TMCadCliente(repositorio.findAll()), null);
-    }
-    public Cliente buscarClientePorCpf(String cpfCnpj) {
-           Cliente cliente = repositorio.findByCpfCnpj(cpfCnpj);
-
-           if (cliente == null) {
-               throw new ImpreException("Erro - Cliente não encontrado com o CPF/CNPJ informado.");
-           }
-            return cliente;
-       }
-
-    // Método para excluir um cliente
-    public void excluirCliente(Cliente cliente) {
-        if (cliente != null) {
-            repositorio.delete(cliente);
-        } else {
-            throw new ImpreException("Error - Cliente inexistente.");
-        }
-    }    
 }
